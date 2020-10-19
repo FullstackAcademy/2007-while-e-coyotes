@@ -13,7 +13,11 @@ const rarity = ['Rusty', 'Normal', 'Magic', 'Rare', 'Legendary']
 const seed = async () => {
     try {
         await db.sync({ force: true })
-        await Item.bulkCreate(itemsList)
+        for (i = 0; i < itemsList.length; i++) {
+            const currentItem = itemsList[i]
+            currentItem.rarity = random(100)
+            await Item.create(currentItem)
+        }
         console.log(green('db successfully seeded'))
     } catch (err) {
         console.log(red(err))
