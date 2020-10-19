@@ -18,6 +18,7 @@ const Item = db.define('item', {
   },
   inventory: {
     type: Sequelize.INTEGER,
+    defaultValue: 100
   },
   rarity: {
     type: Sequelize.INTEGER,
@@ -31,6 +32,10 @@ const Item = db.define('item', {
   },
   itemClass: {
     type: Sequelize.ENUM('adventurer', 'villian')
+  },
+  imageUrl: {
+    type: Sequelize.STRING,
+    defaultValue: '/#'
   }
 })
 
