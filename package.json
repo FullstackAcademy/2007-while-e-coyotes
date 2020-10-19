@@ -20,6 +20,8 @@
   "homepage": "https://github.com/FullstackAcademy/2007-while-e-coyotes#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "pg": "^8.4.1",
+    "sequelize": "^6.3.5",
     "volleyball": "^1.5.1"
   },
   "devDependencies": {

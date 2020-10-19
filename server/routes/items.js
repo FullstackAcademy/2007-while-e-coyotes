@@ -1,6 +1,6 @@
 const express = require('express');
 const db = require('../db')
-const Item = db.models.item
+const Item = db.Item;
 
 const itemRoute = express.Router();
 
