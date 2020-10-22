@@ -2,24 +2,28 @@ const Sequelize = require('sequelize');
 const db = require('../database');
 
 const User = db.define('user', {
-  login: {
+  username: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       notEmpty: true
     }
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       notEmpty: true
     }
   },
+  email: {
+    type: Sequelize.STRING
+  },
+  address: {
+    type: Sequelize.STRING
+  },
   class: {
     type: Sequelize.ENUM('guest', 'adventurer', 'villain', 'admin')
   },
-  userImage :{
+  userImage: {
     type: Sequelize.STRING,
     defaultValue: 'https://i.stack.imgur.com/l60Hf.png'
   }
