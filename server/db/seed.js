@@ -59,25 +59,3 @@ const seed = async () => {
 seed()
 
 module.exports = seed
-
-
-        // for (i = 0; i < itemsList.length; i++) {
-        //     const currentItem = itemsList[i]
-        //     const prefixes = Object.keys(itemRarity)
-        //     const description = Object.values(itemRarity)
-        //     await Item.create(currentItem)
-        //     for (j = 0; j < prefixes.length; j++) {
-        //         const prefix = prefixes[j]
-        //         const text = description[j]
-        //         const rarityMin = rarityRange[prefix][0]
-        //         const rarityMax = rarityRange[prefix][1]
-        //         const priceMultiplier = rarityMultiplier[prefix]
-        //         const newItem = {...currentItem,
-        //                         name: `${prefix} ${currentItem.name}`,
-        //                         description: `${currentItem.description}\n${text}`,
-        //                         rarity: random(rarityMin, rarityMax),
-        //                         price: currentItem.price * priceMultiplier
-        //                     }
-        //         await Item.create(newItem)
-        //     }
-        // }
