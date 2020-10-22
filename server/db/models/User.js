@@ -23,11 +23,7 @@ const User = db.define('user', {
   class: {
     type: Sequelize.ENUM('guest', 'adventurer', 'villain', 'admin')
   },
-<<<<<<< HEAD
   userImage: {
-=======
-  userImage :{
->>>>>>> 3237b6184d949c0c48a1b26b0dbc0ee91c61b28b
     type: Sequelize.STRING,
     defaultValue: 'https://i.stack.imgur.com/l60Hf.png'
   }
