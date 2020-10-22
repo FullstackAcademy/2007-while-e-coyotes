@@ -52,7 +52,8 @@ const seed = async () => {
 
         const Reviews = await Review.bulkCreate(reviewList)
 
-        await Reviews[0].setUser(Users[0])
+        await Reviews.forEach(review => review.setUser(Users[random(0, Users.length)]))
+        //await Reviews[0].setUser(Users[0])
         //console.log(green(Items))
 
         console.log(green('db successfully seeded'))
