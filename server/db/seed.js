@@ -33,28 +33,39 @@ const rarityMultiplier = {
 
 const seed = async () => {
     try {
+        //drop database
         await db.sync({ force: true })
+        console.log(green('dropped old database, now seeding new db...'))
         
-        const Items = itemsList.forEach((currentItem)=>{
-            Object.keys(itemRarity).forEach(async itemPrefix=>{
-                await Item.create(currentItem)
-                await Item.create({
-                    ...currentItem,
-                    name: `${itemPrefix} ${currentItem.name}`,
-                    description: `${currentItem.description} ${itemRarity[itemPrefix]}`,
-                    rarity : random(rarityRange[itemPrefix][0],rarityRange[itemPrefix][1]),
-                    price : currentItem.price * rarityMultiplier[itemPrefix]
-                })
-            })
-        })
+        //create items and item variants
+        for (i = 0; i < itemsList.length; i++) {
+            const currentItem = itemsList[i]
+            const prefixes = Object.keys(itemRarity)
+            const description = Object.values(itemRarity)
+            await Item.create(currentItem)
+            for (j = 0; j < prefixes.length; j++) {
+                const prefix = prefixes[j]
+                const text = description[j]
+                const rarityMin = rarityRange[prefix][0]
+                const rarityMax = rarityRange[prefix][1]
+                const priceMultiplier = rarityMultiplier[prefix]
+                const newItem = {...currentItem,
+                                name: `${prefix} ${currentItem.name}`,
+                                description: `${currentItem.description}\n${text}`,
+                                rarity: random(rarityMin, rarityMax),
+                                price: currentItem.price * priceMultiplier
+                            }
+                await Item.create(newItem)
+            }
+        }
 
-        const Users = await User.bulkCreate(userList)
+        //create users
+        await User.bulkCreate(userList)
 
-        const Reviews = await Review.bulkCreate(reviewList)
-
-        await Reviews.forEach(review => review.setUser(Users[random(0, Users.length)]))
-        //await Reviews[0].setUser(Users[0])
-        //console.log(green(Items))
+        //create reviews with random associations to users and items
+        for(let i = 0; i < reviewList.length; i++) {
+            await Review.create({ ...reviewList[i], userId: random(0, userList.length), itemId: random(0, itemsList.length) })
+         }
 
         console.log(green('db successfully seeded'))
     } catch (err) {
