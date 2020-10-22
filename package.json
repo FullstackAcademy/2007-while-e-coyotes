@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "build:dev": "webpack -w --mode=development",
-    "start:dev": "npm run build:dev & nodemon server", 
+    "start:dev": "npm run build:dev & nodemon server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "node ./server/db/seed"
   },

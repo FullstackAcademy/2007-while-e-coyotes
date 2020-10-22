@@ -1,7 +1,8 @@
 const { green, red } = require('chalk')
-const {db, Item, User } = require('../db')
-const itemsList = require('./inventory/itemsList')
+const {db, Item, User, Review } = require('../db')
+const itemsList = require('./inventorySeedData/itemsList')
 const userList = require('./userSeedData/userSeed')
+const reviewList = require('./reviewSeedData/reviewSeed')
 
 //this function will be used later to randomly assign rarity
 const random = (min, max) => Math.floor(Math.random() * (max - min) + min)
@@ -34,7 +35,7 @@ const seed = async () => {
     try {
         await db.sync({ force: true })
         
-        itemsList.forEach((currentItem)=>{
+        const Items = itemsList.forEach((currentItem)=>{
             Object.keys(itemRarity).forEach(async itemPrefix=>{
                 await Item.create(currentItem)
                 await Item.create({
@@ -47,9 +48,13 @@ const seed = async () => {
             })
         })
 
-        userList.forEach(async(ele)=>{
-                await User.create(ele)
-        })
+        const Users = await User.bulkCreate(userList)
+
+        const Reviews = await Review.bulkCreate(reviewList)
+
+        await Reviews[0].setUser(Users[0])
+        //console.log(green(Items))
+
         console.log(green('db successfully seeded'))
     } catch (err) {
         console.log(red(err))
