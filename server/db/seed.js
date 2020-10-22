@@ -1,6 +1,7 @@
 const { green, red } = require('chalk')
 const {db, Item, User } = require('../db')
 const itemsList = require('./inventory/itemsList')
+const userList = require('./userSeedData/userSeed')
 
 //this function will be used later to randomly assign rarity
 const random = (min, max) => Math.floor(Math.random() * (max - min) + min)
@@ -32,26 +33,23 @@ const rarityMultiplier = {
 const seed = async () => {
     try {
         await db.sync({ force: true })
-        for (i = 0; i < itemsList.length; i++) {
-            const currentItem = itemsList[i]
-            const prefixes = Object.keys(itemRarity)
-            const description = Object.values(itemRarity)
-            await Item.create(currentItem)
-            for (j = 0; j < prefixes.length; j++) {
-                const prefix = prefixes[j]
-                const text = description[j]
-                const rarityMin = rarityRange[prefix][0]
-                const rarityMax = rarityRange[prefix][1]
-                const priceMultiplier = rarityMultiplier[prefix]
-                const newItem = {...currentItem,
-                                name: `${prefix} ${currentItem.name}`,
-                                description: `${currentItem.description}\n${text}`,
-                                rarity: random(rarityMin, rarityMax),
-                                price: currentItem.price * priceMultiplier
-                            }
-                await Item.create(newItem)
-            }
-        }
+        
+        itemsList.forEach((currentItem)=>{
+            Object.keys(itemRarity).forEach(async itemPrefix=>{
+                await Item.create(currentItem)
+                await Item.create({
+                    ...currentItem,
+                    name: `${itemPrefix} ${currentItem.name}`,
+                    description: `${currentItem.description} ${itemRarity[itemPrefix]}`,
+                    rarity : random(rarityRange[itemPrefix][0],rarityRange[itemPrefix][1]),
+                    price : currentItem.price * rarityMultiplier[itemPrefix]
+                })
+            })
+        })
+
+        userList.forEach(async(ele)=>{
+                await User.create(ele)
+        })
         console.log(green('db successfully seeded'))
     } catch (err) {
         console.log(red(err))
@@ -61,3 +59,25 @@ const seed = async () => {
 seed()
 
 module.exports = seed
+
+
+        // for (i = 0; i < itemsList.length; i++) {
+        //     const currentItem = itemsList[i]
+        //     const prefixes = Object.keys(itemRarity)
+        //     const description = Object.values(itemRarity)
+        //     await Item.create(currentItem)
+        //     for (j = 0; j < prefixes.length; j++) {
+        //         const prefix = prefixes[j]
+        //         const text = description[j]
+        //         const rarityMin = rarityRange[prefix][0]
+        //         const rarityMax = rarityRange[prefix][1]
+        //         const priceMultiplier = rarityMultiplier[prefix]
+        //         const newItem = {...currentItem,
+        //                         name: `${prefix} ${currentItem.name}`,
+        //                         description: `${currentItem.description}\n${text}`,
+        //                         rarity: random(rarityMin, rarityMax),
+        //                         price: currentItem.price * priceMultiplier
+        //                     }
+        //         await Item.create(newItem)
+        //     }
+        // }

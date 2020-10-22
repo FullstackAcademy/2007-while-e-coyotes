@@ -7,10 +7,11 @@ const Order = require('./models/Order');
 const OrderItems = require('./models/OrderItems');
 
 //model relationships
-Order.belongsTo(User);
 User.hasMany(Order);
+Order.belongsTo(User);
 
-
+Item.belongsToMany(Order, { through: OrderItems });
+Order.belongsToMany(Item, { through: OrderItems });
 
 module.exports = {
   db,
