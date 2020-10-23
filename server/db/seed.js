@@ -64,7 +64,7 @@ const seed = async () => {
 
         //create reviews with random associations to users and items
         for(let i = 0; i < reviewList.length; i++) {
-            await Review.create({ ...reviewList[i], userId: random(0, userList.length), itemId: random(0, itemsList.length) })
+            await Review.create({ ...reviewList[i], userId: random(0, userList.length - 1 ), itemId: random(0, itemsList.length - 1) })
          }
 
         console.log(green('db successfully seeded'))
