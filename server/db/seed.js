@@ -1,7 +1,8 @@
 const { green, red } = require('chalk')
-const {db, Item, User } = require('../db')
-const itemsList = require('./inventory/itemsList')
+const {db, Item, User, Review } = require('../db')
+const itemsList = require('./inventorySeedData/itemsList')
 const userList = require('./userSeedData/userSeed')
+const reviewList = require('./reviewSeedData/reviewSeed')
 
 //this function will be used later to randomly assign rarity
 const random = (min, max) => Math.floor(Math.random() * (max - min) + min)
@@ -32,24 +33,40 @@ const rarityMultiplier = {
 
 const seed = async () => {
     try {
+        //drop database
         await db.sync({ force: true })
+        console.log(green('dropped old database, now seeding new db...'))
         
-        itemsList.forEach((currentItem)=>{
-            Object.keys(itemRarity).forEach(async itemPrefix=>{
-                await Item.create(currentItem)
-                await Item.create({
-                    ...currentItem,
-                    name: `${itemPrefix} ${currentItem.name}`,
-                    description: `${currentItem.description} ${itemRarity[itemPrefix]}`,
-                    rarity : random(rarityRange[itemPrefix][0],rarityRange[itemPrefix][1]),
-                    price : currentItem.price * rarityMultiplier[itemPrefix]
-                })
-            })
-        })
+        //create items and item variants
+        for (i = 0; i < itemsList.length; i++) {
+            const currentItem = itemsList[i]
+            const prefixes = Object.keys(itemRarity)
+            const description = Object.values(itemRarity)
+            await Item.create(currentItem)
+            for (j = 0; j < prefixes.length; j++) {
+                const prefix = prefixes[j]
+                const text = description[j]
+                const rarityMin = rarityRange[prefix][0]
+                const rarityMax = rarityRange[prefix][1]
+                const priceMultiplier = rarityMultiplier[prefix]
+                const newItem = {...currentItem,
+                                name: `${prefix} ${currentItem.name}`,
+                                description: `${currentItem.description}\n${text}`,
+                                rarity: random(rarityMin, rarityMax),
+                                price: currentItem.price * priceMultiplier
+                            }
+                await Item.create(newItem)
+            }
+        }
 
-        userList.forEach(async(ele)=>{
-                await User.create(ele)
-        })
+        //create users
+        await User.bulkCreate(userList)
+
+        //create reviews with random associations to users and items
+        for(let i = 0; i < reviewList.length; i++) {
+            await Review.create({ ...reviewList[i], userId: random(0, userList.length - 1 ), itemId: random(0, itemsList.length - 1) })
+         }
+
         console.log(green('db successfully seeded'))
     } catch (err) {
         console.log(red(err))
