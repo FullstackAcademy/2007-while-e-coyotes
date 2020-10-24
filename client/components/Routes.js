@@ -1,6 +1,7 @@
 import React from "react"
 import { HashRouter as Router, Route , Link, Switch} from 'react-router-dom'
 import Home from './Home'
+import SingleUser from './SingleUser'
 
 export default class Routes extends React.Component {
 	constructor() {
@@ -26,7 +27,7 @@ export default class Routes extends React.Component {
 					<main>
 					<Switch>
 						<Route path = "/" exact component = { Home } />
-          				
+						<Route path = {`/users/${this.state.userId}`} exact component = { SingleUser } />
 					</Switch>
 					</main>
 				</div>
@@ -39,5 +40,4 @@ export default class Routes extends React.Component {
 /*
 <Route path = "/items" exact component = { ItemList } />	
 <Route path = "/items/:id" exact component = { SingleItem } />
-<Route path = {`/users/${this.state.userId}`} exact component = { SingleUser } />
 */
