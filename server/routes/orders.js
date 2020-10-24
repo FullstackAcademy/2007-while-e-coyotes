@@ -1,6 +1,5 @@
 const express = require('express');
-const db = require('../db')
-const Order = db.Order;
+const { db, Order, Item, User } = require('../db');
 
 const orderRoute = express.Router();
 
@@ -15,7 +14,13 @@ orderRoute.get('/', async(req, res, next) => {
 
 orderRoute.get('/:id', async(req, res, next) => {
     try {
-        res.send(await Order.findByPk(req.params.id));
+        res.send(await Order.findByPk(req.params.id, {
+            include: [{
+                model: Item
+            }, {
+                model: User
+            }]
+        }));
     }
     catch(err) {
         console.log(err);

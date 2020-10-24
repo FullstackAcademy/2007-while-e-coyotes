@@ -1,6 +1,5 @@
 const express = require('express');
-const db = require('../db')
-const User = db.User
+const { db, User, Order, Item } = require('../db');
 
 const userRoute = express.Router();
 
@@ -15,7 +14,12 @@ userRoute.get('/', async(req, res, next) => {
 
 userRoute.get('/:id', async(req, res, next) => {
     try {
-        res.send(await User.findByPk(req.params.id, { include: Cart }));
+        res.send(await User.findByPk(req.params.id, {
+            include: [{
+                model: Order,
+                include: [{ model: Item }]
+            }]
+        }));
     }
     catch(err) {
         console.log(err);

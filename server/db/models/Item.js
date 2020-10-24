@@ -27,6 +27,9 @@ const Item = db.define('item', {
       max: 100
     }
   },
+  itemType: {
+    type: Sequelize.ENUM('sword', 'dagger', 'bow', 'magic')
+  },
   itemClass: {
     type: Sequelize.ENUM('adventurer', 'villian')
   },
