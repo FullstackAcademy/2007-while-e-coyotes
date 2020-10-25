@@ -1,7 +1,8 @@
 const express = require('express');
-const { db, User, Order, Item } = require('../db');
-
+const { db, User, Order, Item, Sessions } = require('../db');
+const { isUuid ,uuid } = require('uuidv4')
 const userRoute = express.Router();
+const { red } = require('chalk')
 
 userRoute.get('/', async(req, res, next) => {
     try {
@@ -32,6 +33,39 @@ userRoute.post('/', async(req,res,next) => {
         res.status(201).send(user);
     }
     catch(err) {
+        console.log(err);
+    }
+})
+
+userRoute.post('/login', async(req,res,next) => {
+    try {
+        if(req.cookies.sessionID){
+            res.send({message:'User already logged in'})
+        }else{
+            const foundUser = await User.findOne({
+                where: {
+                    username: req.body.username
+                }
+            })
+
+            //will need to change this to be hashing check 
+            if(foundUser.password===req.body.password){
+                const sessionID = await uuid()
+                const createdSession = await Sessions.create({SessionID:sessionID})
+                await foundUser.addSession(createdSession)
+                res.cookie(
+                    'sessionID', sessionID
+                )
+                res.send({message:'user successfully logged in'})
+            }else{
+                //add an handler for when password doesn't match
+                console.log('passwordsDontMatch!')
+            }
+
+        }
+    }
+    catch(err) {
+        console.log(red('ERRORED OUT'))
         console.log(err);
     }
 })

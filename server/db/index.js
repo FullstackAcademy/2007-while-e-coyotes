@@ -6,6 +6,7 @@ const User = require('./models/User');
 const Order = require('./models/Order');
 const OrderItems = require('./models/OrderItems');
 const Review = require('./models/Review');
+const Sessions = require('./models/Sessions')
 
 //model relationships
 User.hasMany(Order);
@@ -20,11 +21,15 @@ Review.belongsTo(User);
 Item.hasMany(Review);
 Review.belongsTo(Item);
 
+User.hasMany(Sessions)
+Sessions.belongsTo(User)
+
 module.exports = {
   db,
   Item,
   User,
   Order,
   OrderItems,
-  Review
+  Review,
+  Sessions 
 };
