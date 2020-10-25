@@ -2,7 +2,7 @@ import React from "react"
 import { HashRouter as Router, Route , Link, Switch} from 'react-router-dom'
 import Home from './Home'
 import SingleUser from './SingleUser'
-import FormikLogin from './FormikLogin'
+import Login from './FormikLogin'
 
 export default class Routes extends React.Component {
 	constructor() {
@@ -18,7 +18,23 @@ export default class Routes extends React.Component {
 
 	render(){
 		return (
-			<FormikLogin />
+			<Router>
+				<div>
+					<nav>
+						<Link className="navbar" to = "/">Home</Link>
+						<Link className="navbar" to = {`/users/${this.state.userId}`}>View Profile</Link>
+						<Link className="navbar" to = "/items">View Store</Link>
+						<Link className="navbar" to = "/login">Login</Link>
+					</nav>
+					<main>
+					<Switch>
+						<Route path = "/" exact component = { Home } />
+						<Route path = {`/users/${this.state.userId}`} exact component = { SingleUser } />
+						<Route path = '/login' component = { Login } />
+					</Switch>
+					</main>
+				</div>
+			</Router>
 		)
 	}
 }

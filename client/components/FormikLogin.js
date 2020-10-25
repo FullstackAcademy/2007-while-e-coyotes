@@ -5,13 +5,17 @@ import axios from 'axios'
 const LoginWrapper = Login
 
 export default withFormik({
+    mapPropsToValues : () =>{
+      return{
+      username : '',
+      password : ''
+      }
+    },
     handleSubmit: (values) => {
     
     axios.post('/api/users/login',values,
     {
-        withCredentials: true,
         credentials: 'same-origin'
     })
   },
-  validationSchema: null,
 })(LoginWrapper)
