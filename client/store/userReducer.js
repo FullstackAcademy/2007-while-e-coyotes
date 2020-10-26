@@ -10,12 +10,9 @@ const setUser = (user) => {
 }
 
 export const fetchUser = () => {
-    return (dispatch)=>{
-        const data = axios.post('/api/users/validation')
-        console.log(data)
-
-
-        //dispatch(setUser({user:'sudoku'}))
+    return async (dispatch)=>{
+        const {data} = await axios.post('api/users/validation')
+        dispatch(setUser({user:data}))
     }
 }
 
