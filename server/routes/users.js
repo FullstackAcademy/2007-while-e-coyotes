@@ -51,7 +51,7 @@ userRoute.post('/login', async(req,res,next) => {
             //will need to change this to be hashing check 
             if(foundUser.password===req.body.password){
                 const sessionID = await uuid()
-                const createdSession = await Sessions.create({cookieName:sessionID})
+                const createdSession = await Sessions.create({SessionID:sessionID})
                 await foundUser.addSession(createdSession)
                 res.cookie(
                     'sessionID', sessionID
@@ -71,8 +71,8 @@ userRoute.post('/login', async(req,res,next) => {
 
 userRoute.post('/validation', async(req,res,next) => {
     try{
-        const sessionID = req.cookies[cookieName]
-        if(sessionID){
+        const sessionID = req.cookies[cookieName] || uuid()
+        if(req.cookies[cookieName]){
             const findUserIdInSessions = await Sessions.findOne({
                 where : {
                     SessionID : sessionID
@@ -80,10 +80,19 @@ userRoute.post('/validation', async(req,res,next) => {
             })
             const foundUser = await User.findByPk(findUserIdInSessions.userId)
             res.send(foundUser)
+        }else{
+            const newUser = await User.create({
+                username:sessionID,
+                password:null,
+                class: 'guest'
+            })
+            const createdSession = await Sessions.create({'SessionID':sessionID})
+            await newUser.addSession(createdSession)
+            res.cookie(
+                'sessionID',sessionID
+            )
+            res.sendStatus(201)
         }
-
-        
-
     }catch(err){
         next()
     }
