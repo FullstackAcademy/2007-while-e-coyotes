@@ -1,9 +1,9 @@
 const { green, red } = require('chalk')
-const {db, Item, User, Review, Order, OrderItems } = require('../db')
-const itemsList = require('./inventorySeedData/itemsList')
-const userList = require('./userSeedData/userSeed')
-const reviewList = require('./reviewSeedData/reviewSeed')
-const { orders } = require('./orderSeedData/orderSeed');
+const {db, Item, User, Review, Order, OrderItems } = require('..')
+const itemsList = require('./itemsList')
+const userList = require('./userSeed')
+const reviewList = require('./reviewSeed')
+const { orders } = require('./orderSeed');
 
 //this function will be used later to randomly assign rarity
 const random = (min, max) => Math.floor(Math.random() * (max - min) + min)
