@@ -2,7 +2,7 @@ const express = require('express');
 const { db, User, Order, Item, Sessions } = require('../db');
 const { isUuid ,uuid } = require('uuidv4')
 const userRoute = express.Router();
-const { cookieName } = require('../constants')
+const { cookieSessionName } = require('../constants')
 
 userRoute.get('/', async(req, res, next) => {
     try {
@@ -39,7 +39,7 @@ userRoute.post('/', async(req,res,next) => {
 
 userRoute.post('/login', async(req,res,next) => {
     try {
-        if(req.cookies[cookieName]){
+        if(req.cookies[cookieSessionName]){
             res.send({message:'User already logged in'})
         }else{
             const foundUser = await User.findOne({
@@ -71,8 +71,8 @@ userRoute.post('/login', async(req,res,next) => {
 
 userRoute.post('/validation', async(req,res,next) => {
     try{
-        const sessionID = req.cookies[cookieName] || uuid()
-        if(req.cookies[cookieName]){
+        const sessionID = req.cookies[cookieSessionName] || uuid()
+        if(req.cookies[cookieSessionName]){
             const findUserIdInSessions = await Sessions.findOne({
                 where : {
                     SessionID : sessionID
