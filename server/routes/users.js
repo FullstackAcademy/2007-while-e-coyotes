@@ -3,6 +3,7 @@ const { db, User, Order, Item, Sessions } = require('../db');
 const { isUuid ,uuid } = require('uuidv4')
 const userRoute = express.Router();
 const { red } = require('chalk')
+const { cookieName } = require('../constants')
 
 userRoute.get('/', async(req, res, next) => {
     try {
@@ -39,7 +40,7 @@ userRoute.post('/', async(req,res,next) => {
 
 userRoute.post('/login', async(req,res,next) => {
     try {
-        if(req.cookies.sessionID){
+        if(req.cookies[cookieName]){
             res.send({message:'User already logged in'})
         }else{
             const foundUser = await User.findOne({
@@ -51,7 +52,7 @@ userRoute.post('/login', async(req,res,next) => {
             //will need to change this to be hashing check 
             if(foundUser.password===req.body.password){
                 const sessionID = await uuid()
-                const createdSession = await Sessions.create({SessionID:sessionID})
+                const createdSession = await Sessions.create({cookieName:sessionID})
                 await foundUser.addSession(createdSession)
                 res.cookie(
                     'sessionID', sessionID
@@ -65,10 +66,21 @@ userRoute.post('/login', async(req,res,next) => {
         }
     }
     catch(err) {
-        console.log(red('ERRORED OUT'))
-        console.log(err);
+        next()
     }
 })
+
+userRoute.post('/validation', async(req,res,next) => {
+    try{
+        if(req.cookies[cookieName]){
+            
+        }
+    }catch(err){
+        next()
+    }
+})
+
+
 
 userRoute.delete('/:id', async(req, res, next) => {
     try {
