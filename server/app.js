@@ -16,7 +16,7 @@ app.get('/', (req, res, next) => {
 });
 
 app.use('/api', require('./routes'))
-
+app.use('/auth',require('./routes/validation'))
 
 app.use((err, req, res, next) => {
     console.error(err, err.stack);
