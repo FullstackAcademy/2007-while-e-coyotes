@@ -12,7 +12,7 @@ const setUser = (user) => {
 export const validateLogin = (loginInfo) =>{
     return async (dispatch)=>{
         console.log(loginInfo)
-       const {data} = await axios.post('/auth/validation/login',loginInfo,
+       const {data} = await axios.post('/auth/login',loginInfo,
     {
         credentials: 'same-origin'
     })
@@ -22,7 +22,7 @@ export const validateLogin = (loginInfo) =>{
 
 export const fetchUser = () => {
     return async (dispatch)=>{
-        const {data} = await axios.post('auth/validation/onPageLoad')
+        const {data} = await axios.post('/auth/onPageLoad')
         dispatch(setUser({user:data}))
     }
 }
