@@ -4,7 +4,11 @@ const userRoute = express.Router();
 
 userRoute.get('/', async(req, res, next) => {
     try {
-        res.send(await User.findAll())
+        if (req.user && req.user.class === 'admin') {
+            res.send(await User.findAll())
+        } else {
+            res.sendStatus(403);
+        }
     }
     catch(err) {
         console.log(err);
@@ -13,12 +17,17 @@ userRoute.get('/', async(req, res, next) => {
 
 userRoute.get('/:id', async(req, res, next) => {
     try {
-        res.send(await User.findByPk(req.params.id, {
-            include: [{
-                model: Order,
-                include: [{ model: Item }]
-            }]
-        }));
+        if (req.user && req.user.class === 'admin' || req.user && req.user.id === req.params.id) {
+            res.send(await User.findByPk(req.params.id, {
+                include: [{
+                    model: Order,
+                    include: [{ model: Item }]
+                }]
+            }));
+        } else {
+            res.sendStatus(403);
+        }
+
     }
     catch(err) {
         console.log(err);

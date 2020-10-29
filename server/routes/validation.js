@@ -7,22 +7,18 @@ const validationRoute = express.Router();
 
 validationRoute.post('/onPageLoad', async(req,res,next) => {
     try{
-        const sessionID = req.cookies[cookieSessionName] || uuid()
-        if(req.cookies[cookieSessionName]){
-            const findUserIdInSessions = await Sessions.findOne({
-                where : {
-                    SessionID : sessionID,
-                }
-            })
+        if(req.user) {
+            console.log('there is a user! send it back')
             const foundUser = await User.findByPk(
-                findUserIdInSessions.userId,
+                req.user.id,
                 {attributes: { exclude: ['password'] }}
             )
-            res.send(foundUser)
-        }else{
+            res.send(foundUser);
+        } else {
+            const sessionID = await uuid();
             const newUser = await User.create({
-                username:sessionID,
-                password:null,
+                username: sessionID,
+                password: null,
                 class: 'guest'
             })
             const createdSession = await Sessions.create({'SessionID':sessionID})
@@ -32,7 +28,7 @@ validationRoute.post('/onPageLoad', async(req,res,next) => {
             )
             res.send(newUser)
         }
-    }catch(err){
+    } catch(err){
         next()
     }
 })
@@ -44,7 +40,7 @@ validationRoute.post('/login', async(req,res,next) => {
                 username: req.body.username
             },
             //once we setup hashing we want to exclude sending back password, for now its ok
-            // attributes: { 
+            // attributes: {
             //     exclude: ['password']
             // }
         })
