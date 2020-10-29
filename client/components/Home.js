@@ -3,8 +3,7 @@ import React from 'react'
 const Home = () => {
     return (
         <div className="home">
-            <h1>Welcome to StabDeath!</h1>
-            <h3>Go buy stuff</h3>
+            <img src="https://cdn.mmos.com/wp-content/uploads/2015/10/pocket-maplestory-banner.jpg" />
         </div>
     )
 }
