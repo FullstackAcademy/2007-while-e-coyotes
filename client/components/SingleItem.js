@@ -18,7 +18,8 @@ export class SingleItem extends React.Component{
     this.props.getItem({ id });
   }
   render(){
-    const { singleItem } = this.state;
+    const { singleItem } = this.props;
+    console.log(singleItem)
     return (
       <div id='singleItem'>
         <div className='itemImg'>
@@ -30,7 +31,7 @@ export class SingleItem extends React.Component{
           <p>${singleItem.description}</p>
           <div className='itemReviews'>
             {
-              singleItem.reviews.map(review => {
+              !!singleItem.reviews && singleItem.reviews.map(review => {
                 return(
                   <div className='review' key={`item_${singleItem.id}_review${review.id}`}>
                     <h3>Rating: {review.rating}</h3>
