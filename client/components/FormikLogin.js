@@ -1,21 +1,37 @@
 import { withFormik } from "formik"
 import Login from "./Login"
-import axios from 'axios'
+import { connect } from 'react-redux'
+import { validateLogin } from '../store/userReducer'
 
-const LoginWrapper = Login
-
-export default withFormik({
-    mapPropsToValues : () =>{
+const FormikLogin = withFormik({
+    mapPropsToValues : (props) =>{
       return{
       username : '',
-      password : ''
+      password : '',
+      loginUser :props.loginUser
       }
     },
     handleSubmit: (values) => {
-    
-    axios.post('/api/users/login',values,
-    {
-        credentials: 'same-origin'
-    })
+      const loginInfo = {
+        username : values.username,
+        password : values.password
+      }
+      values.loginUser(loginInfo)
   },
-})(LoginWrapper)
+})(Login)
+
+
+const mapStateToProps =(state)=> {
+  return {
+      user: state.user
+  }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    loginUser: (loginInfo) => dispatch(validateLogin(loginInfo))
+  }
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(FormikLogin)

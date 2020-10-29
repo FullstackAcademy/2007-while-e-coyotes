@@ -3,6 +3,7 @@ import { HashRouter as Router, Route , Link, Switch} from 'react-router-dom'
 import Home from './Home'
 import SingleUser from './SingleUser'
 import Login from './FormikLogin'
+import ItemList from './ItemList';
 import Footer from './Footer'
 
 export default class Routes extends React.Component {
@@ -43,6 +44,7 @@ export default class Routes extends React.Component {
 					<main>
 					<Switch>
 						<Route path = "/" exact component = { Home } />
+						<Route path = "/items" component = { ItemList } />
 						<Route path = {`/users/${this.state.userId}`} exact component = { SingleUser } />
 						<Route path = '/login' component = { Login } />
 					</Switch>
@@ -56,6 +58,6 @@ export default class Routes extends React.Component {
 
 
 /*
-<Route path = "/items" exact component = { ItemList } />	
+<Route path = "/items" exact component = { ItemList } />
 <Route path = "/items/:id" exact component = { SingleItem } />
 */

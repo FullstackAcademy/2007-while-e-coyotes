@@ -1,8 +1,6 @@
 const express = require('express');
 const { db, User, Order, Item, Sessions } = require('../db');
-const { isUuid ,uuid } = require('uuidv4')
 const userRoute = express.Router();
-const { cookieSessionName } = require('../constants')
 
 userRoute.get('/', async(req, res, next) => {
     try {
@@ -36,68 +34,6 @@ userRoute.post('/', async(req,res,next) => {
         console.log(err);
     }
 })
-
-userRoute.post('/login', async(req,res,next) => {
-    try {
-        if(req.cookies[cookieSessionName]){
-            res.send({message:'User already logged in'})
-        }else{
-            const foundUser = await User.findOne({
-                where: {
-                    username: req.body.username
-                }
-            })
-
-            //will need to change this to be hashing check 
-            if(foundUser.password===req.body.password){
-                const sessionID = await uuid()
-                const createdSession = await Sessions.create({SessionID:sessionID})
-                await foundUser.addSession(createdSession)
-                res.cookie(
-                    'sessionID', sessionID
-                )
-                res.send({message:'user successfully logged in'})
-            }else{
-                //add an handler for when password doesn't match
-                console.log('passwordsDontMatch!')
-            }
-
-        }
-    }
-    catch(err) {
-        next()
-    }
-})
-
-userRoute.post('/validation', async(req,res,next) => {
-    try{
-        const sessionID = req.cookies[cookieSessionName] || uuid()
-        if(req.cookies[cookieSessionName]){
-            const findUserIdInSessions = await Sessions.findOne({
-                where : {
-                    SessionID : sessionID
-                }
-            })
-            const foundUser = await User.findByPk(findUserIdInSessions.userId)
-            res.send(foundUser)
-        }else{
-            const newUser = await User.create({
-                username:sessionID,
-                password:null,
-                class: 'guest'
-            })
-            const createdSession = await Sessions.create({'SessionID':sessionID})
-            await newUser.addSession(createdSession)
-            res.cookie(
-                'sessionID',sessionID
-            )
-            res.sendStatus(201)
-        }
-    }catch(err){
-        next()
-    }
-})
-
 
 
 userRoute.delete('/:id', async(req, res, next) => {
