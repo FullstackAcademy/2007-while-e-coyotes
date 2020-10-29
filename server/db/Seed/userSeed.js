@@ -58,6 +58,11 @@ module.exports =  [
         password : 'EggmanPass',
         class : 'villain',
         userImage : 'https://cdn.discordapp.com/attachments/312072549989351425/768049649231200286/unknown.png'
+    },
+    {
+        username : 'admin',
+        password : 'adminpass',
+        class : 'admin',
+        userImage : 'https://cdn.discordapp.com/attachments/312072549989351425/768049649231200286/unknown.png'
     }
-
 ]
