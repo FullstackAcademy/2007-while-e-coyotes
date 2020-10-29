@@ -1,8 +1,10 @@
 import React from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { getItem } from '../store/singleItemReducer';
+
 import { Link } from 'react-router-dom';
 
-export default class SingleItem extends React.Component{
+export class SingleItem extends React.Component{
   constructor() {
     super();
     this.state = {
@@ -11,14 +13,9 @@ export default class SingleItem extends React.Component{
       }
     }
   }
-  async componentDidMount(){
-    try {
-      const itemResponse = await axios.get('/api/items/3');
-      const item = itemResponse.data;
-      this.setState({singleItem: item});
-    } catch (error) {
-      console.log(error);
-    }
+  componentDidMount(){
+    const id = this.props.match.params.id;
+    this.props.getItem({ id });
   }
   render(){
     const { singleItem } = this.state;
@@ -50,3 +47,17 @@ export default class SingleItem extends React.Component{
     )
   }
 }
+
+const mapState = ({ singleItem }) => {
+  return {
+    singleItem
+  }
+}
+
+const mapDispatch = (dispatch) => {
+  return {
+    getItem: (id) => dispatch(getItem(id)),
+  }
+}
+
+export default connect(mapState, mapDispatch)(SingleItem);
