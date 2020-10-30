@@ -19,7 +19,6 @@ export class SingleItem extends React.Component{
   }
   render(){
     const { singleItem } = this.props;
-    console.log(singleItem)
     return (
       <div id='singleItem'>
         <div className='itemImg'>
