@@ -25,8 +25,6 @@ orderRoute.get('/:id', async(req, res, next) => {
             res.send(await Order.findByPk(req.params.id, {
                 include: [{
                     model: Item
-                }, {
-                    model: User
                 }]
             }));
         } else {

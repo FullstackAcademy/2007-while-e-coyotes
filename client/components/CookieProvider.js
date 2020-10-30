@@ -1,45 +1,58 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React, {useEffect} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { fetchUser } from '../store/userReducer'
+import { fetchCart } from '../store/cartReducer'
 
-class CookieProvider extends React.Component {
-    constructor(){
-        super()
-    }
-/*
-    will check for a cookie 
 
-    if cookie
 
-        check if cookie has valid user
-        load user
+const CookieProvider = () => { 
+    const user = useSelector(state => state.user)
 
-    no cookie
-
-        generate a cookie -> give broser cookie
-        generate an anon serID (? do you generate cookie first, or a userID )
-*/
-
-    componentDidMount(){
-        this.props.validateUser()
+    const dispatch = useDispatch()
+    const mountFirstTime = (...funcs) => {
+        useEffect(()=>{
+            funcs.forEach(func=>{
+                dispatch(func())
+            })
+        },[])
     }
 
-    render(){
-        return(<></>)
-    }
+    mountFirstTime (fetchUser,fetchCart)
+
+    console.log('cookie provider', user)
+
+
+    return(<></>)
+
 
 }
 
-const mapStateToProps =(state)=> {
-    return {
-        user: state.user
-    }
-}
+export default CookieProvider
 
-const mapDispatchToProps = (dispatch) =>{
-    return{
-        validateUser: () => dispatch(fetchUser())
-    }
-}
 
-export default connect(mapStateToProps,mapDispatchToProps)(CookieProvider)
+
+// class CookieProvider extends React.Component {
+
+//     componentDidMount(){
+//         this.props.validateUser()
+//     }
+
+//     render(){
+//         return(<></>)
+//     }
+
+// }
+
+// const mapStateToProps =(state)=> {
+//     return {
+//         user: state.user
+//     }
+// }
+
+// const mapDispatchToProps = (dispatch) =>{
+//     return{
+//         validateUser: () => dispatch(fetchUser())
+//     }
+// }
+
+// export default connect(mapStateToProps,mapDispatchToProps)(CookieProvider)
