@@ -16,14 +16,14 @@ export const validateLogin = (loginInfo) =>{
     {
         credentials: 'same-origin'
     })
-       dispatch(setUser({user:data}))
+       dispatch(setUser(data))
     }
 }
 
 export const fetchUser = () => {
     return async (dispatch)=>{
         const {data} = await axios.post('/auth/onPageLoad')
-        dispatch(setUser({user:data}))
+        dispatch(setUser(data))
     }
 }
 
@@ -32,6 +32,7 @@ const initialState = {}
 export default function(state= initialState, action){
     switch(action.type){
         case SET_USER:
+            console.log(action)
             return action.user
         default:
             return state

@@ -1,61 +1,32 @@
 import React, {useEffect} from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { fetchUser } from '../store/userReducer'
 import { fetchCart } from '../store/cartReducer'
 
+class CookieProvider extends React.Component {
 
-
-const CookieProvider = () => { 
-    const user = useSelector(state => state.user)
-    console.log('started mount')
-    const dispatch = useDispatch()
-    const mountFirstTime = (func) => {
-        useEffect(()=>{
-            dispatch(func())
-        },[])
+    async componentDidMount(){
+        await this.props.getUser()
+        this.props.getCart(this.props.user)
     }
 
-    mountFirstTime(fetchUser)
-    console.log('mounted cookies')
-    useEffect(()=>{
-        console.log('started inside useEffect')
-        dispatch(fetchCart(user))
-    })
-
-    console.log('cookie provider', user)
-
-
-    return(<></>)
-
+    render(){
+        return(<></>)
+    }
 
 }
 
-export default CookieProvider
+const mapStateToProps =(state)=> {
+    return {
+        user: state.user
+    }
+}
 
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        getUser: () => dispatch(fetchUser()),
+        getCart: (user) => dispatch(fetchCart(user))
+    }
+}
 
-
-// class CookieProvider extends React.Component {
-
-//     componentDidMount(){
-//         this.props.validateUser()
-//     }
-
-//     render(){
-//         return(<></>)
-//     }
-
-// }
-
-// const mapStateToProps =(state)=> {
-//     return {
-//         user: state.user
-//     }
-// }
-
-// const mapDispatchToProps = (dispatch) =>{
-//     return{
-//         validateUser: () => dispatch(fetchUser())
-//     }
-// }
-
-// export default connect(mapStateToProps,mapDispatchToProps)(CookieProvider)
+export default connect(mapStateToProps,mapDispatchToProps)(CookieProvider)
