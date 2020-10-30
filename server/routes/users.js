@@ -6,7 +6,11 @@ userRoute.get('/', async(req, res, next) => {
     try {
         const admin = req.user && req.user.class === 'admin';
         if (admin) {
-            res.send(await User.findAll())
+            res.send(await User.findAll({
+                attributes: {
+                    exclude: ['password', 'id']
+                }
+            }))
         } else {
             res.sendStatus(403);
         }
@@ -25,7 +29,10 @@ userRoute.get('/:id', async(req, res, next) => {
                 include: [{
                     model: Order,
                     include: [{ model: Item }]
-                }]
+                }],
+                attributes: {
+                    exclude: ['password', 'id']
+                }
             }));
         } else {
             res.sendStatus(403);
