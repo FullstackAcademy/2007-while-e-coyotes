@@ -5,7 +5,9 @@ const userRoute = express.Router();
 userRoute.get('/', async(req, res, next) => {
     try {
         if (req.user && req.user.class === 'admin') {
-            res.send(await User.findAll())
+            res.send(await User.findAll({
+                attributes: { exclude: ['password'] }
+            }))
         } else {
             res.sendStatus(403);
         }
@@ -22,7 +24,8 @@ userRoute.get('/:id', async(req, res, next) => {
                 include: [{
                     model: Order,
                     include: [{ model: Item }]
-                }]
+                }],
+                attributes: { exclude: ['password'] }
             }));
         } else {
             res.sendStatus(403);
