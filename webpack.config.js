@@ -1,3 +1,5 @@
+const { resolve } = require('path');
+
 module.exports = {
 	entry: ['@babel/polyfill', './client/index.js'],
 	output: {
@@ -5,7 +7,7 @@ module.exports = {
 		filename: "./server/public/bundle.js",
 	},
 	resolve: {
-		extensions: [".js", ".jsx"],
+		extensions: [".js", ".jsx", ".scss"],
 	},
 	devtool: "source-map",
 	watchOptions: {
@@ -18,6 +20,11 @@ module.exports = {
 				exclude: /node_modules/,
 				loader: "babel-loader",
 			},
+			{
+				test: /\.scss$/,
+				include: resolve(__dirname, './client/sass'),
+				use: ['style-loader', 'css-loader', 'sass-loader']
+			}
 		],
 	},
 }
