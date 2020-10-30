@@ -1,0 +1,85 @@
+
+* {
+  margin: 0rem;
+  font-family: Helvetica;
+}
+
+nav {
+  align-items: center;
+  background-color: #333333;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+  padding: 0.2rem;
+
+  div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+
+.icon {
+  height: 5rem;
+  width: 5rem;
+}
+
+.cart {
+  filter: invert(1);
+  transition: filter 0.25s;
+
+  &:hover{
+    filter: invert(0);
+  }
+}
+
+.navbar {
+  text-decoration: none;
+  padding: 0 1rem 0 1rem;
+  color: white;
+  font-size: 1rem;
+  transition: font-size 0.25s;
+
+  &:hover {
+    color: rgb(233, 104, 44);
+    font-size: 1.03rem;
+  }
+}
+
+.search-container {
+  width: 20%;
+
+  button {
+    float: right;
+    padding: 1rem;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.searchbar {
+  font-size: 1rem;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.footer {
+  font-size: 0.7rem;
+  position: fixed;
+  bottom: 0;
+  padding: 0.5rem;
+  width: 100%;
+  background-color: #333333;
+  color: white;
+  text-align: center;
+}
+
+.home img{
+  width: 94.3rem;
+}
