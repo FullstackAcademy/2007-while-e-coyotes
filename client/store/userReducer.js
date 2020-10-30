@@ -11,7 +11,6 @@ const setUser = (user) => {
 
 export const validateLogin = (loginInfo) =>{
     return async (dispatch)=>{
-        console.log(loginInfo)
        const {data} = await axios.post('/auth/login',loginInfo,
     {
         credentials: 'same-origin'
@@ -32,7 +31,6 @@ const initialState = {}
 export default function(state= initialState, action){
     switch(action.type){
         case SET_USER:
-            console.log(action)
             return action.user
         default:
             return state

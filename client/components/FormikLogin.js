@@ -2,6 +2,7 @@ import { withFormik } from "formik"
 import Login from "./Login"
 import { connect } from 'react-redux'
 import { validateLogin } from '../store/userReducer'
+import { fetchCart } from '../store/cartReducer'
 
 const FormikLogin = withFormik({
     mapPropsToValues : (props) =>{
@@ -11,12 +12,13 @@ const FormikLogin = withFormik({
       loginUser :props.loginUser
       }
     },
-    handleSubmit: (values) => {
+    handleSubmit: async (values) => {
       const loginInfo = {
         username : values.username,
         password : values.password
       }
-      values.loginUser(loginInfo)
+      await values.loginUser(loginInfo)
+      values.getCart(values)
   },
 })(Login)
 
@@ -29,7 +31,8 @@ const mapStateToProps =(state)=> {
 
 const mapDispatchToProps = (dispatch) =>{
   return{
-    loginUser: (loginInfo) => dispatch(validateLogin(loginInfo))
+    loginUser: (loginInfo) => dispatch(validateLogin(loginInfo)),
+    getCart: (user) => dispatch(fetchCart(user))
   }
 }
 

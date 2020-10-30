@@ -6,6 +6,7 @@ import Login from './FormikLogin'
 import ItemList from './ItemList';
 import Footer from './Footer'
 import SingleItem from './SingleItem'
+import Cart from './Cart'
 
 export default class Routes extends React.Component {
 	constructor() {
@@ -39,7 +40,7 @@ export default class Routes extends React.Component {
 						<div className="account-nav">
 							<Link className="navbar" to = {`/users/${this.state.userId}`}>MY ACCOUNT</Link>
 							<Link className="navbar" to = "/login">LOGIN</Link>
-							<Link className="navbar" to = "/login"><img className="cart" src='https://findicons.com/files/icons/1579/devine/48/cart.png'/></Link>
+							<Link className="navbar" to = "/cart"><img className="cart" src='https://findicons.com/files/icons/1579/devine/48/cart.png'/></Link>
 						</div>
 					</nav>
 					<main>
@@ -49,6 +50,7 @@ export default class Routes extends React.Component {
 						<Route path = "/items/:id" exact component = { SingleItem } />
 						<Route path = {`/users/${this.state.userId}`} exact component = { SingleUser } />
 						<Route path = '/login' component = { Login } />
+						<Route path = '/cart' component= { Cart } />
 					</Switch>
 					</main>
 					<Footer />
