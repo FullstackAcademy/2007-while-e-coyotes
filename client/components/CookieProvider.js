@@ -7,17 +7,20 @@ import { fetchCart } from '../store/cartReducer'
 
 const CookieProvider = () => { 
     const user = useSelector(state => state.user)
-
+    console.log('started mount')
     const dispatch = useDispatch()
-    const mountFirstTime = (...funcs) => {
+    const mountFirstTime = (func) => {
         useEffect(()=>{
-            funcs.forEach(func=>{
-                dispatch(func())
-            })
+            dispatch(func())
         },[])
     }
 
-    mountFirstTime (fetchUser,fetchCart)
+    mountFirstTime(fetchUser)
+    console.log('mounted cookies')
+    useEffect(()=>{
+        console.log('started inside useEffect')
+        dispatch(fetchCart(user))
+    })
 
     console.log('cookie provider', user)
 

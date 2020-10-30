@@ -32,7 +32,7 @@ const initialState = {}
 export default function(state= initialState, action){
     switch(action.type){
         case SET_USER:
-            return {user:action.user}
+            return action.user
         default:
             return state
     }

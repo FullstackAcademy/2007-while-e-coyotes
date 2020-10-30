@@ -3,10 +3,14 @@ import axios from 'axios'
 const SET_CART = 'SET_CART'
 
 
-export const fetchCart = () =>{
+export const fetchCart = (user) =>{
     return async (dispatch) =>{
-        const { data } = await axios.get('/api/orders/5')
-        console.log(data)
+        console.log('fetched cart', user)
+        if(user){
+            const { data } = await axios.get(`/api/orders/5`)
+            console.log('we fetched cart' , data)
+        }
+        
     }
 }
 
