@@ -5,6 +5,7 @@ import SingleUser from './SingleUser'
 import Login from './FormikLogin'
 import ItemList from './ItemList';
 import Footer from './Footer'
+import SingleItem from './SingleItem'
 
 export default class Routes extends React.Component {
 	constructor() {
@@ -29,7 +30,7 @@ export default class Routes extends React.Component {
 							<Link className="navbar" to = "/items">SHOP</Link>
 							<Link className="navbar" to = "/items">ADMIN</Link>
 						</div>
-						<div class="search-container">
+						<div className="search-container">
     						<form action="/">
 								<input className="searchbar" type="text" placeholder="Search"></input>
 								<button type="submit">Submit</button>
@@ -44,7 +45,8 @@ export default class Routes extends React.Component {
 					<main>
 					<Switch>
 						<Route path = "/" exact component = { Home } />
-						<Route path = "/items" component = { ItemList } />
+						<Route path = "/items" exact component = { ItemList } />
+						<Route path = "/items/:id" exact component = { SingleItem } />
 						<Route path = {`/users/${this.state.userId}`} exact component = { SingleUser } />
 						<Route path = '/login' component = { Login } />
 					</Switch>
