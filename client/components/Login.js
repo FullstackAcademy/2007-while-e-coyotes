@@ -1,8 +1,6 @@
 import React from "react"
 import { Form, Field, ErrorMessage } from "formik"
 
-//Are we using this anywhere?
-
 export default class Login extends React.Component {
   render() {
     return (

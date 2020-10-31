@@ -9,14 +9,14 @@ const setUser = (user) => {
     }
 }
 
-export const validateLogin = (loginInfo) =>{
+export const validateLogin = (loginInfo, history) =>{
     return async (dispatch)=>{
-        console.log(loginInfo)
        const { data } = await axios.post('/auth/login',loginInfo,
     {
         credentials: 'same-origin'
     })
        dispatch(setUser(data))
+       history.push('/');
     }
 }
 
