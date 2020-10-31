@@ -12,18 +12,18 @@ const setUser = (user) => {
 export const validateLogin = (loginInfo) =>{
     return async (dispatch)=>{
         console.log(loginInfo)
-       const {data} = await axios.post('/auth/login',loginInfo,
+       const { data } = await axios.post('/auth/login',loginInfo,
     {
         credentials: 'same-origin'
     })
-       dispatch(setUser({user:data}))
+       dispatch(setUser(data))
     }
 }
 
 export const fetchUser = () => {
     return async (dispatch)=>{
-        const {data} = await axios.post('/auth/onPageLoad')
-        dispatch(setUser({user:data}))
+        const { data } = await axios.post('/auth/onPageLoad')
+        dispatch(setUser(data))
     }
 }
 
@@ -32,7 +32,7 @@ const initialState = {}
 export default (state= initialState, action) =>{
     switch(action.type){
         case SET_USER:
-            return {user:action.user}
+            return action.user
         default:
             return state
     }
