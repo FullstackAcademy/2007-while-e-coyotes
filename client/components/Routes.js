@@ -8,8 +8,18 @@ import Login from './FormikLogin'
 import ItemList from './ItemList';
 import Footer from './Footer'
 import SingleItem from './SingleItem'
+import { logoutUser } from '../store/userReducer'
+
 
 class Routes extends React.Component {
+	constructor(){
+		super();
+		this.logout = this.logout.bind(this);
+	}
+	logout(event){
+		event.preventDefault();
+		this.props.logoutUser();
+	}
 	render(){
 		const { user } = this.props;
 		return (
@@ -35,7 +45,7 @@ class Routes extends React.Component {
 							{
 								user.class ==='guest' ?
 								<Link className="navbar" to = "/login">LOGIN</Link> :
-								<p>TK LOGOUT BUTTON</p>
+								<Link className='navbar' to='/' onClick={this.logout}>LOGOUT</Link>
 							}
 							<Link className="navbar" to = "/login"><img className="cart" src='https://findicons.com/files/icons/1579/devine/48/cart.png'/></Link>
 						</div>
@@ -62,4 +72,10 @@ const mapState = (state) => {
 	}
 }
 
-export default connect(mapState)(Routes);
+const mapDispatch = (dispatch) => {
+	return {
+		logoutUser: () => { dispatch(logoutUser()) }
+	}
+}
+
+export default connect(mapState, mapDispatch)(Routes);
