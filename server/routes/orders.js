@@ -1,6 +1,6 @@
 const express = require('express');
 const { db, Order, Item, User } = require('../db');
-
+const {red} = require('chalk')
 const orderRoute = express.Router();
 
 orderRoute.get('/', async(req, res, next) => {
@@ -35,6 +35,49 @@ orderRoute.get('/:id', async(req, res, next) => {
         console.log(err);
     }
 })
+
+orderRoute.get('/cart/:userId', async(req, res, next) => {
+    try {
+        const admin = req.user && req.user.class === 'admin';
+        const ownUser = req.user.id === req.params.userId * 1;
+        if (admin || ownUser) {
+            res.send(await Order.findOne({
+                where:{
+                    userId : req.params.userId,
+                    status: 'cart'
+                },
+                include: [{
+                    model: Item
+                }]
+            },));
+        } else {
+            res.sendStatus(403);
+        }
+    }
+    catch(err) {
+        next(err)
+    }
+})
+ 
+orderRoute.delete('/cart/:userId/:cartId/:itemId',async(req,res,next)=>{
+    try{
+        const admin = req.user && req.user.class === 'admin';
+        const ownUser = req.user.id === req.params.userId * 1;
+        if(admin || ownUser){    
+            const userCart = await Order.findByPk(req.params.cartId, {include: [{model: Item}]})
+            const itemToDelete = await Item.findByPk(req.params.itemId)
+            await userCart.removeItem(itemToDelete)
+            await userCart.reload()
+            res.send(userCart)
+        }
+    }catch(err){
+        next(err)
+    }
+})
+
+
+
+
 
 orderRoute.post('/', async(req,res,next) => {
     try {

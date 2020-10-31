@@ -9,7 +9,7 @@ const FormikLogin = withFormik({
       return{
       username : '',
       password : '',
-      loginUser :props.loginUser
+      loginUser : props.loginUser
       }
     },
     handleSubmit: async (values) => {
@@ -18,7 +18,6 @@ const FormikLogin = withFormik({
         password : values.password
       }
       await values.loginUser(loginInfo)
-      values.getCart(values)
   },
 })(Login)
 
@@ -31,8 +30,7 @@ const mapStateToProps =(state)=> {
 
 const mapDispatchToProps = (dispatch) =>{
   return{
-    loginUser: (loginInfo) => dispatch(validateLogin(loginInfo)),
-    getCart: (user) => dispatch(fetchCart(user))
+    loginUser: (loginInfo) => dispatch(validateLogin(loginInfo))
   }
 }
 
