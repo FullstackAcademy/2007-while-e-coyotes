@@ -9,30 +9,39 @@ const setUser = (user) => {
     }
 }
 
-export const validateLogin = (loginInfo) =>{
+export const validateLogin = (loginInfo, history) =>{
     return async (dispatch)=>{
-        console.log(loginInfo)
-       const {data} = await axios.post('/auth/login',loginInfo,
+       const { data } = await axios.post('/auth/login',loginInfo,
     {
         credentials: 'same-origin'
     })
-       dispatch(setUser({user:data}))
+       dispatch(setUser(data))
+       history.push('/');
     }
 }
 
 export const fetchUser = () => {
     return async (dispatch)=>{
-        const {data} = await axios.post('/auth/onPageLoad')
-        dispatch(setUser({user:data}))
+        const { data } = await axios.post('/auth/onPageLoad')
+        dispatch(setUser(data))
     }
 }
 
+export const logoutUser = () => {
+    return async(dispatch)=>{
+        // delete request to logout route
+        await axios.delete('/auth/logout');
+        //fetch a new guest user from /auth/onPageLoad, and set it to state
+        const { data } = await axios.post('/auth/onPageLoad');
+        dispatch(setUser(data));
+    }
+}
 
 const initialState = {}
 export default (state= initialState, action) =>{
     switch(action.type){
         case SET_USER:
-            return {user:action.user}
+            return action.user
         default:
             return state
     }

@@ -1,4 +1,6 @@
 import React from "react"
+import { connect } from 'react-redux';
+
 import { HashRouter as Router, Route , Link, Switch} from 'react-router-dom'
 import Home from './Home'
 import SingleUser from './SingleUser'
@@ -6,20 +8,20 @@ import Login from './FormikLogin'
 import ItemList from './ItemList';
 import Footer from './Footer'
 import SingleItem from './SingleItem'
+import { logoutUser } from '../store/userReducer'
 
-export default class Routes extends React.Component {
-	constructor() {
-		super()
-		this.state = {
-			userId: 0
-		}
+
+class Routes extends React.Component {
+	constructor(){
+		super();
+		this.logout = this.logout.bind(this);
 	}
-
-	componentDidMount() {
-		this.setState({userId: 1})
+	logout(event){
+		event.preventDefault();
+		this.props.logoutUser();
 	}
-
 	render(){
+		const { user } = this.props;
 		return (
 			<Router>
 				<div>
@@ -37,8 +39,14 @@ export default class Routes extends React.Component {
     						</form>
   						</div>
 						<div className="account-nav">
-							<Link className="navbar" to = {`/users/${this.state.userId}`}>MY ACCOUNT</Link>
-							<Link className="navbar" to = "/login">LOGIN</Link>
+							{
+								user.class !== 'guest' || <Link className="navbar" to = {`/users/${user.userId}`}>MY ACCOUNT</Link>
+							}
+							{
+								user.class ==='guest' ?
+								<Link className="navbar" to = "/login">LOGIN</Link> :
+								<Link className='navbar' to='/' onClick={this.logout}>LOGOUT</Link>
+							}
 							<Link className="navbar" to = "/login"><img className="cart" src='https://findicons.com/files/icons/1579/devine/48/cart.png'/></Link>
 						</div>
 					</nav>
@@ -47,7 +55,7 @@ export default class Routes extends React.Component {
 						<Route path = "/" exact component = { Home } />
 						<Route path = "/items" exact component = { ItemList } />
 						<Route path = "/items/:id" exact component = { SingleItem } />
-						<Route path = {`/users/${this.state.userId}`} exact component = { SingleUser } />
+						<Route path = {`/users/${user.userId}`} exact component = { SingleUser } />
 						<Route path = '/login' component = { Login } />
 					</Switch>
 					</main>
@@ -58,8 +66,16 @@ export default class Routes extends React.Component {
 	}
 }
 
+const mapState = (state) => {
+	return {
+		user: state.user
+	}
+}
 
-/*
-<Route path = "/items" exact component = { ItemList } />
-<Route path = "/items/:id" exact component = { SingleItem } />
-*/
+const mapDispatch = (dispatch) => {
+	return {
+		logoutUser: () => { dispatch(logoutUser()) }
+	}
+}
+
+export default connect(mapState, mapDispatch)(Routes);
