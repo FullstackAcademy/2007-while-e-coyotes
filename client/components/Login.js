@@ -12,7 +12,7 @@ export default class Login extends React.Component {
           <ErrorMessage name="password" />
           <button type="submit"> Submit </button>
         </Form>
-      </div> 
+      </div>
     )
   }
 }

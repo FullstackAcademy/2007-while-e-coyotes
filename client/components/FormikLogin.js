@@ -8,7 +8,8 @@ const FormikLogin = withFormik({
       return{
       username : '',
       password : '',
-      loginUser :props.loginUser
+      loginUser :props.loginUser,
+      history: props.history
       }
     },
     handleSubmit: (values) => {
@@ -16,7 +17,7 @@ const FormikLogin = withFormik({
         username : values.username,
         password : values.password
       }
-      values.loginUser(loginInfo)
+      values.loginUser(loginInfo, values.history)
   },
 })(Login)
 
@@ -29,7 +30,7 @@ const mapStateToProps =(state)=> {
 
 const mapDispatchToProps = (dispatch) =>{
   return{
-    loginUser: (loginInfo) => dispatch(validateLogin(loginInfo))
+    loginUser: (loginInfo, history) => dispatch(validateLogin(loginInfo, history))
   }
 }
 
