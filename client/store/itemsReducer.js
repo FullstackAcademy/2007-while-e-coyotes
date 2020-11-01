@@ -1,19 +1,19 @@
-const axios = require('axios');
+const axios = require("axios");
 
-const GET_ITEMS = 'GET_ITEMS';
+const GET_ITEMS = "GET_ITEMS";
 
 const _getItems = (items) => {
   return {
     type: GET_ITEMS,
-    items
-  }
-}
+    items,
+  };
+};
 
 export const getItems = () => {
-  return async(dispatch) => {
-    const response = await axios.get('/api/items');
+  return async (dispatch) => {
+    const response = await axios.get("/api/items");
     dispatch(_getItems(response.data));
-  }
+  };
 };
 
 export default function itemsReducer(state = [], action) {

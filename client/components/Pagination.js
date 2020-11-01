@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const Pagination = ({ itemsPerPage, totalItems, currentPage, changePage }) => {
   const pageNumbers = [];
@@ -12,42 +12,63 @@ const Pagination = ({ itemsPerPage, totalItems, currentPage, changePage }) => {
       <ul>
         {
           <li key="prev" className="prev">
-            { currentPage > 1 ?
-              <a href='#' onClick={ (e) => {
-                e.preventDefault();
-                changePage(currentPage - 1)
-              }
-              }>Prev</a> :
+            {currentPage > 1 ? (
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  changePage(currentPage - 1);
+                }}
+              >
+                Prev
+              </a>
+            ) : (
               <p>Prev</p>
-            }
+            )}
           </li>
         }
-        { pageNumbers.map(num => {
+        {pageNumbers.map((num) => {
           return (
-            <li key={num} className={num === currentPage ? "pagination-item pagination-item__active" : "pagination-item" }>
-              <a href='#' onClick={ (e) => {
-                e.preventDefault();
-                changePage(num)
+            <li
+              key={num}
+              className={
+                num === currentPage
+                  ? "pagination-item pagination-item__active"
+                  : "pagination-item"
               }
-              }>{num}</a>
+            >
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  changePage(num);
+                }}
+              >
+                {num}
+              </a>
             </li>
-          )
+          );
         })}
         {
           <li key="next" className="next">
-            { currentPage < pageNumbers.length ?
-              <a href='#' onClick={ (e) => {
-                e.preventDefault();
-                changePage(currentPage + 1)
-              }
-              }>Next</a> :
+            {currentPage < pageNumbers.length ? (
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  changePage(currentPage + 1);
+                }}
+              >
+                Next
+              </a>
+            ) : (
               <p>Next</p>
-            }
+            )}
           </li>
         }
       </ul>
     </div>
-  )
-}
+  );
+};
 
 export default Pagination;
