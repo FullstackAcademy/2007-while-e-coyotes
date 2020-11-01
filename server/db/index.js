@@ -1,12 +1,12 @@
-const db = require('./database');
+const db = require("./database");
 
 //import models
-const Item = require('./models/Item');
-const User = require('./models/User');
-const Order = require('./models/Order');
-const OrderItems = require('./models/OrderItems');
-const Review = require('./models/Review');
-const Sessions = require('./models/Sessions')
+const Item = require("./models/Item");
+const User = require("./models/User");
+const Order = require("./models/Order");
+const OrderItems = require("./models/OrderItems");
+const Review = require("./models/Review");
+const Sessions = require("./models/Sessions");
 
 //model relationships
 User.hasMany(Order);
@@ -21,8 +21,8 @@ Review.belongsTo(User);
 Item.hasMany(Review);
 Review.belongsTo(Item);
 
-User.hasMany(Sessions)
-Sessions.belongsTo(User)
+User.hasMany(Sessions);
+Sessions.belongsTo(User);
 
 module.exports = {
   db,
@@ -31,5 +31,5 @@ module.exports = {
   Order,
   OrderItems,
   Review,
-  Sessions 
+  Sessions,
 };

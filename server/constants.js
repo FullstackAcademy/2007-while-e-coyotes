@@ -1,5 +1,5 @@
-const cookieSessionName = 'sessionID'
+const cookieSessionName = "sessionID";
 
 module.exports = {
-    cookieSessionName
-}
+  cookieSessionName,
+};

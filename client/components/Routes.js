@@ -8,10 +8,10 @@ import Login from "./FormikLogin";
 import ItemList from "./ItemList";
 import Footer from "./Footer";
 import SingleItem from "./SingleItem";
+import Cart from "./Cart";
 import { logoutUser } from "../store/userReducer";
 
 class Routes extends React.Component {
-
   constructor() {
     super();
     this.logout = this.logout.bind(this);
@@ -85,7 +85,7 @@ class Routes extends React.Component {
                 component={SingleUser}
               />
               <Route path="/login" component={Login} />
-              
+              <Route path="/cart" component={Cart} />
             </Switch>
           </main>
           <Footer />
