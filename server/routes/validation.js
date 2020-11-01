@@ -1,7 +1,6 @@
 const express = require("express");
 const { User, Sessions } = require("../db");
 const { uuid } = require("uuidv4");
-const { cookieSessionName } = require("../constants");
 
 const validationRoute = express.Router();
 
