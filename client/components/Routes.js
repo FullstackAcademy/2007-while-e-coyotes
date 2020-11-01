@@ -6,6 +6,10 @@ import Login from './FormikLogin'
 import ItemList from './ItemList';
 import Footer from './Footer'
 import SingleItem from './SingleItem'
+import Admin from './Admin'
+import AdminItem from './AdminItem'
+import AdminOrder from './AdminOrder'
+import AdminUser from './AdminUser'
 
 export default class Routes extends React.Component {
 	constructor() {
@@ -28,7 +32,7 @@ export default class Routes extends React.Component {
 							<img className="icon" src='https://findicons.com/files/icons/2799/flat_icons/128/teachers_day_shield.png'/>
 							<Link className="navbar" to = "/">HOME</Link>
 							<Link className="navbar" to = "/items">SHOP</Link>
-							<Link className="navbar" to = "/items">ADMIN</Link>
+							<Link className="navbar" to = "/admin">ADMIN</Link>
 						</div>
 						<div className="search-container">
     						<form action="/">
@@ -49,6 +53,10 @@ export default class Routes extends React.Component {
 						<Route path = "/items/:id" exact component = { SingleItem } />
 						<Route path = {`/users/${this.state.userId}`} exact component = { SingleUser } />
 						<Route path = '/login' component = { Login } />
+						<Route path = '/admin' component = { Admin } />
+						<Route path = '/admin/items' exact component = { AdminItem } />
+						<Route path = '/admin/orders' exact component = { AdminOrder } />
+						<Route path = '/admin/users' exact component = { AdminUser } />
 					</Switch>
 					</main>
 					<Footer />
