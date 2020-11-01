@@ -1,20 +1,20 @@
-const Sequelize = require('sequelize');
-const db = require('../database');
+const Sequelize = require("sequelize");
+const db = require("../database");
 
-const OrderItems = db.define('orderItem', {
+const OrderItems = db.define("orderItem", {
   quantity: {
     type: Sequelize.INTEGER,
     defaultValue: 1,
     allowNull: false,
     validate: {
-      min: 1
-    }
+      min: 1,
+    },
   },
   priceOrdered: {
     type: Sequelize.DECIMAL(10, 2),
-    defaultValue: 0.00,
-    allowNull: false
-  }
-})
+    defaultValue: 0.0,
+    allowNull: false,
+  },
+});
 
 module.exports = OrderItems;
