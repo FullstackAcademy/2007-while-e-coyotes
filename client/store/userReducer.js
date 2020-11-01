@@ -22,6 +22,7 @@ export const validateLogin = (loginInfo, history) => {
 export const fetchUser = () => {
   return async (dispatch) => {
     const { data } = await axios.post("/auth/onPageLoad");
+    console.log("This is what fetchUser does", data);
     dispatch(setUser(data));
   };
 };

@@ -82,3 +82,27 @@ nav {
 .home img {
   width: 94.3rem;
 }
+
+.user-icon {
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+  color: white;
+  padding: 0.5rem;
+  margin-bottom: 0.2rem;
+  background-color: #494949;
+  border-radius: 10px;
+  transition: background-color 0.25s;
+  transition: border-radius 0.25s;
+
+  &:hover {
+    background-color: rgb(233, 104, 44);
+    border-radius: 0px;
+  }
+}
+
+.user-icon img {
+  padding-right: 0.4rem;
+  height: 50px;
+  width: 50px;
+}
