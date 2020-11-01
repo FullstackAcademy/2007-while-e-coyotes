@@ -8,11 +8,8 @@ import Login from './FormikLogin'
 import ItemList from './ItemList';
 import Footer from './Footer'
 import SingleItem from './SingleItem'
-<<<<<<< HEAD
 import Cart from './Cart'
-=======
 import { logoutUser } from '../store/userReducer'
->>>>>>> dev
 
 
 class Routes extends React.Component {
@@ -51,7 +48,7 @@ class Routes extends React.Component {
 								<Link className="navbar" to = "/login">LOGIN</Link> :
 								<Link className='navbar' to='/' onClick={this.logout}>LOGOUT</Link>
 							}
-							<Link className="navbar" to = "/login"><img className="cart" src='https://findicons.com/files/icons/1579/devine/48/cart.png'/></Link>
+							<Link className="navbar" to = "/cart"><img className="cart" src='https://findicons.com/files/icons/1579/devine/48/cart.png'/></Link>
 						</div>
 					</nav>
 					<main>
