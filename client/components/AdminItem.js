@@ -1,16 +1,37 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { fetchUser } from "../store/userReducer";
 
-const AdminItem = () => {
-    return admin ? (
-        <div className="admin">
+class AdminItem extends React.Component {
+  constructor() {
+    super();
+  }
+  componentDidMount() {
+    this.props.validateUser();
+  }
+  render() {
+    const isAdmin = this.props.user && this.props.user.class === "admin";
+    return isAdmin ? (
+      <div className="admin">
+        <Link to="/admin/createItem">Create an Item</Link>
+      </div>
+    ) : (
+      <div>Sorry, you are not an admin.</div>
+    );
+  }
+}
 
-        </div>
-    ): (
-        <div>
-            Sorry, you are not an admin.
-        </div>
-    )
+const mapState = (state) => {
+  return {
+    user: state.user,
+  };
 };
 
-export default AdminItem;
+const mapDispatch = (dispatch) => {
+  return {
+    validateUser: () => dispatch(fetchUser()),
+  };
+};
+
+export default connect(mapState, mapDispatch)(AdminItem);

@@ -11,11 +11,10 @@ class Admin extends React.Component {
     this.props.validateUser();
   }
   render() {
-    console.log("props", this.props);
     const isAdmin = this.props.user && this.props.user.class === "admin";
     return isAdmin ? (
       <div className="adminBar">
-        <Link className="admin" to="/items">
+        <Link className="admin" to="/admin/items">
           Product Management
         </Link>
         <Link className="admin" to="/admin/orders">

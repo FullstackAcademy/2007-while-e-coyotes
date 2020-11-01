@@ -7,6 +7,8 @@ import Login from "./FormikLogin";
 import ItemList from "./ItemList";
 import Footer from "./Footer";
 import SingleItem from "./SingleItem";
+import UpdateItem from "./UpdateItem";
+import CreateItem from "./CreateItem";
 import Admin from "./Admin";
 import AdminItem from "./AdminItem";
 import AdminOrder from "./AdminOrder";
@@ -89,8 +91,14 @@ class Routes extends React.Component {
               />
               <Route path="/login" component={Login} />
               <Route path="/cart" component={Cart} />
-              <Route path="/admin" component={Admin} />
+              <Route path="/admin" exact component={Admin} />
               <Route path="/admin/items" exact component={AdminItem} />
+              <Route
+                path="/admin/items/:id/updateItem"
+                exact
+                component={UpdateItem}
+              />
+              <Route path="/admin/createItem" exact component={CreateItem} />
               <Route path="/admin/orders" exact component={AdminOrder} />
               <Route path="/admin/users" exact component={AdminUser} />
             </Switch>
