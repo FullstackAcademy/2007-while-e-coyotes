@@ -8,61 +8,10 @@ import Login from "./FormikLogin";
 import ItemList from "./ItemList";
 import Footer from "./Footer";
 import SingleItem from "./SingleItem";
-import Cart from "./Cart";
 import { logoutUser } from "../store/userReducer";
 
 class Routes extends React.Component {
-	constructor(){
-		super();
-		this.logout = this.logout.bind(this);
-	}
-	logout(event){
-		event.preventDefault();
-		this.props.logoutUser();
-	}
-	render(){
-		const { user } = this.props;
-		return (
-			<Router>
-				<div>
-					<nav>
-						<div className="shop-nav">
-							<img className="icon" src='https://findicons.com/files/icons/2799/flat_icons/128/teachers_day_shield.png'/>
-							<Link className="navbar" to = "/">HOME</Link>
-							<Link className="navbar" to = "/items">SHOP</Link>
-							<Link className="navbar" to = "/items">ADMIN</Link>
-						</div>
-						<div className="search-container">
-    						<form action="/">
-								<input className="searchbar" type="text" placeholder="Search"></input>
-    						</form>
-  						</div>
-						<div className="account-nav">
-							{
-								user.class !== 'guest' || <Link className="navbar" to = {`/users/${user.userId}`}>MY ACCOUNT</Link>
-							}
-							{
-								user.class ==='guest' ?
-								<Link className="navbar" to = "/login">LOGIN</Link> :
-								<Link className='navbar' to='/' onClick={this.logout}>LOGOUT</Link>
-							}
-							<Link className="navbar" to = "/login"><img className="cart" src='https://findicons.com/files/icons/1579/devine/48/cart.png'/></Link>
-						</div>
-					</nav>
-					<main>
-					<Switch>
-						<Route path = "/" exact component = { Home } />
-						<Route path = "/items" exact component = { ItemList } />
-						<Route path = "/items/:id" exact component = { SingleItem } />
-						<Route path = {`/users/${user.userId}`} exact component = { SingleUser } />
-						<Route path = '/login' component = { Login } />
-					</Switch>
-					</main>
-					<Footer />
-				</div>
-			</Router>
-		)
-	}
+
   constructor() {
     super();
     this.logout = this.logout.bind(this);
@@ -136,7 +85,7 @@ class Routes extends React.Component {
                 component={SingleUser}
               />
               <Route path="/login" component={Login} />
-              <Route path="/cart" component={Cart} />
+              
             </Switch>
           </main>
           <Footer />
