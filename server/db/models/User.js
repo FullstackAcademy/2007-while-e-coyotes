@@ -1,32 +1,32 @@
-const Sequelize = require('sequelize');
-const db = require('../database');
+const Sequelize = require("sequelize");
+const db = require("../database");
 
-const User = db.define('user', {
+const User = db.define("user", {
   username: {
     type: Sequelize.STRING,
     validate: {
-      notEmpty: true
-    }
+      notEmpty: true,
+    },
   },
   password: {
     type: Sequelize.STRING,
     validate: {
-      notEmpty: true
-    }
+      notEmpty: true,
+    },
   },
   email: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   address: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   class: {
-    type: Sequelize.ENUM('guest', 'adventurer', 'villain', 'admin')
+    type: Sequelize.ENUM("guest", "adventurer", "villain", "admin"),
   },
   userImage: {
     type: Sequelize.STRING,
-    defaultValue: 'https://i.stack.imgur.com/l60Hf.png'
-  }
-})
+    defaultValue: "https://i.stack.imgur.com/l60Hf.png",
+  },
+});
 
 module.exports = User;

@@ -1,5 +1,5 @@
-import React from "react"
-import { Form, Field, ErrorMessage } from "formik"
+import React from "react";
+import { Form, Field, ErrorMessage } from "formik";
 
 export default class Login extends React.Component {
   render() {
@@ -13,6 +13,6 @@ export default class Login extends React.Component {
           <button type="submit"> Submit </button>
         </Form>
       </div>
-    )
+    );
   }
 }
