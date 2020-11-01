@@ -28,8 +28,8 @@ validationRoute.post('/onPageLoad', async(req,res,next) => {
             )
             res.send(newUser)
         }
-    } catch(err){
-        next()
+    } catch(error){
+        next(error)
     }
 })
 
@@ -66,8 +66,23 @@ validationRoute.post('/login', async(req,res,next) => {
             }
         }
     }
-    catch(err) {
-        next()
+    catch(error) {
+        next(error)
+    }
+})
+
+validationRoute.delete('/logout', async (req, res, next) => {
+    try {
+        const currentSessionID = req.cookies.sessionID;
+        await Sessions.destroy({
+            where: {
+                SessionID: currentSessionID
+            }
+        });
+        res.clearCookie('sessionID');
+        res.sendStatus(204);
+    } catch (error) {
+        next(error)
     }
 })
 

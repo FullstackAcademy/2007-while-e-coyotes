@@ -9,23 +9,33 @@ const setUser = (user) => {
     }
 }
 
-export const validateLogin = (loginInfo) =>{
+export const validateLogin = (loginInfo, history) =>{
     return async (dispatch)=>{
-       const {data} = await axios.post('/auth/login',loginInfo,
+       const { data } = await axios.post('/auth/login',loginInfo,
     {
         credentials: 'same-origin'
     })
        dispatch(setUser(data))
+       history.push('/');
     }
 }
 
 export const fetchUser = () => {
     return async (dispatch)=>{
-        const {data} = await axios.post('/auth/onPageLoad')
+        const { data } = await axios.post('/auth/onPageLoad')
         dispatch(setUser(data))
     }
 }
 
+export const logoutUser = () => {
+    return async(dispatch)=>{
+        // delete request to logout route
+        await axios.delete('/auth/logout');
+        //fetch a new guest user from /auth/onPageLoad, and set it to state
+        const { data } = await axios.post('/auth/onPageLoad');
+        dispatch(setUser(data));
+    }
+}
 
 const initialState = {}
 export default function(state= initialState, action){
