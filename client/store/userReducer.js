@@ -38,7 +38,7 @@ export const logoutUser = () => {
 }
 
 const initialState = {}
-export default (state= initialState, action) =>{
+export default function(state= initialState, action){
     switch(action.type){
         case SET_USER:
             return action.user

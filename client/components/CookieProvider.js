@@ -1,27 +1,13 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
 import { fetchUser } from '../store/userReducer'
+import { fetchCart } from '../store/cartReducer'
 
 class CookieProvider extends React.Component {
-    constructor(){
-        super()
-    }
-/*
-    will check for a cookie 
 
-    if cookie
-
-        check if cookie has valid user
-        load user
-
-    no cookie
-
-        generate a cookie -> give broser cookie
-        generate an anon serID (? do you generate cookie first, or a userID )
-*/
-
-    componentDidMount(){
-        this.props.validateUser()
+    async componentDidMount(){
+        await this.props.getUser()
+        this.props.getCart(this.props.user)
     }
 
     render(){
@@ -38,7 +24,8 @@ const mapStateToProps =(state)=> {
 
 const mapDispatchToProps = (dispatch) =>{
     return{
-        validateUser: () => dispatch(fetchUser())
+        getUser: () => dispatch(fetchUser()),
+        getCart: (user) => dispatch(fetchCart(user))
     }
 }
 
