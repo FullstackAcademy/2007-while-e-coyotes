@@ -33,24 +33,28 @@ class ItemList extends React.Component{
 
     return (
       <div id='itemList'>
-        <h2>Items!</h2>
-        <p>Total items: { items.length }</p>
-        <p>Now showing items {firstItemIndex + 1} through { lastItemIndex} </p>
-        <div className='grid-container'>
-          {
-            currentItems.map(item => {
-              return (
-                <ItemCard item={item} key={`item_${item.id}`} />
-              )
-            })
-          }
+        <div id='filters'>
+          <p>filters</p>
         </div>
-        <Pagination
-          itemsPerPage={itemsPerPage}
-          totalItems={items.length}
-          currentPage={currentPage}
-          changePage={this.changePage}
-        />
+        <div className='item-list-container'>
+          <h3>Total items: { items.length }</h3>
+          <p>Now showing items {firstItemIndex + 1} through { lastItemIndex} </p>
+          <div className='grid-container'>
+            {
+              currentItems.map(item => {
+                return (
+                  <ItemCard item={item} key={`item_${item.id}`} />
+                )
+              })
+            }
+          </div>
+          <Pagination
+            itemsPerPage={itemsPerPage}
+            totalItems={items.length}
+            currentPage={currentPage}
+            changePage={this.changePage}
+          />
+        </div>
       </div>
     )
   }

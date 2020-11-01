@@ -1,7 +1,18 @@
+//variables
+@import 'variables';
+
+@import 'items/item-card';
+@import 'items/item-list';
+@import 'components/pagination';
 
 * {
   margin: 0rem;
   font-family: Helvetica;
+}
+
+body {
+  background: $background-gray;
+  min-height: 100vh;
 }
 
 nav {
