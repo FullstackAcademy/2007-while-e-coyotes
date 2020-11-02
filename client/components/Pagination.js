@@ -8,41 +8,66 @@ const Pagination = ({ itemsPerPage, totalItems, currentPage, changePage }) => {
   }
 
   return (
-    <ul className="pagination">
-      {currentPage > 1 && (
-        <li
-          key="prev"
-          className="pagination-item pagination-item__prev"
-          onClick={() => changePage(currentPage - 1)}
-        >
-          Previous
-        </li>
-      )}
-      {pageNumbers.map((num) => {
-        return (
-          <li
-            key={num}
-            className={
-              num === currentPage
-                ? "pagination-item pagination-item__active"
-                : "pagination-item"
-            }
-            onClick={() => changePage(num)}
-          >
-            {num}
+    <div className="pagination">
+      <ul>
+        {
+          <li key="prev" className="prev">
+            {currentPage > 1 ? (
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  changePage(currentPage - 1);
+                }}
+              >
+                Prev
+              </a>
+            ) : (
+              <p>Prev</p>
+            )}
           </li>
-        );
-      })}
-      {currentPage < pageNumbers.length && (
-        <li
-          key="next"
-          className="pagination-item pagination-item__next"
-          onClick={() => changePage(currentPage + 1)}
-        >
-          Next
-        </li>
-      )}
-    </ul>
+        }
+        {pageNumbers.map((num) => {
+          return (
+            <li
+              key={num}
+              className={
+                num === currentPage
+                  ? "pagination-item pagination-item__active"
+                  : "pagination-item"
+              }
+            >
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  changePage(num);
+                }}
+              >
+                {num}
+              </a>
+            </li>
+          );
+        })}
+        {
+          <li key="next" className="next">
+            {currentPage < pageNumbers.length ? (
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  changePage(currentPage + 1);
+                }}
+              >
+                Next
+              </a>
+            ) : (
+              <p>Next</p>
+            )}
+          </li>
+        }
+      </ul>
+    </div>
   );
 };
 

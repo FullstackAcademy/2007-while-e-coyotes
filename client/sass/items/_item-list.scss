@@ -1,0 +1,17 @@
+#itemList{
+  max-width: 1020px;
+  margin: 3rem auto 0 auto;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-gap: 2rem;
+
+  .grid-container {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+#filters {
+  background: $light-gray;
+}
