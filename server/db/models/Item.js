@@ -31,7 +31,7 @@ const Item = db.define("item", {
     type: Sequelize.ENUM("sword", "dagger", "bow", "magic"),
   },
   itemClass: {
-    type: Sequelize.ENUM("adventurer", "villian"),
+    type: Sequelize.ENUM("adventurer", "villain"),
   },
   imageUrl: {
     type: Sequelize.STRING,

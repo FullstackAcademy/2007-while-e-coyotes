@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-
 import { HashRouter as Router, Route, Link, Switch } from "react-router-dom";
 import Home from "./Home";
 import SingleUser from "./SingleUser";
@@ -8,8 +7,14 @@ import Login from "./FormikLogin";
 import ItemList from "./ItemList";
 import Footer from "./Footer";
 import SingleItem from "./SingleItem";
-import Cart from "./Cart";
+import UpdateItem from "./UpdateItem";
+import CreateItem from "./CreateItem";
+import Admin from "./Admin";
+import AdminItem from "./AdminItem";
+import AdminOrder from "./AdminOrder";
+import AdminUser from "./AdminUser";
 import { logoutUser } from "../store/userReducer";
+import Cart from "./Cart";
 
 class Routes extends React.Component {
   constructor() {
@@ -37,7 +42,7 @@ class Routes extends React.Component {
               <Link className="navbar" to="/items">
                 SHOP
               </Link>
-              <Link className="navbar" to="/items">
+              <Link className="navbar" to="/admin">
                 ADMIN
               </Link>
             </div>
@@ -86,6 +91,16 @@ class Routes extends React.Component {
               />
               <Route path="/login" component={Login} />
               <Route path="/cart" component={Cart} />
+              <Route path="/admin" exact component={Admin} />
+              <Route path="/admin/items" exact component={AdminItem} />
+              <Route
+                path="/admin/items/:id/updateItem"
+                exact
+                component={UpdateItem}
+              />
+              <Route path="/admin/createItem" exact component={CreateItem} />
+              <Route path="/admin/orders" exact component={AdminOrder} />
+              <Route path="/admin/users" exact component={AdminUser} />
             </Switch>
           </main>
           <Footer />
