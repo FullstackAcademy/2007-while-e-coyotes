@@ -21,6 +21,7 @@ class Routes extends React.Component {
     event.preventDefault();
     this.props.logoutUser();
   }
+
   render() {
     const { user } = this.props;
     return (
@@ -63,7 +64,10 @@ class Routes extends React.Component {
                 </Link>
               ) : (
                 <div>
-                  <Link className="user-icon" to={`/users/${user.userId}`}>
+                  <Link
+                    className="user-icon"
+                    to={`/users/${this.props.user.id || null}`}
+                  >
                     <img src={this.props.user.userImage} />
                     <p>{this.props.user.username}</p>
                   </Link>
@@ -86,7 +90,7 @@ class Routes extends React.Component {
               <Route path="/items" exact component={ItemList} />
               <Route path="/items/:id" exact component={SingleItem} />
               <Route
-                path={`/users/${user.userId}`}
+                path={`/users/${this.props.user.id || null}`}
                 exact
                 component={SingleUser}
               />
