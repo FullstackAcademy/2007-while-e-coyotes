@@ -1,0 +1,19 @@
+.itemCard {
+  background: $light-gray;
+  border-radius: 1rem;
+  padding: 1rem;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+}
+
+.itemImg {
+  margin: 0 0 0.5rem 0;
+
+  img {
+    width: 100%;
+  }
+}

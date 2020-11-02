@@ -49,7 +49,7 @@ itemRoute.delete("/:id", async (req, res, next) => {
 itemRoute.put("/:id", async (req, res, next) => {
   try {
     const item = await Item.findByPk(req.params.id);
-    await Item.update(req.body);
+    await item.update(req.body);
     res.send(item);
   } catch (err) {
     console.log(err);
