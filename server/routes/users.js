@@ -1,5 +1,5 @@
 const express = require("express");
-const { db, User, Order, Item, Sessions } = require("../db");
+const { db, User, Order, Item, Sessions, Review } = require("../db");
 const userRoute = express.Router();
 
 userRoute.get("/", async (req, res, next) => {
@@ -31,6 +31,10 @@ userRoute.get("/:id", async (req, res, next) => {
           include: [
             {
               model: Order,
+              include: [{ model: Item }],
+            },
+            {
+              model: Review,
               include: [{ model: Item }],
             },
           ],

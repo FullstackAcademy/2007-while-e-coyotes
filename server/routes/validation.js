@@ -1,5 +1,5 @@
 const express = require("express");
-const { User, Sessions, Order, Item } = require("../db");
+const { User, Sessions, Order, Item, Review } = require("../db");
 const { uuid } = require("uuidv4");
 
 const validationRoute = express.Router();
@@ -13,6 +13,10 @@ validationRoute.post("/onPageLoad", async (req, res, next) => {
         include: [
           {
             model: Order,
+            include: [{ model: Item }],
+          },
+          {
+            model: Review,
             include: [{ model: Item }],
           },
         ],

@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { ItemCard } from "./ItemCard";
+import { Link } from "react-router-dom";
 
 export class SingleUser extends React.Component {
   constructor() {
@@ -34,23 +35,33 @@ export class SingleUser extends React.Component {
     const orderHistory = user.orders.filter(
       (order) => order.status === "delivered"
     );
+
     return (
       <div>
-        <h1>{user.username}</h1>
-        <p>{`Joined: ${this.modifyDate(user.createdAt)}`}</p>
-        <p>{`Email: ${user.email}`}</p>
-        <p>{`Email: ${user.address}`}</p>
-        <p>{}</p>
-        <h3>Items in your cart:</h3>
-        <div className="container">
-          {inCart.length ? (
-            inCart[0].items.map((order) => (
-              <ItemCard key={order.id} item={order} />
-            ))
-          ) : (
-            <p>No items in your cart</p>
-          )}
+        <div className="inner-container">
+          <h1>{user.username}</h1>
+          <p>{`Joined: ${this.modifyDate(user.createdAt)}`}</p>
+          <p>{`Email: ${user.email}`}</p>
+          <p>{`Email: ${user.address}`}</p>
+          <button type="submit">Edit Profile</button>
         </div>
+
+        <div className="inner-container">
+          <h3>Items in your cart:</h3>
+          <div className="container">
+            {inCart.length ? (
+              inCart[0].items.map((order) => (
+                <ItemCard key={order.id} item={order} />
+              ))
+            ) : (
+              <p>No items in your cart</p>
+            )}
+          </div>
+          <Link className="asd" to="/cart">
+            <button type="submit">Go to cart</button>
+          </Link>
+        </div>
+
         <h3>Currently pending orders:</h3>
         <div className="container">
           {ordered.length ? (
@@ -71,6 +82,7 @@ export class SingleUser extends React.Component {
             <p>No orders pending</p>
           )}
         </div>
+
         <h3>Order history:</h3>
         <div className="container">
           {orderHistory.length ? (
@@ -90,6 +102,21 @@ export class SingleUser extends React.Component {
           ) : (
             <p>No orders pending</p>
           )}
+        </div>
+
+        <h3>Your Reviews:</h3>
+        <div className="container">
+          {user.reviews.map((review) => {
+            return (
+              <div className="inner-container" key={review.id}>
+                <p>{this.modifyDate(review.createdAt)}</p>
+                <Link className="pagelinks" to={`/items/${review.item.id}`}>
+                  {`Your review on ${review.item.name}`}
+                </Link>
+                <p>{`You said "${review.content}"`}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
