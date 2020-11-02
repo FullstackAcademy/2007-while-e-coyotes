@@ -4,7 +4,8 @@ import { deleteItem } from "../store/cartReducer";
 
 class Cart extends React.Component {
   render() {
-    const cart = this.props.cart;
+    const { cart } = this.props;
+    const subTotal = 0;
     return (
       <div>
         {cart.items ? (
