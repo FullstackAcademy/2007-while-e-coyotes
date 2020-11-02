@@ -1,5 +1,5 @@
 const express = require("express");
-const { User, Sessions } = require("../db");
+const { User, Sessions, Order, Item, Review } = require("../db");
 const { uuid } = require("uuidv4");
 
 const validationRoute = express.Router();
@@ -9,7 +9,17 @@ validationRoute.post("/onPageLoad", async (req, res, next) => {
     if (req.user) {
       console.log("there is a user! send it back");
       const foundUser = await User.findByPk(req.user.id, {
-        attributes: { exclude: ["password"] },
+        exclude: ["password"],
+        include: [
+          {
+            model: Order,
+            include: [{ model: Item }],
+          },
+          {
+            model: Review,
+            include: [{ model: Item }],
+          },
+        ],
       });
       res.send(foundUser);
     } else {

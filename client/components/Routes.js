@@ -21,10 +21,12 @@ class Routes extends React.Component {
     super();
     this.logout = this.logout.bind(this);
   }
+
   logout(event) {
     event.preventDefault();
     this.props.logoutUser();
   }
+
   render() {
     const { user } = this.props;
     return (
@@ -53,7 +55,6 @@ class Routes extends React.Component {
                   type="text"
                   placeholder="Search"
                 ></input>
-                <button type="submit">Submit</button>
               </form>
             </div>
             <div className="account-nav">
@@ -67,9 +68,18 @@ class Routes extends React.Component {
                   LOGIN
                 </Link>
               ) : (
-                <Link className="navbar" to="/" onClick={this.logout}>
-                  LOGOUT
-                </Link>
+                <div>
+                  <Link
+                    className="user-icon"
+                    to={`/users/${this.props.user.id || null}`}
+                  >
+                    <img src={this.props.user.userImage} />
+                    <p>{this.props.user.username}</p>
+                  </Link>
+                  <Link className="navbar" to="/" onClick={this.logout}>
+                    LOGOUT
+                  </Link>
+                </div>
               )}
               <Link className="navbar" to="/cart">
                 <img
@@ -85,7 +95,7 @@ class Routes extends React.Component {
               <Route path="/items" exact component={ItemList} />
               <Route path="/items/:id" exact component={SingleItem} />
               <Route
-                path={`/users/${user.userId}`}
+                path={`/users/${this.props.user.id || null}`}
                 exact
                 component={SingleUser}
               />
