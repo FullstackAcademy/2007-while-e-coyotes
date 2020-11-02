@@ -11,11 +11,15 @@ class ItemList extends React.Component {
     super();
     this.state = {
       currentPage: 1,
-      itemsPerPage: 10,
-      filters: [
-        // {fil: 'itemType', val: 'magic'},
-        // {fil: 'price', min: 140, max: 200}
-      ],
+      itemsPerPage: 15,
+      filters: {
+        itemType: ["sword", "magic"],
+        price: [
+          { min: 0, max: 100, id: "0-100" },
+          { min: 200, max: 4000, id: "200-4000" },
+        ],
+        rarity: [{ min: 0, max: 50 }],
+      },
     };
     this.changePage = this.changePage.bind(this);
   }
