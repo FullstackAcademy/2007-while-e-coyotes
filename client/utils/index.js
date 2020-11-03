@@ -60,3 +60,16 @@ export const averageReduce = (arrOfObjs, key) => {
   const average = total / arrOfObjs.length;
   return average;
 };
+
+export const searchFilter = (itemArr, searchString) => {
+  const lowerSearchString = searchString.toLowerCase();
+  return itemArr.filter((item) => {
+    if (
+      item.name.toLowerCase().includes(lowerSearchString) ||
+      item.description.toLowerCase().includes(lowerSearchString) ||
+      item.itemType.toLowerCase().includes(lowerSearchString)
+    )
+      return true;
+    return false;
+  });
+};
