@@ -77,4 +77,31 @@ export const initialFilterButtons = {
       value: new rangeConstructor(81, 100, "Legendary"),
     },
   ],
+  reviews: [
+    {
+      on: false,
+      label: "0 - 1 star",
+      value: new rangeConstructor(0, 1),
+    },
+    {
+      on: false,
+      label: "1 - 2 star",
+      value: new rangeConstructor(1, 2),
+    },
+    {
+      on: false,
+      label: "2 - 3 star",
+      value: new rangeConstructor(2, 3),
+    },
+    {
+      on: false,
+      label: "3 - 4 star",
+      value: new rangeConstructor(3, 4),
+    },
+    {
+      on: false,
+      label: "4 - 5 star",
+      value: new rangeConstructor(4, 5),
+    },
+  ],
 };

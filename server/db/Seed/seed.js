@@ -87,8 +87,8 @@ const seed = async () => {
     for (let i = 0; i < reviewList.length; i++) {
       await Review.create({
         ...reviewList[i],
-        userId: random(1, userList.length - 1),
-        itemId: random(1, itemsList.length - 1),
+        //userId: random(1, userList.length - 1),
+        //itemId: random(1, itemsList.length - 1),
       });
     }
 

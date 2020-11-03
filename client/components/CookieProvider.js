@@ -6,7 +6,9 @@ import { fetchCart } from "../store/cartReducer";
 class CookieProvider extends React.Component {
   async componentDidMount() {
     await this.props.getUser();
-    this.props.getCart(this.props.user);
+    if (this.props.user.class !== "guest") {
+      this.props.getCart(this.props.user);
+    }
   }
 
   render() {

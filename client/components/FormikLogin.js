@@ -11,6 +11,7 @@ const FormikLogin = withFormik({
       password: "",
       loginUser: props.loginUser,
       history: props.history,
+      getCart: props.getCart,
     };
   },
   handleSubmit: async (values) => {
@@ -19,6 +20,7 @@ const FormikLogin = withFormik({
       password: values.password,
     };
     values.loginUser(loginInfo, values.history);
+    console.log("values", values);
   },
 })(Login);
 
@@ -32,6 +34,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loginUser: (loginInfo, history) =>
       dispatch(validateLogin(loginInfo, history)),
+    getCart: (user) => dispatch(fetchCart(user)),
   };
 };
 

@@ -5,7 +5,15 @@ const itemRoute = express.Router();
 
 itemRoute.get("/", async (req, res, next) => {
   try {
-    res.send(await Item.findAll());
+    res.send(
+      await Item.findAll({
+        include: [
+          {
+            model: Review,
+          },
+        ],
+      })
+    );
   } catch (err) {
     console.log(err);
   }
