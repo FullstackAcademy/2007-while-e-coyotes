@@ -56,6 +56,7 @@ class ItemList extends React.Component {
   seeAllItems() {
     this.props.getAllItems();
     this.setState({ searchString: "" });
+    this.props.history.push("/items");
   }
   toggleFilter(value, filterKey) {
     const newFilters = this.state.filterButtons[filterKey].map((fil) => {
@@ -77,7 +78,7 @@ class ItemList extends React.Component {
       searchString,
     } = this.state;
     const { items } = this.props;
-    const { toggleFilter } = this;
+    const { toggleFilter, seeAllItems } = this;
 
     const filters = {
       itemType: filterButtons.itemType.filter((fil) => fil.on),
@@ -111,7 +112,10 @@ class ItemList extends React.Component {
           }
           <div className="item-list-info">
             {searchString.length > 0 ? (
-              <h3>{`Showing results for "${searchString}": ${filteredItems.length} items`}</h3>
+              <div className="search-results">
+                <h3>{`Showing results for "${searchString}": ${filteredItems.length} items`}</h3>
+                <button onClick={() => seeAllItems()}>See all items</button>
+              </div>
             ) : (
               <h3>All items: {filteredItems.length} items</h3>
             )}
