@@ -1,0 +1,44 @@
+#singleItem{
+  max-width: 1020px;
+  margin: 3rem auto 0 auto;
+  padding: 0 1rem;
+}
+
+.reviews-container {
+  max-width: 600px;
+  margin: 2rem auto 0 auto;
+  border-top: 1px solid gray;
+  padding: 2rem 0 0 0;
+
+  h2 {
+    text-align: center;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .review-info {
+    p {
+      text-align: center;
+      font-style: italic;
+    }
+  }
+}
+
+.review-card {
+  margin: 1rem 0 0 0;
+  background: $light-gray;
+  padding: 1rem;
+  border-radius: 1rem;
+  h3 {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    margin: 0 0 0.4rem 0;
+  }
+  p {
+    margin: 0 0 0.4rem 0;
+  }
+  &__username {
+    text-align: right;
+    margin: 0;
+    font-style: italic;
+  }
+}
