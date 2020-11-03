@@ -67,5 +67,11 @@
       cursor: pointer;
       opacity: 1;
     }
+
+    span {
+      display: inline-block;
+      font-weight: bold;
+      margin: 0 4px 0 0;
+    }
   }
 }

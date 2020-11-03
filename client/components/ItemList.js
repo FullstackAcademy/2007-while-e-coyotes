@@ -59,6 +59,7 @@ class ItemList extends React.Component {
       itemType: filterButtons.itemType.filter((fil) => fil.on),
       price: filterButtons.price.filter((fil) => fil.on),
       rarity: filterButtons.rarity.filter((fil) => fil.on),
+      reviews: filterButtons.reviews.filter((fil) => fil.on),
     };
 
     //Get current items

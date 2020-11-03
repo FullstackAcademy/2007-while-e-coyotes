@@ -14,7 +14,7 @@ export const RemoveFilters = ({ filterButtons, toggleFilter }) => {
               }}
               key={fil.label}
             >
-              X Item type: {fil.label}
+              <span>{String.fromCharCode(10005)}</span> Item type: {fil.label}
             </button>
           );
         })}
@@ -26,7 +26,7 @@ export const RemoveFilters = ({ filterButtons, toggleFilter }) => {
               onClick={() => toggleFilter(fil.value, "price")}
               key={fil.label}
             >
-              X Price: {fil.label}
+              <span>{String.fromCharCode(10005)}</span> Price: {fil.label}
             </button>
           );
         })}
@@ -38,7 +38,19 @@ export const RemoveFilters = ({ filterButtons, toggleFilter }) => {
               onClick={() => toggleFilter(fil.value, "rarity")}
               key={fil.label}
             >
-              X Rarity: {fil.label}
+              <span>{String.fromCharCode(10005)}</span> Rarity: {fil.label}
+            </button>
+          );
+        })}
+      {filterButtons.reviews
+        .filter((fil) => fil.on)
+        .map((fil) => {
+          return (
+            <button
+              onClick={() => toggleFilter(fil.value, "reviews")}
+              key={fil.label}
+            >
+              <span>{String.fromCharCode(10005)}</span> Review: {fil.label}
             </button>
           );
         })}

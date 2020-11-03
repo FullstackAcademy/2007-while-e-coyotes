@@ -48,6 +48,20 @@ export default class ItemFilters extends React.Component {
             );
           })}
         </div>
+        <div className="filter-section">
+          <h4>By reviews</h4>
+          {filterButtons.reviews.map((filter) => {
+            return (
+              <FilterCheckbox
+                key={`checkbox_${filter.label}`}
+                filter={filter}
+                category="reviews"
+                toggleFilter={toggleFilter}
+                checked={filter.on}
+              />
+            );
+          })}
+        </div>
       </div>
     );
   }
