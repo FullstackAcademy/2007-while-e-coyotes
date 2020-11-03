@@ -28,14 +28,18 @@ class SingleItem extends React.Component {
             {!!singleItem.reviews &&
               singleItem.reviews.map((review) => {
                 return (
-                  <div
-                    className="review"
-                    key={`item_${singleItem.id}_review${review.id}`}
-                  >
-                    <h3>Rating: {review.rating}</h3>
-                    <p>{review.content}</p>
-                    {/* TODO: Make Link to User view */}
-                    <p>-{review.user.username}</p>
+                  <div key={`review_${review.id}`}>
+                    {review.userId ? (
+                      <div
+                        className="review"
+                        key={`item_${singleItem.id}_review${review.id}`}
+                      >
+                        <h3>Rating: {review.rating}</h3>
+                        <p>{review.content}</p>
+                        {/* TODO: Make Link to User view */}
+                        <p>-{review.user.username}</p>
+                      </div>
+                    ) : null}
                   </div>
                 );
               })}

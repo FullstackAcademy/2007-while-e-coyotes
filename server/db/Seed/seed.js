@@ -57,6 +57,8 @@ const seed = async () => {
     //create items and item variants
     for (i = 0; i < itemsList.length; i++) {
       const currentItem = itemsList[i];
+      const imageUrl = `/images/${currentItem.name.split(" ").join("")}.jpeg`;
+      currentItem.imageUrl = imageUrl;
       const prefixes = Object.keys(itemRarity);
       const description = Object.values(itemRarity);
       await Item.create(currentItem);
@@ -72,6 +74,7 @@ const seed = async () => {
           description: `${currentItem.description}\n${text}`,
           rarity: random(rarityMin, rarityMax),
           price: currentItem.price * priceMultiplier,
+          imageUrl,
         };
         await Item.create(newItem);
       }

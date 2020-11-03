@@ -6,9 +6,11 @@ import userReducer from "./userReducer.js";
 import itemsReducer from "./itemsReducer.js";
 import singleItemReducer from "./singleItemReducer.js";
 import cartReducer from "./cartReducer.js";
+import usersReducer from "./usersReducer.js";
 
 const reducer = combineReducers({
   user: userReducer,
+  users: usersReducer,
   items: itemsReducer,
   singleItem: singleItemReducer,
   cart: cartReducer,

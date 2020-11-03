@@ -9,7 +9,7 @@ userRoute.get("/", async (req, res, next) => {
       res.send(
         await User.findAll({
           attributes: {
-            exclude: ["password", "id"],
+            exclude: ["password"],
           },
         })
       );
