@@ -68,7 +68,7 @@ class ItemList extends React.Component {
     const currentItems = filteredItems.slice(firstItemIndex, lastItemIndex);
 
     //console.log("Filters:", filters);
-    //console.log("Filtered items:", filteredItems);
+    console.log("Filtered items:", filteredItems);
     //console.log("Filter buttons:", filterButtons);
 
     return (

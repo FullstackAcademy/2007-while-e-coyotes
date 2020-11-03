@@ -52,13 +52,15 @@ export default class ItemFilters extends React.Component {
 
 const FilterCheckbox = ({ filter, toggleFilter, category }) => {
   return (
-    <form onChange={() => toggleFilter(filter.value, category)}>
-      <input
-        name={`cxbox_${filter.label}`}
-        type="checkbox"
-        defaultChecked={filter.on}
-      />
-      <label htmlFor={`cxbox_${filter.label}`}>{filter.label}</label>
-    </form>
+    <div className="checkbox-container">
+      <label className="filter-checkbox">
+        <input
+          type="checkbox"
+          defaultChecked={filter.on}
+          onChange={() => toggleFilter(filter.value, category)}
+        />
+        {filter.label}
+      </label>
+    </div>
   );
 };
