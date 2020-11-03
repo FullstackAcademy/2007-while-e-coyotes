@@ -1,60 +1,50 @@
 import React from "react";
 
-const RobotForm = ({
-  handleSubmit,
-  handleChange,
-  robot,
-  projects,
-  buttonFunction,
-}) => {
+const RobotForm = ({ handleSubmit, handleChange, user, buttonFunction }) => {
   return (
     <div className="input-container">
       <form onSubmit={handleSubmit}>
         <div className="input-form">
-          <label htmlFor="name">Robot Name: </label>
+          <h1>GET STARTED</h1>
+          <h4>
+            To get started with a new accout, please fill out the following
+            information
+          </h4>
+          <label htmlFor="username"> User Name: </label>
           <input
-            name="name"
+            name="username"
             type="text"
             onChange={handleChange}
-            value={robot.name}
+            value={user.username}
           />
-          <label htmlFor="imageUrl">Robot Image: </label>
+          <label htmlFor="password"> Desired Password: </label>
           <input
-            name="imageUrl"
+            name="password"
             type="text"
             onChange={handleChange}
-            value={robot.imageUrl}
+            value={user.password}
           />
-          <label htmlFor="fuelType">Fuel Type: </label>
-          <select
-            name="fuelType"
+          <label htmlFor="email"> Preferred Email: </label>
+          <input
+            name="email"
+            type="text"
             onChange={handleChange}
-            value={robot.fuelType}
-          >
-            <option>gas</option>
-            <option>diesel</option>
-            <option>electric</option>
+            value={user.email}
+          />
+          <label htmlFor="fuelType">Class Type: </label>
+          <select name="fuelType" onChange={handleChange} value={user.class}>
+            <option>adventurer</option>
+            <option>villain</option>
           </select>
-          <label htmlFor="fuelLevel">
-            Starting Fuel Level: {robot.fuelLevel}%
-          </label>
-          <input
-            name="fuelLevel"
-            type="range"
-            min="1"
-            max="100"
-            onChange={handleChange}
-            value={robot.fuelLevel}
-          />
           <button
             type="submit"
             className={buttonFunction ? "update-button" : "create-button"}
-            disabled={!robot.name}
+            disabled={!user.username}
           >
             {buttonFunction || "Create"}
           </button>
-          {!robot.name ? (
-            <p className="bad-submit">Missing field for Robot Name</p>
+          {!user.username ? (
+            <p className="bad-submit">Missing field for User Name</p>
           ) : null}
         </div>
       </form>

@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import SingleItem from "./SingleItem";
 import UpdateItem from "./UpdateItem";
 import CreateItem from "./CreateItem";
+import CreateUser from "./CreateUser";
 import Admin from "./Admin";
 import AdminItem from "./AdminItem";
 import AdminOrder from "./AdminOrder";

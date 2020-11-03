@@ -1,6 +1,7 @@
 import React from "react";
 import UserForm from "./UserForm";
 import { connect } from "react-redux";
+import { addUser } from "../store/allUsersReducer";
 
 export class AddUser extends React.Component {
   constructor() {
@@ -26,7 +27,7 @@ export class AddUser extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.addRobot(this.state);
+    this.props.addUser(this.state);
   }
 
   render() {
@@ -34,10 +35,16 @@ export class AddUser extends React.Component {
       <UserForm
         handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
-        robot={this.state}
+        user={this.state}
       />
     );
   }
 }
 
-export default connect(null, null)(AddUser);
+const mapDispatch = (dispatch) => {
+  return {
+    addUser: (user) => dispatch(addUser(user)),
+  };
+};
+
+export default connect(null, mapDispatch)(AddUser);
