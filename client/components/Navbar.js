@@ -1,26 +1,40 @@
 import React from "react";
-import { HashRouter as Router, Route, Link, Switch } from "react-router-dom";
-import { search } from "../../server/routes/users";
+import { Redirect, Link } from "react-router-dom";
 
 export default class Navbar extends React.Component {
   constructor() {
     super();
     this.state = {
       searchValue: "",
+      redirect: false,
     };
     this.searchOnChange = this.searchOnChange.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
   searchOnChange(event) {
     this.setState({
       searchValue: event.target.value,
     });
   }
+  handleSearchSubmit(event) {
+    event.preventDefault();
+    console.log("search submitted:", this.state.searchValue);
+    this.setState({ redirect: true });
+  }
+  componentDidUpdate() {
+    if (this.state.redirect === true)
+      this.setState({ redirect: false, searchValue: "" });
+  }
   render() {
     const { user, logout } = this.props;
     const { searchValue } = this.state;
-    console.log("User:", user);
+    if (this.state.redirect === true)
+      console.log("Redirect!", this.state.redirect);
     return (
       <nav>
+        {this.state.redirect && (
+          <Redirect to={`/items?search=${this.state.searchValue}`} />
+        )}
         <div className="shop-nav">
           <img
             className="icon"
@@ -37,7 +51,7 @@ export default class Navbar extends React.Component {
           </Link>
         </div>
         <div className="search-container">
-          <form action="/">
+          <form onSubmit={this.handleSearchSubmit}>
             <input
               value={searchValue}
               onChange={this.searchOnChange}
@@ -45,6 +59,7 @@ export default class Navbar extends React.Component {
               type="text"
               placeholder="Search"
             ></input>
+            <input type="submit" value="Submit" />
           </form>
         </div>
         <div className="account-nav">
