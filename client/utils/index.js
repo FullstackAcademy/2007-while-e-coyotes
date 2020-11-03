@@ -55,7 +55,7 @@ export class rangeConstructor {
   }
 }
 
-const averageReduce = (arrOfObjs, key) => {
+export const averageReduce = (arrOfObjs, key) => {
   const total = arrOfObjs.reduce((acc, obj) => acc + obj[key], 0);
   const average = total / arrOfObjs.length;
   return average;
