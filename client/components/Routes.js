@@ -13,6 +13,7 @@ import Admin from "./Admin";
 import AdminItem from "./AdminItem";
 import AdminOrder from "./AdminOrder";
 import AdminUser from "./AdminUser";
+import SearchNav from "./SearchNav";
 import { logoutUser } from "../store/userReducer";
 import Cart from "./Cart";
 
@@ -48,15 +49,7 @@ class Routes extends React.Component {
                 ADMIN
               </Link>
             </div>
-            <div className="search-container">
-              <form action="/">
-                <input
-                  className="searchbar"
-                  type="text"
-                  placeholder="Search"
-                ></input>
-              </form>
-            </div>
+            <SearchNav />
             <div className="account-nav">
               {user.class !== "guest" || (
                 <Link className="navbar" to={`/users/${user.userId}`}>
