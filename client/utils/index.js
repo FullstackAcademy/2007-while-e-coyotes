@@ -27,10 +27,20 @@ export const itemFilter = (itemsArr, filters) => {
       let rarityFlag = false;
       const rarityRanges = filters.rarity.map((fil) => fil.value);
       for (let range of rarityRanges) {
-        if ((item.rarity <= range.max) & (item.rarity >= range.min))
+        if (item.rarity <= range.max && item.rarity >= range.min)
           rarityFlag = true;
       }
       if (!rarityFlag) return false;
+    }
+    if (filters.reviews.length) {
+      let reviewFlag = false;
+      if (item.reviews.length === 0) return false;
+      const reviewAvg = averageReduce(item.reviews, "rating");
+      const reviewRanges = filters.reviews.map((fil) => fil.value);
+      for (let range of reviewRanges) {
+        if (reviewAvg <= range.max && reviewAvg >= range.min) reviewFlag = true;
+      }
+      if (!reviewFlag) return false;
     }
     return true;
   });
@@ -44,3 +54,9 @@ export class rangeConstructor {
     this.id = rarity || `$${min}-$${max}`;
   }
 }
+
+export const averageReduce = (arrOfObjs, key) => {
+  const total = arrOfObjs.reduce((acc, obj) => acc + obj[key], 0);
+  const average = total / arrOfObjs.length;
+  return average;
+};

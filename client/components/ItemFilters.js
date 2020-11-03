@@ -15,6 +15,7 @@ export default class ItemFilters extends React.Component {
                 filter={filter}
                 category="itemType"
                 toggleFilter={toggleFilter}
+                checked={filter.on}
               />
             );
           })}
@@ -28,6 +29,7 @@ export default class ItemFilters extends React.Component {
                 filter={filter}
                 category="rarity"
                 toggleFilter={toggleFilter}
+                checked={filter.on}
               />
             );
           })}
@@ -41,6 +43,21 @@ export default class ItemFilters extends React.Component {
                 filter={filter}
                 category="price"
                 toggleFilter={toggleFilter}
+                checked={filter.on}
+              />
+            );
+          })}
+        </div>
+        <div className="filter-section">
+          <h4>By reviews</h4>
+          {filterButtons.reviews.map((filter) => {
+            return (
+              <FilterCheckbox
+                key={`checkbox_${filter.label}`}
+                filter={filter}
+                category="reviews"
+                toggleFilter={toggleFilter}
+                checked={filter.on}
               />
             );
           })}
@@ -50,15 +67,17 @@ export default class ItemFilters extends React.Component {
   }
 }
 
-const FilterCheckbox = ({ filter, toggleFilter, category }) => {
+const FilterCheckbox = ({ filter, toggleFilter, category, checked }) => {
   return (
-    <form onChange={() => toggleFilter(filter.value, category)}>
-      <input
-        name={`cxbox_${filter.label}`}
-        type="checkbox"
-        defaultChecked={filter.on}
-      />
-      <label htmlFor={`cxbox_${filter.label}`}>{filter.label}</label>
-    </form>
+    <div className="checkbox-container">
+      <label className="filter-checkbox">
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={() => toggleFilter(filter.value, category)}
+        />
+        {filter.label}
+      </label>
+    </div>
   );
 };
