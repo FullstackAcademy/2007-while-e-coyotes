@@ -30,16 +30,16 @@ class Admin extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapState = (state) => {
   return {
     user: state.user,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatch = (dispatch) => {
   return {
     validateUser: () => dispatch(fetchUser()),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Admin);
+export default connect(mapState, mapDispatch)(Admin);

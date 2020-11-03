@@ -44,10 +44,14 @@ class SingleItem extends React.Component {
             {!!singleItem.reviews &&
               singleItem.reviews.map((review) => {
                 return (
-                  <ReviewCard
-                    review={review}
-                    key={`item_${singleItem.id}_review${review.id}`}
-                  />
+                  <div key={`review_${review.id}`}>
+                    {review.userId ? (
+                    <ReviewCard
+                      review={review}
+                      key={`item_${singleItem.id}_review${review.id}`}
+                    />
+                    ) : null}
+                  </div>
                 );
               })}
           </div>
