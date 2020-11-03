@@ -65,8 +65,8 @@ class Routes extends React.Component {
             />
             <div className="account-nav">
               {user.class !== "guest" || (
-                <Link className="navbar" to={`/users/${user.userId}`}>
-                  MY ACCOUNT
+                <Link className="navbar" to={`/users/create`}>
+                  SIGN UP
                 </Link>
               )}
               {user.class === "guest" ? (
@@ -105,6 +105,7 @@ class Routes extends React.Component {
                 exact
                 component={SingleUser}
               />
+              <Route path="/users/create" component={CreateUser} />
               <Route path="/login" component={Login} />
               <Route path="/cart" component={Cart} />
               <Route path="/admin" exact component={Admin} />
