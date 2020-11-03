@@ -1,12 +1,23 @@
 import React from "react";
 import { HashRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { search } from "../../server/routes/users";
 
 export default class Navbar extends React.Component {
   constructor() {
     super();
+    this.state = {
+      searchValue: "",
+    };
+    this.searchOnChange = this.searchOnChange.bind(this);
+  }
+  searchOnChange(event) {
+    this.setState({
+      searchValue: event.target.value,
+    });
   }
   render() {
     const { user, logout } = this.props;
+    const { searchValue } = this.state;
     console.log("User:", user);
     return (
       <nav>
@@ -28,6 +39,8 @@ export default class Navbar extends React.Component {
         <div className="search-container">
           <form action="/">
             <input
+              value={searchValue}
+              onChange={this.searchOnChange}
               className="searchbar"
               type="text"
               placeholder="Search"
