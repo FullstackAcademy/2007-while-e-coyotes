@@ -15,6 +15,7 @@ export default class ItemFilters extends React.Component {
                 filter={filter}
                 category="itemType"
                 toggleFilter={toggleFilter}
+                checked={filter.on}
               />
             );
           })}
@@ -28,6 +29,7 @@ export default class ItemFilters extends React.Component {
                 filter={filter}
                 category="rarity"
                 toggleFilter={toggleFilter}
+                checked={filter.on}
               />
             );
           })}
@@ -41,6 +43,7 @@ export default class ItemFilters extends React.Component {
                 filter={filter}
                 category="price"
                 toggleFilter={toggleFilter}
+                checked={filter.on}
               />
             );
           })}
@@ -50,13 +53,13 @@ export default class ItemFilters extends React.Component {
   }
 }
 
-const FilterCheckbox = ({ filter, toggleFilter, category }) => {
+const FilterCheckbox = ({ filter, toggleFilter, category, checked }) => {
   return (
     <div className="checkbox-container">
       <label className="filter-checkbox">
         <input
           type="checkbox"
-          defaultChecked={filter.on}
+          checked={checked}
           onChange={() => toggleFilter(filter.value, category)}
         />
         {filter.label}

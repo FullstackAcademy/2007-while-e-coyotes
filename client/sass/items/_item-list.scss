@@ -47,3 +47,25 @@
 .checkbox-container {
   margin: 0 0 0.2rem 0;
 }
+
+.remove-filter-buttons {
+  display: flex;
+  justify-content: flex-start;
+
+  margin: 0 0 10px 0;
+
+  button {
+    height: 30px;
+    padding: 0 14px;
+    background: $light-gray;
+    border-radius: 15px;
+    margin: 0 0.5rem 0 0;
+    border: none;
+    opacity: 0.8;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 1;
+    }
+  }
+}

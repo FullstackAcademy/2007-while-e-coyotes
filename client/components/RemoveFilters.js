@@ -1,6 +1,5 @@
 import React from "react";
 
-//these are cool, but there's a bug and I don't want to fix it right now
 export const RemoveFilters = ({ filterButtons, toggleFilter }) => {
   return (
     <div className="remove-filter-buttons">
@@ -15,7 +14,7 @@ export const RemoveFilters = ({ filterButtons, toggleFilter }) => {
               }}
               key={fil.label}
             >
-              X {fil.label}
+              X Item type: {fil.label}
             </button>
           );
         })}
@@ -27,7 +26,7 @@ export const RemoveFilters = ({ filterButtons, toggleFilter }) => {
               onClick={() => toggleFilter(fil.value, "price")}
               key={fil.label}
             >
-              X {fil.label}
+              X Price: {fil.label}
             </button>
           );
         })}
@@ -39,7 +38,7 @@ export const RemoveFilters = ({ filterButtons, toggleFilter }) => {
               onClick={() => toggleFilter(fil.value, "rarity")}
               key={fil.label}
             >
-              X {fil.label}
+              X Rarity: {fil.label}
             </button>
           );
         })}

@@ -79,8 +79,10 @@ class ItemList extends React.Component {
         />
         <div className="item-list-container">
           {
-            //these are cool but they introduce a bug with the checkboxes
-            // <RemoveFilters filterButtons={filterButtons} toggleFilter={toggleFilter} />
+            <RemoveFilters
+              filterButtons={filterButtons}
+              toggleFilter={toggleFilter}
+            />
           }
           <h3>Total items: {filteredItems.length}</h3>
           <p>
