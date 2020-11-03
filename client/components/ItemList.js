@@ -59,6 +59,7 @@ class ItemList extends React.Component {
       itemType: filterButtons.itemType.filter((fil) => fil.on),
       price: filterButtons.price.filter((fil) => fil.on),
       rarity: filterButtons.rarity.filter((fil) => fil.on),
+      reviews: filterButtons.reviews.filter((fil) => fil.on),
     };
 
     //Get current items
@@ -68,7 +69,7 @@ class ItemList extends React.Component {
     const currentItems = filteredItems.slice(firstItemIndex, lastItemIndex);
 
     //console.log("Filters:", filters);
-    //console.log("Filtered items:", filteredItems);
+    console.log("Filtered items:", filteredItems);
     //console.log("Filter buttons:", filterButtons);
 
     return (
@@ -79,8 +80,10 @@ class ItemList extends React.Component {
         />
         <div className="item-list-container">
           {
-            //these are cool but they introduce a bug with the checkboxes
-            // <RemoveFilters filterButtons={filterButtons} toggleFilter={toggleFilter} />
+            <RemoveFilters
+              filterButtons={filterButtons}
+              toggleFilter={toggleFilter}
+            />
           }
           <h3>Total items: {filteredItems.length}</h3>
           <p>

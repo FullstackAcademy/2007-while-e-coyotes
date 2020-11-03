@@ -16,7 +16,7 @@ export const getItem = (id) => {
   };
 };
 
-export default function singleItemReducer(state = {}, action) {
+export default function singleItemReducer(state = { reviews: [] }, action) {
   if (action.type === GET_ITEM) {
     state = action.item;
   }
