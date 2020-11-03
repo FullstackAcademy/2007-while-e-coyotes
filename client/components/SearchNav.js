@@ -1,10 +1,15 @@
 import React from "react";
 
-const SearchNav = () => {
+const SearchNav = ({ searchParam, handleChange }) => {
   return (
     <div className="search-container">
-      <form action="#/items">
-        <input className="searchbar" type="text" placeholder="Search"></input>
+      <form action={`/items/search?=${{ searchParam }}`}>
+        <input
+          className="searchbar"
+          type="text"
+          placeholder="Search"
+          onChange={handleChange}
+        ></input>
         <button className="search-but" type="submit">
           <img
             className="searchicon"

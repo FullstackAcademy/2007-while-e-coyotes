@@ -20,12 +20,22 @@ import Cart from "./Cart";
 class Routes extends React.Component {
   constructor() {
     super();
+    this.state = {
+      searchParams: "",
+    };
     this.logout = this.logout.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   logout(event) {
     event.preventDefault();
     this.props.logoutUser();
+  }
+
+  handleChange(event) {
+    event.preventDefault();
+    this.setState({ searchParams: event.target.value });
+    console.log(this.state);
   }
 
   render() {
@@ -49,7 +59,10 @@ class Routes extends React.Component {
                 ADMIN
               </Link>
             </div>
-            <SearchNav />
+            <SearchNav
+              searchParams={this.state.searchParams}
+              handleChange={this.handleChange}
+            />
             <div className="account-nav">
               {user.class !== "guest" || (
                 <Link className="navbar" to={`/users/${user.userId}`}>
