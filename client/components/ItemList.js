@@ -1,4 +1,5 @@
 import React from "react";
+import queryString from "query-string";
 import { connect } from "react-redux";
 import { getItems } from "../store/itemsReducer";
 import { itemFilter } from "../utils/index";
@@ -23,23 +24,42 @@ class ItemList extends React.Component {
       currentPage: 1,
       itemsPerPage: 15,
       filterButtons: initialFilterButtons,
+      searchString: "",
     };
     this.changePage = this.changePage.bind(this);
     this.toggleFilter = this.toggleFilter.bind(this);
+    this.seeAllItems = this.seeAllItems.bind(this);
   }
   componentDidMount() {
-    if (this.props.items.length === 0) {
-      this.props.getItems();
+    if (this.props.location.search.length > 0) {
+      const queryObj = queryString.parse(this.props.location.search);
+      const searchString = queryObj.search;
+      this.props.getSearchItems(searchString);
+      this.setState({ searchString: searchString });
+    } else if (this.props.items.length === 0) {
+      this.props.getAllItems();
+    }
+  }
+  componentDidUpdate(_prevProps, prevState) {
+    if (this.props.location.search.length > 0) {
+      const queryObj = queryString.parse(this.props.location.search);
+      const searchString = queryObj.search;
+      if (searchString !== prevState.searchString) {
+        this.props.getSearchItems(searchString);
+        this.setState({ searchString: searchString });
+      }
     }
   }
   changePage(num) {
     this.setState({ currentPage: num });
   }
+  seeAllItems() {
+    this.props.getAllItems();
+    this.setState({ searchString: "" });
+    this.props.history.push("/items");
+  }
   toggleFilter(value, filterKey) {
     const newFilters = this.state.filterButtons[filterKey].map((fil) => {
-      // console.log('fil.val', fil.val);
-      // console.log('value', value);
-      // console.log('fil.on', fil.on);
       if (fil.value === value) fil.on = !fil.on;
       return fil;
     });
@@ -51,9 +71,14 @@ class ItemList extends React.Component {
     });
   }
   render() {
-    const { currentPage, itemsPerPage, filterButtons } = this.state;
+    const {
+      currentPage,
+      itemsPerPage,
+      filterButtons,
+      searchString,
+    } = this.state;
     const { items } = this.props;
-    const { toggleFilter } = this;
+    const { toggleFilter, seeAllItems } = this;
 
     const filters = {
       itemType: filterButtons.itemType.filter((fil) => fil.on),
@@ -85,13 +110,22 @@ class ItemList extends React.Component {
               toggleFilter={toggleFilter}
             />
           }
-          <h3>Total items: {filteredItems.length}</h3>
-          <p>
-            Now showing items {firstItemIndex + 1} through{" "}
-            {filteredItems.length < itemsPerPage
-              ? filteredItems.length
-              : lastItemIndex}{" "}
-          </p>
+          <div className="item-list-info">
+            {searchString.length > 0 ? (
+              <div className="search-results">
+                <h3>{`Showing results for "${searchString}": ${filteredItems.length} items`}</h3>
+                <button onClick={() => seeAllItems()}>See all items</button>
+              </div>
+            ) : (
+              <h3>All items: {filteredItems.length} items</h3>
+            )}
+            <p>
+              Now showing items {firstItemIndex + 1} through{" "}
+              {filteredItems.length < itemsPerPage
+                ? filteredItems.length
+                : lastItemIndex}{" "}
+            </p>
+          </div>
           <div className="grid-container">
             {currentItems.map((item) => {
               return <ItemCard item={item} key={`item_${item.id}`} />;
@@ -119,8 +153,11 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    getItems: () => {
+    getAllItems: () => {
       dispatch(getItems());
+    },
+    getSearchItems: (searchString) => {
+      dispatch(getItems(searchString));
     },
   };
 };

@@ -1,4 +1,5 @@
 const axios = require("axios");
+import { searchFilter } from "../utils/index";
 
 const GET_ITEMS = "GET_ITEMS";
 const UPDATE_ITEM = "UPDATE_ITEM";
@@ -33,10 +34,14 @@ const _destroyItem = (id) => {
   };
 };
 
-export const getItems = () => {
+export const getItems = (searchString) => {
   return async (dispatch) => {
     const response = await axios.get("/api/items");
-    dispatch(_getItems(response.data));
+    if (searchString === undefined) {
+      dispatch(_getItems(response.data));
+    } else {
+      dispatch(_getItems(searchFilter(response.data, searchString)));
+    }
   };
 };
 

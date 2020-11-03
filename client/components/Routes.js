@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { HashRouter as Router, Route, Link, Switch } from "react-router-dom";
+import Navbar from "./Navbar";
 import Home from "./Home";
 import SingleUser from "./SingleUser";
 import Login from "./FormikLogin";
@@ -44,58 +45,7 @@ class Routes extends React.Component {
     return (
       <Router>
         <div>
-          <nav>
-            <div className="shop-nav">
-              <img
-                className="icon"
-                src="https://findicons.com/files/icons/2799/flat_icons/128/teachers_day_shield.png"
-              />
-              <Link className="navbar" to="/">
-                HOME
-              </Link>
-              <Link className="navbar" to="/items">
-                SHOP
-              </Link>
-              <Link className="navbar" to="/admin">
-                ADMIN
-              </Link>
-            </div>
-            <SearchNav
-              searchParams={this.state.searchParams}
-              handleChange={this.handleChange}
-            />
-            <div className="account-nav">
-              {user.class !== "guest" || (
-                <Link className="navbar" to={`/users/create`}>
-                  SIGN UP
-                </Link>
-              )}
-              {user.class === "guest" ? (
-                <Link className="navbar" to="/login">
-                  LOGIN
-                </Link>
-              ) : (
-                <div>
-                  <Link
-                    className="user-icon"
-                    to={`/users/${this.props.user.id || null}`}
-                  >
-                    <img src={this.props.user.userImage} />
-                    <p>{this.props.user.username}</p>
-                  </Link>
-                  <Link className="navbar" to="/" onClick={this.logout}>
-                    LOGOUT
-                  </Link>
-                </div>
-              )}
-              <Link className="navbar" to="/cart">
-                <img
-                  className="cart"
-                  src="https://findicons.com/files/icons/1579/devine/48/cart.png"
-                />
-              </Link>
-            </div>
-          </nav>
+          <Navbar user={user} logout={this.logout} />
           <main>
             <Switch>
               <Route path="/" exact component={Home} />

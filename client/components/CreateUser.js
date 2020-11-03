@@ -13,7 +13,7 @@ export class AddUser extends React.Component {
       address: "",
       class: "adventurer",
       userImage:
-        "https://cdn.discordapp.com/attachments/320416924842590213/768044772648157194/unknown.png",
+        "https://www.uwgc.org/images/default-source/100heroes/hero-icon-three2x.jpg?sfvrsn=6",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
