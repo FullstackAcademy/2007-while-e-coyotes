@@ -1,7 +1,13 @@
 import React from "react";
 import { Form, Field, ErrorMessage } from "formik";
+import { connect } from "react-redux";
+import { fetchCart } from "../store/cartReducer";
 
-export default class Login extends React.Component {
+class Login extends React.Component {
+  componentWillUnmount() {
+    this.props.getCart(this.props.user);
+  }
+
   render() {
     return (
       <div>
@@ -16,3 +22,17 @@ export default class Login extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getCart: (user) => dispatch(fetchCart(user)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
