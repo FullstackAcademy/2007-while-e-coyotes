@@ -9,22 +9,34 @@ import Footer from "./Footer";
 import SingleItem from "./SingleItem";
 import UpdateItem from "./UpdateItem";
 import CreateItem from "./CreateItem";
+import CreateUser from "./CreateUser";
 import Admin from "./Admin";
 import AdminItem from "./AdminItem";
 import AdminOrder from "./AdminOrder";
 import AdminUser from "./AdminUser";
+import SearchNav from "./SearchNav";
 import { logoutUser } from "../store/userReducer";
 import Cart from "./Cart";
 
 class Routes extends React.Component {
   constructor() {
     super();
+    this.state = {
+      searchParams: "",
+    };
     this.logout = this.logout.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   logout(event) {
     event.preventDefault();
     this.props.logoutUser();
+  }
+
+  handleChange(event) {
+    event.preventDefault();
+    this.setState({ searchParams: event.target.value });
+    console.log(this.state);
   }
 
   render() {
@@ -48,19 +60,14 @@ class Routes extends React.Component {
                 ADMIN
               </Link>
             </div>
-            <div className="search-container">
-              <form action="/">
-                <input
-                  className="searchbar"
-                  type="text"
-                  placeholder="Search"
-                ></input>
-              </form>
-            </div>
+            <SearchNav
+              searchParams={this.state.searchParams}
+              handleChange={this.handleChange}
+            />
             <div className="account-nav">
               {user.class !== "guest" || (
-                <Link className="navbar" to={`/users/${user.userId}`}>
-                  MY ACCOUNT
+                <Link className="navbar" to={`/users/create`}>
+                  SIGN UP
                 </Link>
               )}
               {user.class === "guest" ? (
@@ -99,6 +106,7 @@ class Routes extends React.Component {
                 exact
                 component={SingleUser}
               />
+              <Route path="/users/create" component={CreateUser} />
               <Route path="/login" component={Login} />
               <Route path="/cart" component={Cart} />
               <Route path="/admin" exact component={Admin} />
