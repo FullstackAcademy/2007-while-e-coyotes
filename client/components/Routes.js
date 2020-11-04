@@ -18,6 +18,7 @@ import AdminUser from "./AdminUser";
 import SearchNav from "./SearchNav";
 import { logoutUser } from "../store/userReducer";
 import Cart from "./Cart";
+import UpdateUser from "./UpdateUser";
 
 class Routes extends React.Component {
   constructor() {
@@ -57,6 +58,7 @@ class Routes extends React.Component {
                 component={SingleUser}
               />
               <Route path="/users/create" component={CreateUser} />
+              <Route path="/users/update" component={UpdateUser} />
               <Route path="/login" component={Login} />
               <Route path="/cart" component={Cart} />
               <Route path="/admin" exact component={Admin} />

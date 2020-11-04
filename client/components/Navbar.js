@@ -59,7 +59,12 @@ export default class Navbar extends React.Component {
               type="text"
               placeholder="Search"
             ></input>
-            <input type="submit" value="Submit" />
+            <button className="search-but" type="submit">
+              <img
+                className="searchicon"
+                src="https://www.flaticon.com/svg/static/icons/svg/622/622669.svg"
+              />
+            </button>
           </form>
         </div>
         <div className="account-nav">

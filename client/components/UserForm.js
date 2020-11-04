@@ -31,8 +31,8 @@ const RobotForm = ({ handleSubmit, handleChange, user, buttonFunction }) => {
             onChange={handleChange}
             value={user.email}
           />
-          <label htmlFor="fuelType">Class Type: </label>
-          <select name="fuelType" onChange={handleChange} value={user.class}>
+          <label htmlFor="class">Class Type: </label>
+          <select name="class" onChange={handleChange} value={user.class}>
             <option>adventurer</option>
             <option>villain</option>
           </select>

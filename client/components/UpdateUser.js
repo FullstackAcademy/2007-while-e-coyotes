@@ -1,9 +1,9 @@
 import React from "react";
 import UserForm from "./UserForm";
 import { connect } from "react-redux";
-import { createUser } from "../store/usersReducer";
+import { updateUserAsUser } from "../store/usersReducer";
 
-export class AddUser extends React.Component {
+export class UpdateUser extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -27,7 +27,7 @@ export class AddUser extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.createUser(this.state, this.props.history);
+    this.props.updateUserAsUser(this.state, this.props.history);
   }
 
   render() {
@@ -43,8 +43,9 @@ export class AddUser extends React.Component {
 
 const mapDispatch = (dispatch) => {
   return {
-    createUser: (user, history) => dispatch(createUser(user, history)),
+    updateUserAsUser: (user, history) =>
+      dispatch(updateUserAsUser(user, history)),
   };
 };
 
-export default connect(null, mapDispatch)(AddUser);
+export default connect(null, mapDispatch)(UpdateUser);

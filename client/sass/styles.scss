@@ -14,6 +14,7 @@
 body {
   background: $background-gray;
   min-height: 100vh;
+  padding: 0 0 3rem 0;
 }
 
 nav {
@@ -143,12 +144,6 @@ nav {
   width: 50px;
 }
 
-.container {
-  display: flex;
-  border: 0.2rem solid black;
-  padding: 1rem;
-}
-
 .inner-container {
   display: flex;
   flex-direction: column;
@@ -159,4 +154,9 @@ nav {
 .pagelinks {
   text-decoration: none;
   color: red;
+}
+
+.delivered {
+  color: green;
+  font-size: 1.3rem;
 }
