@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { fetchUser } from "../store/userReducer";
 import { fetchCart } from "../store/cartReducer";

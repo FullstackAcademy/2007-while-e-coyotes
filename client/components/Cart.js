@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { deleteItem } from "../store/cartReducer";
+import { CartItem } from "./CartItem";
 
 class Cart extends React.Component {
   render() {
@@ -10,28 +12,20 @@ class Cart extends React.Component {
       <div>
         {cart.items ? (
           <div>
-            {cart.items.map((item) => {
-              const { orderItem } = item;
-              return (
-                <div key={item.id}>
-                  <img src={item.imageUrl} />
-                  Name: {item.name}
-                  Price: {orderItem.priceOrdered}
-                  Quantity: {orderItem.quantity}
-                  <button
-                    onClick={() =>
-                      this.props.removeItemFromCart(
-                        cart.userId,
-                        cart.id,
-                        item.id
-                      )
-                    }
-                  >
-                    Remove From Cart
-                  </button>
-                </div>
-              );
-            })}
+            <div>
+              {/* <div className='cart'> */}
+              {cart.items.map((item) => {
+                const { orderItem } = item;
+                return (
+                  <CartItem
+                    item={item}
+                    cart={cart}
+                    removeItemFromCart={this.props.removeItemFromCart}
+                    key={`cartItem-${item.id}`}
+                  />
+                );
+              })}
+            </div>
             <div>
               <button
                 onClick={() =>
