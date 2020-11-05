@@ -1,6 +1,9 @@
 import React from "react";
 
-const RobotForm = ({ handleSubmit, handleChange, user, buttonFunction }) => {
+const UserForm = ({ handleSubmit, handleChange, user, buttonFunction }) => {
+  const passwordOption = buttonFunction
+    ? "Change Password: "
+    : "Desired Password: ";
   return (
     <div className="input-container">
       <form onSubmit={handleSubmit}>
@@ -17,10 +20,10 @@ const RobotForm = ({ handleSubmit, handleChange, user, buttonFunction }) => {
             onChange={handleChange}
             value={user.username}
           />
-          <label htmlFor="password"> Desired Password: </label>
+          <label htmlFor="password">{passwordOption}</label>
           <input
             name="password"
-            type="text"
+            type="password"
             onChange={handleChange}
             value={user.password}
           />
@@ -52,4 +55,4 @@ const RobotForm = ({ handleSubmit, handleChange, user, buttonFunction }) => {
   );
 };
 
-export default RobotForm;
+export default UserForm;

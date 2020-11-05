@@ -46,7 +46,7 @@ export class SingleUser extends React.Component {
           <h1>{user.username}</h1>
           <p>{`Joined: ${this.modifyDate(user.createdAt)}`}</p>
           <p>{`Email: ${user.email}`}</p>
-          <p>{`Email: ${user.address}`}</p>
+          <p>{`Address: ${user.address}`}</p>
           <Link className="asd" to="/users/update">
             <button type="submit">Edit Profile</button>
           </Link>

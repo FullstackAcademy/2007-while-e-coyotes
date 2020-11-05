@@ -7,13 +7,15 @@ export class AddUser extends React.Component {
   constructor() {
     super();
     this.state = {
-      username: "",
-      password: "",
-      email: "",
-      address: "",
-      class: "adventurer",
-      userImage:
-        "https://www.uwgc.org/images/default-source/100heroes/hero-icon-three2x.jpg?sfvrsn=6",
+      user: {
+        username: "",
+        password: "",
+        email: "",
+        address: "",
+        class: "adventurer",
+        userImage:
+          "https://www.uwgc.org/images/default-source/100heroes/hero-icon-three2x.jpg?sfvrsn=6",
+      },
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,13 +23,13 @@ export class AddUser extends React.Component {
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value,
+      user: { ...this.state.user, [event.target.name]: event.target.value },
     });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.createUser(this.state, this.props.history);
+    this.props.createUser(this.state.user, this.props.history);
   }
 
   render() {
@@ -35,7 +37,7 @@ export class AddUser extends React.Component {
       <UserForm
         handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
-        user={this.state}
+        user={this.state.user}
       />
     );
   }

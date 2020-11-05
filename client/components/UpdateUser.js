@@ -7,27 +7,33 @@ export class UpdateUser extends React.Component {
   constructor() {
     super();
     this.state = {
-      username: "",
-      password: "",
-      email: "",
-      address: "",
-      class: "adventurer",
-      userImage:
-        "https://www.uwgc.org/images/default-source/100heroes/hero-icon-three2x.jpg?sfvrsn=6",
+      user: {
+        username: "",
+        password: "",
+        email: "",
+        address: "",
+        class: "adventurer",
+        userImage:
+          "https://www.uwgc.org/images/default-source/100heroes/hero-icon-three2x.jpg?sfvrsn=6",
+      },
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  // componentDidMount() {
+  //   this.setState({user : this.props.user})
+  // }
+
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value,
+      user: { ...this.state.user, [event.target.name]: event.target.value },
     });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.updateUserAsUser(this.state, this.props.history);
+    this.props.updateUserAsUser(this.state.user, this.props.history);
   }
 
   render() {
@@ -35,11 +41,16 @@ export class UpdateUser extends React.Component {
       <UserForm
         handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
-        user={this.state}
+        user={this.state.user}
+        buttonFunction={"Update"}
       />
     );
   }
 }
+
+const mapState = (state) => {
+  return state;
+};
 
 const mapDispatch = (dispatch) => {
   return {
@@ -48,4 +59,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatch)(UpdateUser);
+export default connect(mapState, mapDispatch)(UpdateUser);
