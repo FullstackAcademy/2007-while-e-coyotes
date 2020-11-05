@@ -46,9 +46,11 @@ export default class Navbar extends React.Component {
           <Link className="navbar" to="/items">
             SHOP
           </Link>
-          <Link className="navbar" to="/admin">
-            ADMIN
-          </Link>
+          {user.class === "admin" && (
+            <Link className="navbar" to="/admin">
+              ADMIN
+            </Link>
+          )}
         </div>
         <div className="search-container">
           <form onSubmit={this.handleSearchSubmit}>
