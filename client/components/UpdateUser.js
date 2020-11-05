@@ -21,9 +21,9 @@ export class UpdateUser extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.setState({user : this.props.user})
-  // }
+  componentDidMount() {
+    this.setState({ user: this.props.user });
+  }
 
   handleChange(event) {
     this.setState({
