@@ -56,7 +56,7 @@ export const createReview = (review, history) => {
   };
 };
 
-export const destroyReview = (review, history) => {
+export const destroyReview = (review) => {
   return async (dispatch) => {
     await axios.delete(`/api/reviews/${review.id}`);
     dispatch(_destroyReview(review.id));

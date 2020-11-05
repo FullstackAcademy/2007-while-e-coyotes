@@ -18,6 +18,7 @@ import { logoutUser } from "../store/userReducer";
 import Cart from "./Cart";
 import UpdateReview from "./UpdateReview";
 import CreateReview from "./CreateReview";
+import SingleAdminOrder from "./SingleAdminOrder";
 
 class Routes extends React.Component {
   constructor() {
@@ -67,6 +68,11 @@ class Routes extends React.Component {
               />
               <Route path="/admin/createItem" exact component={CreateItem} />
               <Route path="/admin/orders" exact component={AdminOrder} />
+              <Route
+                path="/admin/orders/:id"
+                exact
+                component={SingleAdminOrder}
+              />
               <Route path="/admin/users" exact component={AdminUser} />
             </Switch>
           </main>
