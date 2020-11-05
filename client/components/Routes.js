@@ -16,6 +16,8 @@ import AdminOrder from "./AdminOrder";
 import AdminUser from "./AdminUser";
 import { logoutUser } from "../store/userReducer";
 import Cart from "./Cart";
+import UpdateReview from "./UpdateReview";
+import CreateReview from "./CreateReview";
 
 class Routes extends React.Component {
   constructor() {
@@ -39,6 +41,16 @@ class Routes extends React.Component {
               <Route path="/" exact component={Home} />
               <Route path="/items" exact component={ItemList} />
               <Route path="/items/:id" exact component={SingleItem} />
+              <Route
+                path="/items/:id/createReview"
+                exact
+                component={CreateReview}
+              />
+              <Route
+                path="/items/:id/reviews/:reviewId/updateReview"
+                exact
+                component={UpdateReview}
+              />
               <Route
                 path={`/users/${this.props.user.id || null}`}
                 exact

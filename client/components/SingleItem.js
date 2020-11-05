@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { destroyItem } from "../store/itemsReducer";
-import { getItem } from "../store/singleItemReducer";
+import { getItem, destroyReview } from "../store/singleItemReducer";
 import { fetchUser } from "../store/userReducer";
 import { Link } from "react-router-dom";
 import { averageReduce } from "../utils";
@@ -16,8 +16,7 @@ class SingleItem extends React.Component {
   }
   render() {
     const isAdmin = this.props.user && this.props.user.class === "admin";
-    const { singleItem } = this.props;
-    console.log(singleItem);
+    const { singleItem, user } = this.props;
     return (
       <div id="singleItem">
         <Link to="/items">Back to Shopping</Link>
@@ -40,16 +39,25 @@ class SingleItem extends React.Component {
                   from {singleItem.reviews.length} reviews.
                 </p>
               )}
+              <Link to={`/items/${singleItem.id}/createReview`}>
+                Add a new Review!
+              </Link>
             </div>
             {!!singleItem.reviews &&
               singleItem.reviews.map((review) => {
                 return (
                   <div key={`review_${review.id}`}>
                     {review.userId ? (
-                    <ReviewCard
-                      review={review}
-                      key={`item_${singleItem.id}_review${review.id}`}
-                    />
+                      <ReviewCard
+                        review={review}
+                        user={user}
+                        key={`item_${singleItem.id}_review${review.id}`}
+                      />
+                    ) : null}
+                    {isAdmin ? (
+                      <button onClick={() => this.props.destroyReview(review)}>
+                        Delete Review
+                      </button>
                     ) : null}
                   </div>
                 );
@@ -90,6 +98,7 @@ const mapDispatch = (dispatch) => {
     getItem: (id) => dispatch(getItem(id)),
     validateUser: () => dispatch(fetchUser()),
     destroyItem: (id, history) => dispatch(destroyItem(id, history)),
+    destroyReview: (review) => dispatch(destroyReview(review)),
   };
 };
 
