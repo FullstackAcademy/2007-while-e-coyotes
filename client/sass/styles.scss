@@ -4,6 +4,7 @@
 @import 'items/item-card';
 @import 'items/item-list';
 @import 'items/single-item';
+@import 'admin/';
 @import 'components/pagination';
 
 * {
@@ -30,6 +31,17 @@ nav {
     justify-content: space-around;
     align-items: center;
   }
+}
+
+main > div {
+  margin: 3rem auto 0 auto;
+  max-width: 1080px;
+  padding-bottom: $footer-height + 3.5rem;
+}
+
+.home {
+  margin: 0;
+  max-width: none;
 }
 
 .icon {
@@ -84,6 +96,7 @@ nav {
 .footer {
   font-size: 0.7rem;
   position: fixed;
+  height: $footer-height;
   bottom: 0;
   padding: 0.5rem;
   width: 100%;

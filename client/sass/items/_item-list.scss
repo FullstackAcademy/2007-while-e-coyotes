@@ -1,10 +1,4 @@
 #itemList{
-  max-width: 1020px;
-  margin: 3rem auto 0 auto;
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  grid-gap: 2rem;
-  padding: 0 1rem;
 
   .grid-container {
     display: grid;
@@ -16,6 +10,9 @@
 #filters {
   background: $light-gray;
   padding: 1rem;
+  float: left;
+  width: 180px;
+  margin: 0 2rem 0 0;
 }
 
 .filter-section {
@@ -51,7 +48,7 @@
 .remove-filter-buttons {
   display: flex;
   justify-content: flex-start;
-
+  flex-wrap: wrap;
   margin: 0 0 10px 0;
 
   button {
@@ -59,7 +56,7 @@
     padding: 0 14px;
     background: $light-gray;
     border-radius: 15px;
-    margin: 0 0.5rem 0 0;
+    margin: 0 0.5rem 0.5rem 0;
     border: none;
     opacity: 0.8;
 

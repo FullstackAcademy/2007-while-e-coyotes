@@ -35,7 +35,7 @@ class ItemList extends React.Component {
       const queryObj = queryString.parse(this.props.location.search);
       const searchString = queryObj.search;
       this.props.getSearchItems(searchString);
-      this.setState({ searchString: searchString });
+      this.setState({ searchString: searchString, currentPage: 1 });
     } else if (this.props.items.length === 0) {
       this.props.getAllItems();
     }
@@ -46,7 +46,7 @@ class ItemList extends React.Component {
       const searchString = queryObj.search;
       if (searchString !== prevState.searchString) {
         this.props.getSearchItems(searchString);
-        this.setState({ searchString: searchString });
+        this.setState({ searchString: searchString, currentPage: 1 });
       }
     }
   }
@@ -68,6 +68,7 @@ class ItemList extends React.Component {
         ...this.state.filterButtons,
         [filterKey]: newFilters,
       },
+      currentPage: 1,
     });
   }
   render() {
