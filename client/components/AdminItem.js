@@ -13,7 +13,7 @@ class AdminItem extends React.Component {
   render() {
     const isAdmin = this.props.user && this.props.user.class === "admin";
     return isAdmin ? (
-      <div className="admin">
+      <div className="admin admin__item">
         <Link to="/admin/createItem">Create an Item</Link>
       </div>
     ) : (

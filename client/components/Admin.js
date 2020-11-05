@@ -14,13 +14,14 @@ class Admin extends React.Component {
     const isAdmin = this.props.user && this.props.user.class === "admin";
     return isAdmin ? (
       <div className="adminBar">
-        <Link className="admin" to="/admin/items">
+        <h2>Admin functions</h2>
+        <Link className="admin-link" to="/admin/items">
           Product Management
         </Link>
-        <Link className="admin" to="/admin/orders">
+        <Link className="admin-link" to="/admin/orders">
           Order Management
         </Link>
-        <Link className="admin" to="/admin/users">
+        <Link className="admin-link" to="/admin/users">
           User Management
         </Link>
       </div>

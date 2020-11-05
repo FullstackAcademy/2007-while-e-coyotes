@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const UserCard = ({ user }) => {
   return (
     <div className="userCard">
-      <div className="">
+      <div className="userImg">
         <img src={user.userImage} />
       </div>
       <div className="userInfo">

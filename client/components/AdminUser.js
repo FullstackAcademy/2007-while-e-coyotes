@@ -18,7 +18,7 @@ class AdminUser extends React.Component {
     const isAdmin = this.props.user && this.props.user.class === "admin";
     const { users } = this.props;
     return isAdmin ? (
-      <div className="admin">
+      <div className="admin admin__users">
         {users
           ? users.map((user) => {
               return (

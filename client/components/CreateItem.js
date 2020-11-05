@@ -53,50 +53,53 @@ class CreateItem extends React.Component {
     } = this.state;
     const { save } = this;
     return isAdmin ? (
-      <div>
-        <form onSubmit={save}>
-          <div>Item Name:</div>
-          <input
-            value={name}
-            onChange={(ev) => this.setState({ name: ev.target.value })}
-          />
-          <div>Item Description: </div>
-          <input
-            value={description}
-            onChange={(ev) => this.setState({ description: ev.target.value })}
-          />
-          <div>Item Price: $</div>
-          <input
-            value={price}
-            onChange={(ev) => this.setState({ price: ev.target.value })}
-          />
-          <div>Item imageUrl: </div>
-          <input
-            value={imageUrl}
-            onChange={(ev) => this.setState({ imageUrl: ev.target.value })}
-          />
-          <div>Item Inventory: </div>
-          <input
-            value={inventory}
-            onChange={(ev) => this.setState({ inventory: ev.target.value })}
-          />
-          <div>Item Rarity: </div>
-          <input
-            value={rarity}
-            onChange={(ev) => this.setState({ rarity: ev.target.value })}
-          />
-          <div>Item Type: </div>
-          <input
-            value={itemType}
-            onChange={(ev) => this.setState({ itemType: ev.target.value })}
-          />
-          <div>Item Class: </div>
-          <input
-            value={itemClass}
-            onChange={(ev) => this.setState({ itemClass: ev.target.value })}
-          />
-          <button disabled={!name}>Create Item</button>
-        </form>
+      <div id="createItem">
+        <div className="form-container">
+          <h2>Create item</h2>
+          <form onSubmit={save}>
+            <div>Item Name:</div>
+            <input
+              value={name}
+              onChange={(ev) => this.setState({ name: ev.target.value })}
+            />
+            <div>Item Description: </div>
+            <input
+              value={description}
+              onChange={(ev) => this.setState({ description: ev.target.value })}
+            />
+            <div>Item Price: $</div>
+            <input
+              value={price}
+              onChange={(ev) => this.setState({ price: ev.target.value })}
+            />
+            <div>Item imageUrl: </div>
+            <input
+              value={imageUrl}
+              onChange={(ev) => this.setState({ imageUrl: ev.target.value })}
+            />
+            <div>Item Inventory: </div>
+            <input
+              value={inventory}
+              onChange={(ev) => this.setState({ inventory: ev.target.value })}
+            />
+            <div>Item Rarity: </div>
+            <input
+              value={rarity}
+              onChange={(ev) => this.setState({ rarity: ev.target.value })}
+            />
+            <div>Item Type: </div>
+            <input
+              value={itemType}
+              onChange={(ev) => this.setState({ itemType: ev.target.value })}
+            />
+            <div>Item Class: </div>
+            <input
+              value={itemClass}
+              onChange={(ev) => this.setState({ itemClass: ev.target.value })}
+            />
+            <button disabled={!name}>Create Item</button>
+          </form>
+        </div>
       </div>
     ) : (
       <div>Sorry, you are not an admin.</div>
