@@ -24,10 +24,11 @@ export const getOrders = () => {
   };
 };
 
-export const updateOrder = (order) => {
+export const updateOrder = (order, history) => {
   return async (dispatch) => {
-    const response = await axios.put(`/api/orders/${order.id}`);
+    const response = await axios.put(`/api/orders/${order.id}`, order);
     dispatch(_updateOrder(response.data));
+    history.push("/admin/orders/");
   };
 };
 

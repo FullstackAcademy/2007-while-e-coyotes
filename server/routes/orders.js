@@ -136,7 +136,7 @@ orderRoute.put("/:id", async (req, res, next) => {
       const order = await Order.findByPk(req.params.id, {
         include: [{ model: Item }, { model: User }],
       });
-      await Order.update(req.body);
+      await Order.update(req.body, { where: { id: req.params.id } });
       res.send(order);
     } else {
       res.sendStatus(403);
