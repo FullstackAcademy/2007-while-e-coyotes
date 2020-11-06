@@ -37,6 +37,7 @@ export const fetchCart = (user) => {
 export const addItem = (userId, cartId, itemId) => {
   return async (dispatch) => {
     try {
+      console.log("!!!", itemId);
       const { data } = await axios.post(
         `/api/orders/cart/${userId}/${cartId}/${itemId}`
       );
