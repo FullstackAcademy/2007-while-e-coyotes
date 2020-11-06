@@ -176,3 +176,36 @@ main > div {
   color: green;
   font-size: 1.3rem;
 }
+
+.loot-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lootbox {
+  width: 20rem;
+  height: 20rem;
+}
+
+.itemrow {
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+
+.category {
+  padding: 2rem 0 1rem 0;
+  text-align: center;
+}
+
+.home-items {
+  padding: 1rem 1rem 10rem 1rem;
+  width: 20rem;
+  height: 20rem;
+}
+
+.fancy {
+  font-family: 'Merienda', cursive;
+  color: #302f2f
+}
