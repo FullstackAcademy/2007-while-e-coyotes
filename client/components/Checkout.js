@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
-import { makeNewOrder } from "../store/CartReducer";
+import { makeNewOrder } from "../store/cartReducer";
 
 class Checkout extends React.Component {
   constructor() {
