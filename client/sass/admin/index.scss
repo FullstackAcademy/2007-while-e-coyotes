@@ -1,8 +1,23 @@
 .admin {
-  &__users {
+  h2 {
+    text-align: center;
+    margin: 0 0 1rem 0;
+  }
+
+  .grid-container {
     display: grid;
     grid-gap: 2rem;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+      color: $burnt-orange;
+      text-decoration: underline;
+    }
   }
 }
 

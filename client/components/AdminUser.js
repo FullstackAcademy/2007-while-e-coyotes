@@ -19,22 +19,25 @@ class AdminUser extends React.Component {
     const { users } = this.props;
     return isAdmin ? (
       <div className="admin admin__users">
-        {users
-          ? users.map((user) => {
-              return (
-                <div key={`userCard_${user.id}`}>
-                  <UserCard user={user} key={`user_${user.id}`} />
-                  <button
-                    key={`deleteUser_${user.id}`}
-                    onClick={() => this.props.destroyUser(user)}
-                  >
-                    {" "}
-                    Delete User
-                  </button>
-                </div>
-              );
-            })
-          : null}
+        <h2>Users</h2>
+        <div className="grid-container">
+          {users
+            ? users.map((user) => {
+                return (
+                  <div key={`userCard_${user.id}`}>
+                    <UserCard user={user} key={`user_${user.id}`} />
+                    <button
+                      key={`deleteUser_${user.id}`}
+                      onClick={() => this.props.destroyUser(user)}
+                    >
+                      {" "}
+                      Delete User
+                    </button>
+                  </div>
+                );
+              })
+            : null}
+        </div>
       </div>
     ) : (
       <div>Sorry, you are not an admin.</div>
