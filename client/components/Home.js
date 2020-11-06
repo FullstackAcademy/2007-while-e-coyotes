@@ -1,10 +1,28 @@
 import React from "react";
+import { Carousel } from "react-responsive-carousel";
 
 const Home = () => {
   return (
-    <div className="home">
-      <img src="https://cdn.mmos.com/wp-content/uploads/2015/10/pocket-maplestory-banner.jpg" />
-    </div>
+    <Carousel autoPlay>
+      <div>
+        <img
+          alt=""
+          src="https://i.pinimg.com/originals/0b/a3/d6/0ba3d60362c7e6d256cfc1f37156bad9.jpg"
+        />
+        <p className="legend">Banner 1</p>
+      </div>
+      <div>
+        <img alt="" src="https://s.lootboxcash.com/images/LootboxBanner.png" />
+        <p className="legend">Banner 2</p>
+      </div>
+      <div>
+        <img
+          alt=""
+          src="https://i.pinimg.com/originals/0b/a3/d6/0ba3d60362c7e6d256cfc1f37156bad9.jpg"
+        />
+        <p className="legend">Hi Eliot, this is Aminoor</p>
+      </div>
+    </Carousel>
   );
 };
 

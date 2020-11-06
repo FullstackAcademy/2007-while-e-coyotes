@@ -1,5 +1,5 @@
 const express = require("express");
-const { db, Order, Item, User } = require("../db");
+const { db, Order, Item, User, OrderItems } = require("../db");
 const { red } = require("chalk");
 const { uuid } = require("uuidv4");
 const stripe = require("stripe")(
@@ -11,7 +11,19 @@ orderRoute.get("/", async (req, res, next) => {
   try {
     const admin = req.user && req.user.class === "admin";
     if (admin) {
-      res.send(await Order.findAll());
+      res.send(
+        await Order.findAll({
+          include: [
+            { model: Item },
+            {
+              model: User,
+              attributes: {
+                exclude: ["password"],
+              },
+            },
+          ],
+        })
+      );
     } else {
       res.sendStatus(403);
     }
@@ -28,8 +40,12 @@ orderRoute.get("/:id", async (req, res, next) => {
       res.send(
         await Order.findByPk(req.params.id, {
           include: [
+            { model: Item },
             {
-              model: Item,
+              model: User,
+              attributes: {
+                exclude: ["password"],
+              },
             },
           ],
         })
@@ -62,6 +78,36 @@ orderRoute.get("/cart/:userId", async (req, res, next) => {
       );
     } else {
       res.sendStatus(403);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+orderRoute.post("/cart/:userId/:cartId/:itemId", async (req, res, next) => {
+  try {
+    const admin = req.user && req.user.class === "admin";
+    const ownUser = req.user.id === req.params.userId * 1;
+    if (admin || ownUser) {
+      const userCart = await Order.findByPk(req.params.cartId, {
+        include: [{ model: Item }],
+      });
+      const gotOrderItem = await OrderItems.findOne({
+        where: { orderId: req.params.cartId, itemId: req.params.itemId },
+      });
+      if (!gotOrderItem) {
+        const newOrderItem = await OrderItems.create({
+          orderId: req.params.cartId,
+          itemId: req.params.itemId,
+          quantity: 1,
+        });
+      } else {
+        gotOrderItem.quantity += 1;
+        await gotOrderItem.save();
+      }
+
+      await userCart.reload();
+      res.send(userCart);
     }
   } catch (err) {
     next(err);
@@ -121,8 +167,10 @@ orderRoute.put("/:id", async (req, res, next) => {
     const admin = req.user && req.user.class === "admin";
     const ownUser = req.user.id === req.params.id * 1;
     if (admin || ownUser) {
-      const order = await Order.findByPk(req.params.id);
-      await Order.update(req.body);
+      const order = await Order.findByPk(req.params.id, {
+        include: [{ model: Item }, { model: User }],
+      });
+      await Order.update(req.body, { where: { id: req.params.id } });
       res.send(order);
     } else {
       res.sendStatus(403);

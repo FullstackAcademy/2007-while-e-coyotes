@@ -5,6 +5,7 @@
 @import 'items/item-list';
 @import 'items/single-item';
 @import 'components/pagination';
+@import 'components/carousel';
 
 * {
   margin: 0rem;
@@ -14,6 +15,7 @@
 body {
   background: $background-gray;
   min-height: 100vh;
+  padding: 0 0 3rem 0;
 }
 
 nav {
@@ -60,25 +62,47 @@ nav {
 }
 
 .search-container {
-  width: 20%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   button {
     float: right;
-    padding: 1rem;
-    margin-top: 8px;
-    margin-right: 16px;
     background: #ddd;
     font-size: 17px;
     border: none;
     cursor: pointer;
   }
-}
 
-.searchbar {
-  font-size: 1rem;
-  border: none;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
+  .searchbar {
+    width: 40rem;
+    font-size: 1rem;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem 0 0 0.5rem;
+    box-shadow: 0 5px 10px rgb(0, 0, 0);
+  }
+
+  .search-but {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.1rem;
+    background-color: rgb(233, 104, 44);;
+    color: white;
+    border-radius: 0 0.5rem 0.5rem 0;
+    box-shadow: 0 5px 10px rgb(0, 0, 0);
+  }
+
+  .searchicon {
+    height: 1.3rem;
+    width: 1.3rem;
+
+    &:hover {
+      filter: invert(1);
+    }
+  }
 }
 
 .footer {
@@ -107,6 +131,7 @@ nav {
   border-radius: 10px;
   transition: background-color 0.25s;
   transition: border-radius 0.25s;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.397);
 
   &:hover {
     background-color: rgb(233, 104, 44);
@@ -120,12 +145,6 @@ nav {
   width: 50px;
 }
 
-.container {
-  display: flex;
-  border: 0.2rem solid black;
-  padding: 1rem;
-}
-
 .inner-container {
   display: flex;
   flex-direction: column;
@@ -136,4 +155,9 @@ nav {
 .pagelinks {
   text-decoration: none;
   color: red;
+}
+
+.delivered {
+  color: green;
+  font-size: 1.3rem;
 }

@@ -28,6 +28,10 @@ export class SingleUser extends React.Component {
     return `${month}, ${day}, ${year} ${hours}:${minutes} ${ampm}`;
   }
 
+  capFirst(str) {
+    return str[0].toUpperCase() + str.slice(1);
+  }
+
   render() {
     const { user } = this.props;
     const inCart = user.orders.filter((order) => order.status === "cart");
@@ -42,8 +46,10 @@ export class SingleUser extends React.Component {
           <h1>{user.username}</h1>
           <p>{`Joined: ${this.modifyDate(user.createdAt)}`}</p>
           <p>{`Email: ${user.email}`}</p>
-          <p>{`Email: ${user.address}`}</p>
-          <button type="submit">Edit Profile</button>
+          <p>{`Address: ${user.address}`}</p>
+          <Link className="asd" to="/users/update">
+            <button type="submit">Edit Profile</button>
+          </Link>
         </div>
 
         <div className="inner-container">
@@ -63,13 +69,19 @@ export class SingleUser extends React.Component {
         </div>
 
         <h3>Currently pending orders:</h3>
-        <div className="container">
+        <div className="inner-container">
           {ordered.length ? (
             ordered.map((order) => {
               return (
                 <div className="inner-container" key={order.id}>
                   <p>Ordered on: {this.modifyDate(order.createdAt)}</p>
-                  <p>Status: {order.status}</p>
+                  <p
+                    className={
+                      order.status === "delivered" ? "delivered" : "pending"
+                    }
+                  >
+                    {this.capFirst(order.status)}
+                  </p>
                   <div className="container">
                     {order.items.map((order) => (
                       <ItemCard key={order.id} item={order} />
@@ -84,13 +96,19 @@ export class SingleUser extends React.Component {
         </div>
 
         <h3>Order history:</h3>
-        <div className="container">
+        <div className="inner-container">
           {orderHistory.length ? (
             orderHistory.map((order) => {
               return (
                 <div className="inner-container" key={order.id}>
                   <p>Ordered on: {this.modifyDate(order.createdAt)}</p>
-                  <p>Status: {order.status}</p>
+                  <p
+                    className={
+                      order.status === "delivered" ? "delivered" : "pending"
+                    }
+                  >
+                    {this.capFirst(order.status)}
+                  </p>
                   <div className="container">
                     {order.items.map((order) => (
                       <ItemCard key={order.id} item={order} />
@@ -105,7 +123,7 @@ export class SingleUser extends React.Component {
         </div>
 
         <h3>Your Reviews:</h3>
-        <div className="container">
+        <div className="inner-container">
           {user.reviews.map((review) => {
             return (
               <div className="inner-container" key={review.id}>
