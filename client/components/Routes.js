@@ -20,6 +20,9 @@ import { logoutUser } from "../store/userReducer";
 import Cart from "./Cart";
 import UpdateUser from "./UpdateUser";
 import LootBox from "./LootBox";
+import UpdateReview from "./UpdateReview";
+import CreateReview from "./CreateReview";
+import SingleAdminOrder from "./SingleAdminOrder";
 
 class Routes extends React.Component {
   constructor() {
@@ -55,6 +58,16 @@ class Routes extends React.Component {
               <Route path="/items/:id" exact component={SingleItem} />
               <Route path="/lootbox" exact component={LootBox} />
               <Route
+                path="/items/:id/createReview"
+                exact
+                component={CreateReview}
+              />
+              <Route
+                path="/items/:id/reviews/:reviewId/updateReview"
+                exact
+                component={UpdateReview}
+              />
+              <Route
                 path={`/users/${this.props.user.id || null}`}
                 exact
                 component={SingleUser}
@@ -72,6 +85,11 @@ class Routes extends React.Component {
               />
               <Route path="/admin/createItem" exact component={CreateItem} />
               <Route path="/admin/orders" exact component={AdminOrder} />
+              <Route
+                path="/admin/orders/:id"
+                exact
+                component={SingleAdminOrder}
+              />
               <Route path="/admin/users" exact component={AdminUser} />
             </Switch>
           </main>
