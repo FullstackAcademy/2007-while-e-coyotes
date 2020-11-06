@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { deleteItem } from "../store/cartReducer";
 import { CartItem } from "./CartItem";
+import Checkout from "./Checkout";
 
 class Cart extends React.Component {
   render() {
@@ -27,13 +28,7 @@ class Cart extends React.Component {
               })}
             </div>
             <div>
-              <button
-                onClick={() =>
-                  console.log("need to add a checkout component :^)")
-                }
-              >
-                Checkout!
-              </button>
+              <Checkout />
             </div>
           </div>
         ) : (
