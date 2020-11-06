@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getItems } from "../store/itemsReducer";
-import { getItem } from "../store/singleItemReducer";
+import { ItemCard } from "./ItemCard";
 
 class LootBox extends React.Component {
   constructor() {
@@ -24,16 +24,21 @@ class LootBox extends React.Component {
     }
 
     return (
-      <div>
-        {randomItem ? (
+      <div className="loot-container">
+        {randomItem && !this.state.clicked ? (
           <button
             type="submit"
             onClick={() => this.setState({ clicked: true })}
           >
-            Click to Open!!!
+            Click to Open!
           </button>
         ) : null}
-        {this.state.clicked ? <h1>{randomItem.name}</h1> : null}
+        {this.state.clicked ? (
+          <div className="lootbox">
+            <ItemCard item={randomItem} />
+            <i className="fancy">{`\n${randomItem.description}`}</i>
+          </div>
+        ) : null}
       </div>
     );
   }

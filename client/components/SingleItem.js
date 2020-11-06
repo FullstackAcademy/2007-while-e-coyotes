@@ -34,8 +34,8 @@ class SingleItem extends React.Component {
         <div className="itemDetail">
           <h1>{singleItem.name}</h1>
           <p>${singleItem.price}</p>
-          <p>{singleItem.description}</p>
-          {cart.userId ? (
+          <p className="fancy">{singleItem.description}</p>
+          {this.props ? (
             <button
               onClick={() =>
                 this.props.addItem(cart.userId, cart.id, singleItem.id)
