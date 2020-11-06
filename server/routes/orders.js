@@ -7,7 +7,19 @@ orderRoute.get("/", async (req, res, next) => {
   try {
     const admin = req.user && req.user.class === "admin";
     if (admin) {
-      res.send(await Order.findAll());
+      res.send(
+        await Order.findAll({
+          include: [
+            { model: Item },
+            {
+              model: User,
+              attributes: {
+                exclude: ["password"],
+              },
+            },
+          ],
+        })
+      );
     } else {
       res.sendStatus(403);
     }
@@ -24,8 +36,12 @@ orderRoute.get("/:id", async (req, res, next) => {
       res.send(
         await Order.findByPk(req.params.id, {
           include: [
+            { model: Item },
             {
-              model: Item,
+              model: User,
+              attributes: {
+                exclude: ["password"],
+              },
             },
           ],
         })
@@ -64,6 +80,24 @@ orderRoute.get("/cart/:userId", async (req, res, next) => {
   }
 });
 
+orderRoute.post("/cart/:userId/:cartId/:itemId", async (req, res, next) => {
+  try {
+    const admin = req.user && req.user.class === "admin";
+    const ownUser = req.user.id === req.params.userId * 1;
+    if (admin || ownUser) {
+      const userCart = await Order.findByPk(req.params.cartId, {
+        include: [{ model: Item }],
+      });
+      const itemToBuy = await Item.findByPk(req.params.itemId);
+      await userCart.addItem(itemToBuy);
+      await userCart.reload();
+      res.send(userCart);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
 orderRoute.delete("/cart/:userId/:cartId/:itemId", async (req, res, next) => {
   try {
     const admin = req.user && req.user.class === "admin";
@@ -73,6 +107,8 @@ orderRoute.delete("/cart/:userId/:cartId/:itemId", async (req, res, next) => {
         include: [{ model: Item }],
       });
       const itemToDelete = await Item.findByPk(req.params.itemId);
+
+      console.log("userCart", userCart);
       await userCart.removeItem(itemToDelete);
       await userCart.reload();
       res.send(userCart);
@@ -117,8 +153,10 @@ orderRoute.put("/:id", async (req, res, next) => {
     const admin = req.user && req.user.class === "admin";
     const ownUser = req.user.id === req.params.id * 1;
     if (admin || ownUser) {
-      const order = await Order.findByPk(req.params.id);
-      await Order.update(req.body);
+      const order = await Order.findByPk(req.params.id, {
+        include: [{ model: Item }, { model: User }],
+      });
+      await Order.update(req.body, { where: { id: req.params.id } });
       res.send(order);
     } else {
       res.sendStatus(403);
