@@ -46,9 +46,14 @@ export default class Navbar extends React.Component {
           <Link className="navbar" to="/items">
             SHOP
           </Link>
-          <Link className="navbar" to="/admin">
-            ADMIN
+          <Link className="navbar" to="/lootbox">
+            LOOT BOX
           </Link>
+          {user.username === "admin" ? (
+            <Link className="navbar" to="/admin">
+              ADMIN
+            </Link>
+          ) : null}
         </div>
         <div className="search-container">
           <form onSubmit={this.handleSearchSubmit}>

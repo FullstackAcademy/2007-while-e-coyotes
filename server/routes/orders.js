@@ -64,6 +64,24 @@ orderRoute.get("/cart/:userId", async (req, res, next) => {
   }
 });
 
+orderRoute.post("/cart/:userId/:cartId/:itemId", async (req, res, next) => {
+  try {
+    const admin = req.user && req.user.class === "admin";
+    const ownUser = req.user.id === req.params.userId * 1;
+    if (admin || ownUser) {
+      const userCart = await Order.findByPk(req.params.cartId, {
+        include: [{ model: Item }],
+      });
+      const itemToBuy = await Item.findByPk(req.params.itemId);
+      await userCart.addItem(itemToBuy);
+      await userCart.reload();
+      res.send(userCart);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
 orderRoute.delete("/cart/:userId/:cartId/:itemId", async (req, res, next) => {
   try {
     const admin = req.user && req.user.class === "admin";
@@ -73,6 +91,8 @@ orderRoute.delete("/cart/:userId/:cartId/:itemId", async (req, res, next) => {
         include: [{ model: Item }],
       });
       const itemToDelete = await Item.findByPk(req.params.itemId);
+
+      console.log("userCart", userCart);
       await userCart.removeItem(itemToDelete);
       await userCart.reload();
       res.send(userCart);

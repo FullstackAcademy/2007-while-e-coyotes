@@ -19,6 +19,7 @@ import SearchNav from "./SearchNav";
 import { logoutUser } from "../store/userReducer";
 import Cart from "./Cart";
 import UpdateUser from "./UpdateUser";
+import LootBox from "./LootBox";
 
 class Routes extends React.Component {
   constructor() {
@@ -52,6 +53,7 @@ class Routes extends React.Component {
               <Route path="/" exact component={Home} />
               <Route path="/items" exact component={ItemList} />
               <Route path="/items/:id" exact component={SingleItem} />
+              <Route path="/lootbox" exact component={LootBox} />
               <Route
                 path={`/users/${this.props.user.id || null}`}
                 exact
