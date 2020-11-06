@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("../db");
 const Review = db.Review;
+const User = db.User;
 
 const reviewRoute = express.Router();
 
@@ -23,7 +24,10 @@ reviewRoute.get("/:id", async (req, res, next) => {
 reviewRoute.post("/", async (req, res, next) => {
   try {
     const review = await Review.create(req.body);
-    res.status(201).send(review);
+    const reviewWithUser = await Review.findByPk(review.id, {
+      include: [{ model: User }],
+    });
+    res.status(201).send(reviewWithUser);
   } catch (err) {
     console.log(err);
   }
@@ -40,8 +44,10 @@ reviewRoute.delete("/:id", async (req, res, next) => {
 
 reviewRoute.put("/:id", async (req, res, next) => {
   try {
-    const review = await Review.findByPk(req.params.id);
-    await Review.update(req.body);
+    const review = await Review.findByPk(req.params.id, {
+      include: [{ model: User }],
+    });
+    await Review.update(req.body, { where: { id: req.params.id } });
     res.send(review);
   } catch (err) {
     console.log(err);
