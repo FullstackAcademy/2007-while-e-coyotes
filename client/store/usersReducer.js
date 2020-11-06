@@ -48,11 +48,19 @@ export const updateUser = (user, history) => {
   };
 };
 
+export const updateUserAsUser = (user, history) => {
+  return async (dispatch) => {
+    const response = await axios.put(`/api/users/${user.id}`, user);
+    dispatch(_updateUser(response.data));
+    history.push(`/users/${user.id}`);
+  };
+};
+
 export const createUser = (user, history) => {
   return async (dispatch) => {
     const res = await axios.post("/api/users", user);
     dispatch(_createUser(res.data));
-    history.push("/admin/users");
+    history.push("/");
   };
 };
 
