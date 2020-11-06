@@ -1,5 +1,5 @@
 const express = require("express");
-const { db, Order, Item, User } = require("../db");
+const { db, Order, Item, User, OrderItems } = require("../db");
 const { red } = require("chalk");
 const orderRoute = express.Router();
 
@@ -72,8 +72,20 @@ orderRoute.post("/cart/:userId/:cartId/:itemId", async (req, res, next) => {
       const userCart = await Order.findByPk(req.params.cartId, {
         include: [{ model: Item }],
       });
-      const itemToBuy = await Item.findByPk(req.params.itemId);
-      await userCart.addItem(itemToBuy);
+      const gotOrderItem = await OrderItems.findOne({
+        where: { orderId: req.params.cartId, itemId: req.params.itemId },
+      });
+      if (!gotOrderItem) {
+        const newOrderItem = await OrderItems.create({
+          orderId: req.params.cartId,
+          itemId: req.params.itemId,
+          quantity: 1,
+        });
+      } else {
+        gotOrderItem.quantity += 1;
+        await gotOrderItem.save();
+      }
+
       await userCart.reload();
       res.send(userCart);
     }
@@ -91,8 +103,6 @@ orderRoute.delete("/cart/:userId/:cartId/:itemId", async (req, res, next) => {
         include: [{ model: Item }],
       });
       const itemToDelete = await Item.findByPk(req.params.itemId);
-
-      console.log("userCart", userCart);
       await userCart.removeItem(itemToDelete);
       await userCart.reload();
       res.send(userCart);
