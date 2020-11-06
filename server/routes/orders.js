@@ -7,7 +7,19 @@ orderRoute.get("/", async (req, res, next) => {
   try {
     const admin = req.user && req.user.class === "admin";
     if (admin) {
-      res.send(await Order.findAll());
+      res.send(
+        await Order.findAll({
+          include: [
+            { model: Item },
+            {
+              model: User,
+              attributes: {
+                exclude: ["password"],
+              },
+            },
+          ],
+        })
+      );
     } else {
       res.sendStatus(403);
     }
@@ -24,8 +36,12 @@ orderRoute.get("/:id", async (req, res, next) => {
       res.send(
         await Order.findByPk(req.params.id, {
           include: [
+            { model: Item },
             {
-              model: Item,
+              model: User,
+              attributes: {
+                exclude: ["password"],
+              },
             },
           ],
         })
@@ -147,8 +163,10 @@ orderRoute.put("/:id", async (req, res, next) => {
     const admin = req.user && req.user.class === "admin";
     const ownUser = req.user.id === req.params.id * 1;
     if (admin || ownUser) {
-      const order = await Order.findByPk(req.params.id);
-      await Order.update(req.body);
+      const order = await Order.findByPk(req.params.id, {
+        include: [{ model: Item }, { model: User }],
+      });
+      await Order.update(req.body, { where: { id: req.params.id } });
       res.send(order);
     } else {
       res.sendStatus(403);
