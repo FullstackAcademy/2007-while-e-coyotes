@@ -46,6 +46,22 @@ export const itemFilter = (itemsArr, filters) => {
   });
 };
 
+export const itemRarityFinder = (num) => {
+  let returnStr = "";
+  if (num <= 20) {
+    returnStr = "rusty";
+  } else if (num > 20 && num <= 40) {
+    returnStr = "standard";
+  } else if (num > 40 && num <= 60) {
+    returnStr = "magic";
+  } else if (num > 60 && num <= 80) {
+    returnStr = "rare";
+  } else {
+    returnStr = "legendary";
+  }
+  return returnStr;
+};
+
 //constructing range objects for rarity/price filters
 export class rangeConstructor {
   constructor(min, max, rarity = null) {
