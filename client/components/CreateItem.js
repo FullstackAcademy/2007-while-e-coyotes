@@ -12,9 +12,9 @@ class CreateItem extends React.Component {
       price: 0,
       inventory: 100,
       rarity: 1,
-      itemType: "",
+      itemType: "sword",
       // type: ('sword', 'dagger', 'bow', 'magic'),
-      itemClass: "",
+      itemClass: "adventurer",
       // type: ('adventurer', 'villain'),
       imageUrl: "",
     };
@@ -55,7 +55,6 @@ class CreateItem extends React.Component {
     return isAdmin ? (
       <div id="createItem">
         <div className="form-container">
-          <h2>Create item</h2>
           <form onSubmit={save}>
             <div>Item Name:</div>
             <input
@@ -88,15 +87,23 @@ class CreateItem extends React.Component {
               onChange={(ev) => this.setState({ rarity: ev.target.value })}
             />
             <div>Item Type: </div>
-            <input
+            <select
               value={itemType}
               onChange={(ev) => this.setState({ itemType: ev.target.value })}
-            />
+            >
+              <option value="sword">Sword</option>
+              <option value="dagger">Dagger </option>
+              <option value="bow">Bow</option>
+              <option value="magic">Magic</option>
+            </select>
             <div>Item Class: </div>
-            <input
+            <select
               value={itemClass}
               onChange={(ev) => this.setState({ itemClass: ev.target.value })}
-            />
+            >
+              <option value="adventurer">Adventurer</option>
+              <option value="villain">Villain</option>
+            </select>
             <button disabled={!name}>Create Item</button>
           </form>
         </div>

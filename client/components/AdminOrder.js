@@ -1,13 +1,59 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import AdminItem from "./AdminItem";
+import { connect } from "react-redux";
+import { fetchUser } from "../store/userReducer";
+import { getOrders } from "../store/ordersReducer";
 
-const AdminOrder = () => {
-  return true ? (
-    <div className="admin admin__orders">Orders</div>
-  ) : (
-    <div>Sorry, you are not an admin.</div>
-  );
+class AdminOrder extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      orders: [],
+    };
+  }
+  componentDidMount() {
+    this.props.getOrders();
+    this.props.validateUser();
+  }
+  render() {
+    const isAdmin = this.props.user && this.props.user.class === "admin";
+    const { orders } = this.props;
+    console.log("orders", orders);
+    return isAdmin ? (
+      <div className="admin">
+        <div>Orders:</div>
+        {orders
+          ? orders.map((order) => {
+              return (
+                <div key={`order_${order.id}`}>
+                  <Link className="admin" to={`/admin/orders/${order.id}`}>
+                    <h3>Order Number: {order.id}</h3>
+                    <p>Owner: {order.user.username}</p>
+                    <p>Items Purchased: {order.items.length}</p>
+                  </Link>
+                </div>
+              );
+            })
+          : null}
+      </div>
+    ) : (
+      <div>Sorry, you are not an admin.</div>
+    );
+  }
+}
+
+const mapState = (state) => {
+  return {
+    user: state.user,
+    orders: state.orders,
+  };
 };
 
-export default AdminOrder;
+const mapDispatch = (dispatch) => {
+  return {
+    getOrders: () => dispatch(getOrders()),
+    validateUser: () => dispatch(fetchUser()),
+  };
+};
+
+export default connect(mapState, mapDispatch)(AdminOrder);

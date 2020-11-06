@@ -77,3 +77,13 @@ $rarity-img-border: 8px;
   }
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 15%;
+
+  img {
+    width: 100%;
+  }
+}

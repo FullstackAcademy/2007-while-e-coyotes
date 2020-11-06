@@ -4,6 +4,7 @@ const db = require("../database");
 const User = db.define("user", {
   username: {
     type: Sequelize.STRING,
+    unique: true,
     validate: {
       notEmpty: true,
     },
@@ -16,6 +17,10 @@ const User = db.define("user", {
   },
   email: {
     type: Sequelize.STRING,
+    unique: true,
+    validate: {
+      isEmail: true,
+    },
   },
   address: {
     type: Sequelize.STRING,

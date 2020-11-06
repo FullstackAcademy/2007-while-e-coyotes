@@ -1,14 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
 import { destroyItem } from "../store/itemsReducer";
-import { getItem } from "../store/singleItemReducer";
+import { getItem, destroyReview } from "../store/singleItemReducer";
 import { fetchUser } from "../store/userReducer";
 import { Link } from "react-router-dom";
 import { averageReduce } from "../utils";
+import { addItem } from "../store/cartReducer";
 
 import { ReviewCard } from "./ReviewCard";
 
 class SingleItem extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      quantity: 1,
+    };
+  }
+
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.getItem(id);
@@ -16,8 +24,7 @@ class SingleItem extends React.Component {
   }
   render() {
     const isAdmin = this.props.user && this.props.user.class === "admin";
-    const { singleItem } = this.props;
-    console.log(singleItem);
+    const { singleItem, user, cart } = this.props;
     return (
       <div id="singleItem">
         <Link to="/items">Back to Shopping</Link>
@@ -27,7 +34,16 @@ class SingleItem extends React.Component {
         <div className="itemDetail">
           <h1>{singleItem.name}</h1>
           <p>${singleItem.price}</p>
-          <p>${singleItem.description}</p>
+          <p>{singleItem.description}</p>
+          {cart.userId ? (
+            <button
+              onClick={() =>
+                this.props.addItem(cart.userId, cart.id, singleItem.id)
+              }
+            >
+              Add to Cart
+            </button>
+          ) : null}
           <div className="reviews-container">
             <h2>Reviews:</h2>
             <div className="review-info">
@@ -40,16 +56,25 @@ class SingleItem extends React.Component {
                   from {singleItem.reviews.length} reviews.
                 </p>
               )}
+              <Link to={`/items/${singleItem.id}/createReview`}>
+                Add a new Review!
+              </Link>
             </div>
             {!!singleItem.reviews &&
               singleItem.reviews.map((review) => {
                 return (
                   <div key={`review_${review.id}`}>
                     {review.userId ? (
-                    <ReviewCard
-                      review={review}
-                      key={`item_${singleItem.id}_review${review.id}`}
-                    />
+                      <ReviewCard
+                        review={review}
+                        user={user}
+                        key={`item_${singleItem.id}_review${review.id}`}
+                      />
+                    ) : null}
+                    {isAdmin ? (
+                      <button onClick={() => this.props.destroyReview(review)}>
+                        Delete Review
+                      </button>
                     ) : null}
                   </div>
                 );
@@ -78,10 +103,11 @@ class SingleItem extends React.Component {
   }
 }
 
-const mapState = ({ singleItem, user }) => {
+const mapState = ({ singleItem, user, cart }) => {
   return {
     singleItem,
     user,
+    cart,
   };
 };
 
@@ -90,6 +116,9 @@ const mapDispatch = (dispatch) => {
     getItem: (id) => dispatch(getItem(id)),
     validateUser: () => dispatch(fetchUser()),
     destroyItem: (id, history) => dispatch(destroyItem(id, history)),
+    addItem: (userId, cartId, itemId) =>
+      dispatch(addItem(userId, cartId, itemId)),
+    destroyReview: (review) => dispatch(destroyReview(review)),
   };
 };
 

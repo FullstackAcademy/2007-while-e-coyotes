@@ -46,11 +46,14 @@ export default class Navbar extends React.Component {
           <Link className="navbar" to="/items">
             SHOP
           </Link>
-          {user.class === "admin" && (
+          <Link className="navbar" to="/lootbox">
+            LOOT BOX
+          </Link>
+          {user.username === "admin" ? (
             <Link className="navbar" to="/admin">
               ADMIN
             </Link>
-          )}
+          ) : null}
         </div>
         <div className="search-container">
           <form onSubmit={this.handleSearchSubmit}>
@@ -61,14 +64,24 @@ export default class Navbar extends React.Component {
               type="text"
               placeholder="Search"
             ></input>
-            <input type="submit" value="Submit" />
+            <button className="search-but" type="submit">
+              <img
+                className="searchicon"
+                src="https://www.flaticon.com/svg/static/icons/svg/622/622669.svg"
+              />
+            </button>
           </form>
         </div>
         <div className="account-nav">
           {user.class === "guest" ? (
-            <Link className="navbar" to="/login">
-              LOGIN
-            </Link>
+            <div>
+              <Link className="navbar" to={`/users/create`}>
+                SIGN UP
+              </Link>
+              <Link className="navbar" to="/login">
+                LOGIN
+              </Link>
+            </div>
           ) : (
             <div>
               <Link className="user-icon" to={`/users/${user.id || null}`}>
