@@ -13,8 +13,11 @@ class SingleItem extends React.Component {
   constructor() {
     super();
     this.state = {
+      added: false,
       quantity: 1,
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -22,9 +25,20 @@ class SingleItem extends React.Component {
     this.props.getItem(id);
     this.props.validateUser();
   }
+
+  handleChange(event) {
+    this.setState({ ...this.state, [event.target.name]: event.target.value });
+  }
+
+  handleClick() {
+    const { singleItem, cart } = this.props;
+    this.props.addItem(cart.userId, cart.id, singleItem.id);
+    this.setState({ ...this.state, added: true });
+  }
+
   render() {
     const isAdmin = this.props.user && this.props.user.class === "admin";
-    const { singleItem, user, cart } = this.props;
+    const { singleItem, user } = this.props;
     return (
       <div id="singleItem">
         <Link to="/items">Back to Shopping</Link>
@@ -36,13 +50,22 @@ class SingleItem extends React.Component {
           <p>${singleItem.price}</p>
           <p className="fancy">{singleItem.description}</p>
           {this.props ? (
-            <button
-              onClick={() =>
-                this.props.addItem(cart.userId, cart.id, singleItem.id)
-              }
-            >
-              Add to Cart
-            </button>
+            <form>
+              <label htmlFor="quantity"> Select Quantity: </label>
+              <input
+                name="quantity"
+                type="text"
+                onChange={this.handleChange}
+                value={this.state.quantity}
+              />
+              <button onClick={() => this.handleClick()}>Add to Cart</button>
+            </form>
+          ) : null}
+          {this.state.added ? (
+            <span className="worked">
+              {" "}
+              ✅ Item has been added to your cart!
+            </span>
           ) : null}
           <div className="reviews-container">
             <h2>Reviews:</h2>
