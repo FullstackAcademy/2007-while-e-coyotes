@@ -25,6 +25,17 @@ const _removeItem = (cartData) => {
   };
 };
 
+export const makeNewOrder = (order) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post("/api/orders/makeOrder", order);
+      dispatch(_setCart(data));
+    } catch (err) {
+      console.log("err in order reducer", err);
+    }
+  };
+};
+
 export const fetchCart = (user) => {
   return async (dispatch) => {
     try {
