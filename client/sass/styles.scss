@@ -41,12 +41,13 @@ nav {
 main > div {
   margin: 3rem auto 0 auto;
   max-width: 1080px;
-  padding-bottom: $footer-height + 3.5rem;
+  padding: 0 1rem $footer-height + 3.5rem 1rem;
 }
 
 #home {
   margin: 0;
   max-width: none;
+  padding: 0 0 5rem 0;
 }
 
 .icon {
