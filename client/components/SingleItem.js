@@ -34,6 +34,7 @@ class SingleItem extends React.Component {
       item: this.props.singleItem,
     };
     const { cart } = this.props;
+    console.log("ordering item!");
     this.props.addItem(cart.userId, cart.id, orderDetails);
     this.setState({ ...this.state, added: true });
     event.preventDefault();
@@ -62,6 +63,7 @@ class SingleItem extends React.Component {
               <form>
                 <label htmlFor="quantity"> Select Quantity: </label>
                 <select
+                  className="quantity-select"
                   name="quantity"
                   type="text"
                   onChange={this.handleChange}
@@ -75,7 +77,10 @@ class SingleItem extends React.Component {
                     );
                   })}
                 </select>
-                <button onClick={(event) => this.handleClick()}>
+                <button
+                  className="add-cart"
+                  onClick={(event) => this.handleClick(event)}
+                >
                   Add to Cart
                 </button>
               </form>
@@ -100,7 +105,10 @@ class SingleItem extends React.Component {
                 from {singleItem.reviews.length} reviews.
               </p>
             )}
-            <Link to={`/items/${singleItem.id}/createReview`}>
+            <Link
+              className="add-review"
+              to={`/items/${singleItem.id}/createReview`}
+            >
               Add a new Review!
             </Link>
           </div>

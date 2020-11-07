@@ -90,3 +90,44 @@
     font-style: italic;
   }
 }
+
+.quantity-select {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 1.3em;
+  padding: .4em 1.2em .3em .6em;
+  border: 1px solid #aaa;
+	box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+  border-radius: .5em;
+  margin: 0 1rem 0 0;
+}
+
+.add-cart {
+  font-size: 18px;
+  display: inline-block;
+}
+
+.add-review {
+  display: inline-block;
+  font-size: 1rem;
+  text-decoration: none;
+  margin: 1rem auto 0 auto;
+}
+
+.add-cart, .add-review {
+  font-weight: bold;
+  line-height: 1.3em;
+  padding: .4em 1.2em;
+  color: white;
+  background: $dark-gray;
+  box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+  border-radius: .5em;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
+
+
