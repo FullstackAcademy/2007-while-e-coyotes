@@ -1,8 +1,56 @@
-#singleItem{
-  max-width: 1020px;
-  margin: 3rem auto 0 auto;
-  padding: 0 1rem;
+.item-container {
+  display: flex;
+  margin: 1rem 0;
+  .itemImg{
+    width: 40%;
+    margin: 0 2rem 0 0;
+    img{
+      width: 100%;
+    }
+  }
+  .itemDetail {
+    width: 50%;
+
+    h1 {
+      margin: 0 0 1rem 0;
+    }
+
+    p {
+      margin: 0 0 0.5rem 0;
+    }
+
+    p.price{
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    p.rarity-tag {
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      border-radius: 16px;
+      color: white;
+      font-weight: bold;
+      display: inline-block;
+
+      &__rus {
+        background-color: $rarity-green;
+      }
+      &__sta {
+        background-color: $rarity-blue;
+      }
+      &__mag {
+        background-color: $rarity-purple;
+      }
+      &__rar {
+        background-color: $rarity-orange;
+      }
+      &__leg {
+        background-color: $rarity-gold;
+      }
+    }
+  }
 }
+
 
 .reviews-container {
   max-width: 600px;
