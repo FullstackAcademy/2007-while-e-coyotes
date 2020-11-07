@@ -108,10 +108,12 @@
 }
 
 .add-review {
-  display: inline-block;
-  font-size: 1rem;
+  display: block;
+  font-size: 0.8rem;
   text-decoration: none;
   margin: 1rem auto 0 auto;
+  width: 150px;
+  text-align: center;
 }
 
 .add-cart, .add-review {
@@ -119,7 +121,7 @@
   line-height: 1.3em;
   padding: .4em 1.2em;
   color: white;
-  background: $dark-gray;
+  background: $burnt-orange;
   box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
   border-radius: .5em;
   border: none;
@@ -129,5 +131,3 @@
     opacity: 0.8;
   }
 }
-
-
