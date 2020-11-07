@@ -141,8 +141,8 @@ const mapDispatch = (dispatch) => {
   return {
     getItem: (id) => dispatch(getItem(id)),
     destroyItem: (id, history) => dispatch(destroyItem(id, history)),
-    addItem: (userId, cartId, itemId) =>
-      dispatch(addItem(userId, cartId, itemId)),
+    addItem: (userId, cartId, details) =>
+      dispatch(addItem(userId, cartId, details)),
     destroyReview: (review) => dispatch(destroyReview(review)),
   };
 };
