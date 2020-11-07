@@ -22,7 +22,7 @@ const FormikLogin = withFormik({
       };
       await values.loginUser(loginInfo, values.history);
     } catch (err) {
-      window.alert(`Failed login attempt!`);
+      console.log(`Failed login attempt!`);
     }
   },
 })(Login);
