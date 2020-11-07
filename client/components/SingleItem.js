@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { destroyItem } from "../store/itemsReducer";
 import { getItem, destroyReview } from "../store/singleItemReducer";
-import { fetchUser } from "../store/userReducer";
 import { Link } from "react-router-dom";
 import { averageReduce } from "../utils";
 import { addItem } from "../store/cartReducer";
@@ -23,17 +22,21 @@ class SingleItem extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.getItem(id);
-    this.props.validateUser();
   }
 
   handleChange(event) {
     this.setState({ ...this.state, [event.target.name]: event.target.value });
   }
 
-  handleClick() {
-    const { singleItem, cart } = this.props;
-    this.props.addItem(cart.userId, cart.id, singleItem.id);
+  handleClick(event) {
+    const orderDetails = {
+      quantity: this.state.quantity,
+      item: this.props.singleItem,
+    };
+    const { cart } = this.props;
+    this.props.addItem(cart.userId, cart.id, orderDetails);
     this.setState({ ...this.state, added: true });
+    event.preventDefault();
   }
 
   render() {
@@ -50,7 +53,7 @@ class SingleItem extends React.Component {
           <p>${singleItem.price}</p>
           <p className="fancy">{singleItem.description}</p>
           {this.props ? (
-            <form>
+            <form onSubmit={this.handleClick}>
               <label htmlFor="quantity"> Select Quantity: </label>
               <input
                 name="quantity"
@@ -58,7 +61,7 @@ class SingleItem extends React.Component {
                 onChange={this.handleChange}
                 value={this.state.quantity}
               />
-              <button onClick={() => this.handleClick()}>Add to Cart</button>
+              <button type="submit">Add to Cart</button>
             </form>
           ) : null}
           {this.state.added ? (
@@ -137,7 +140,6 @@ const mapState = ({ singleItem, user, cart }) => {
 const mapDispatch = (dispatch) => {
   return {
     getItem: (id) => dispatch(getItem(id)),
-    validateUser: () => dispatch(fetchUser()),
     destroyItem: (id, history) => dispatch(destroyItem(id, history)),
     addItem: (userId, cartId, itemId) =>
       dispatch(addItem(userId, cartId, itemId)),

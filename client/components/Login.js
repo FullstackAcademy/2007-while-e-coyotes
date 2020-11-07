@@ -1,11 +1,11 @@
 import React from "react";
 import { Form, Field, ErrorMessage } from "formik";
 import { connect } from "react-redux";
-import { fetchCart } from "../store/cartReducer";
+import { mergeCartOnLogin } from "../store/cartReducer";
 
 class Login extends React.Component {
-  componentWillUnmount() {
-    this.props.getCart(this.props.user);
+  componentWillUnmount(history) {
+    this.props.mergeAndGetCart(this.props.user, this.props.cart, history);
   }
 
   render() {
@@ -16,7 +16,7 @@ class Login extends React.Component {
           <Form>
             <Field type="text" name="username" placeholder="username" />
             <ErrorMessage name="username" />
-            <Field type="text" name="password" placeholder="password" />
+            <Field type="password" name="password" placeholder="password" />
             <ErrorMessage name="password" />
             <button type="submit"> Submit </button>
           </Form>
@@ -29,12 +29,13 @@ class Login extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    cart: state.cart,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getCart: (user) => dispatch(fetchCart(user)),
+    mergeAndGetCart: (user, cart) => dispatch(mergeCartOnLogin(user, cart)),
   };
 };
 

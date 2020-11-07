@@ -20,7 +20,6 @@ const FormikLogin = withFormik({
       password: values.password,
     };
     values.loginUser(loginInfo, values.history);
-    console.log("values", values);
   },
 })(Login);
 
