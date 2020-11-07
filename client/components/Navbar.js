@@ -94,8 +94,10 @@ class Navbar extends React.Component {
               </Link>
             </div>
           )}
-          <Link className="navbar" to="/cart">
-            {cart.items !== undefined && <p>{cart.items.length}</p>}
+          <Link className="navbar navbar__cart" to="/cart">
+            {cart.items !== undefined && (
+              <p className="cart-num">{cart.items.length}</p>
+            )}
             <img
               className="cart"
               src="https://findicons.com/files/icons/1579/devine/48/cart.png"
