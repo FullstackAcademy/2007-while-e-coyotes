@@ -9,6 +9,7 @@
 @import 'components/login';
 @import 'components/form';
 @import 'components/carousel';
+@import 'components/cart';
 
 * {
   margin: 0rem;
@@ -73,10 +74,24 @@ main > div {
     color: rgb(233, 104, 44);
     font-size: 1.03rem;
   }
+
+  &__cart {
+    position: relative;
+  }
+
+  .cart-num {
+    position: absolute;
+    font-weight: bold;
+    font-size: 1.1rem;
+    left: 44%;
+    top: -10px;
+    transform: translate(-50%, 0);
+    text-align: center;
+  }
 }
 
 .search-container {
-  width: 50%;
+  width: 40%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -90,7 +105,7 @@ main > div {
   }
 
   .searchbar {
-    width: 40rem;
+    width: 25vw;
     font-size: 1rem;
     border: none;
     padding: 0.5rem;

@@ -36,7 +36,7 @@ class Routes extends React.Component {
 
   logout(event) {
     event.preventDefault();
-    this.props.logoutUser();
+    this.props.logoutUser(this.props.history);
   }
 
   handleChange(event) {
