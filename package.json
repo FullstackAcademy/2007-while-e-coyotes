@@ -4,8 +4,9 @@
   "description": "",
   "main": "server/index.js",
   "scripts": {
+    "postinstall": "npm run build",
     "build": "webpack",
-    "start": "npm run seed && npm run build && node server",
+    "start": "npm run seed && node server",
     "build:dev": "webpack -w --mode=development",
     "start:dev": "npm run build:dev & nodemon server",
     "test": "echo \"Error: no test specified\" && exit 1",
