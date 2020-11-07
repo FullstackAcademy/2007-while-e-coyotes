@@ -84,28 +84,32 @@ orderRoute.get("/cart/:userId", async (req, res, next) => {
   }
 });
 
-orderRoute.post("/cart/:userId/:cartId/:itemId", async (req, res, next) => {
+orderRoute.post("/cart/:userId/:cartId/", async (req, res, next) => {
   try {
     const admin = req.user && req.user.class === "admin";
     const ownUser = req.user.id === req.params.userId * 1;
+    const { item, quantity } = req.body;
+    console.log(blue("ORDERS REEEE"));
+    console.log(req.params.cartId);
     if (admin || ownUser) {
       const userCart = await Order.findByPk(req.params.cartId, {
         include: [{ model: Item }],
       });
       const gotOrderItem = await OrderItems.findOne({
-        where: { orderId: req.params.cartId, itemId: req.params.itemId },
+        where: { orderId: req.params.cartId, itemId: item.id },
       });
       if (!gotOrderItem) {
         const newOrderItem = await OrderItems.create({
           orderId: req.params.cartId,
-          itemId: req.params.itemId,
-          quantity: 1,
+          itemId: item.id,
+          quantity: quantity * 1,
         });
       } else {
-        gotOrderItem.quantity += 1;
+        gotOrderItem.quantity += quantity * 1;
         await gotOrderItem.save();
       }
 
+      console.log(userCart.prototype);
       await userCart.reload();
       res.send(userCart);
     }

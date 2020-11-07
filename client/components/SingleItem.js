@@ -28,10 +28,15 @@ class SingleItem extends React.Component {
     this.setState({ ...this.state, [event.target.name]: event.target.value });
   }
 
-  handleClick() {
-    const { singleItem, cart } = this.props;
-    this.props.addItem(cart.userId, cart.id, singleItem.id);
+  handleClick(event) {
+    const orderDetails = {
+      quantity: this.state.quantity,
+      item: this.props.singleItem,
+    };
+    const { cart } = this.props;
+    this.props.addItem(cart.userId, cart.id, orderDetails);
     this.setState({ ...this.state, added: true });
+    event.preventDefault();
   }
 
   render() {
@@ -48,7 +53,7 @@ class SingleItem extends React.Component {
           <p>${singleItem.price}</p>
           <p className="fancy">{singleItem.description}</p>
           {this.props ? (
-            <form>
+            <form onSubmit={this.handleClick}>
               <label htmlFor="quantity"> Select Quantity: </label>
               <input
                 name="quantity"
@@ -56,7 +61,7 @@ class SingleItem extends React.Component {
                 onChange={this.handleChange}
                 value={this.state.quantity}
               />
-              <button onClick={() => this.handleClick()}>Add to Cart</button>
+              <button type="submit">Add to Cart</button>
             </form>
           ) : null}
           {this.state.added ? (

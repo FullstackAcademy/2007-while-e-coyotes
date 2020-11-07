@@ -37,18 +37,20 @@ export const makeNewOrder = (order) => {
 export const fetchCart = (user) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/orders/cart/${user.id}`);
+      const { data } = await axios.get(`/api/orders/cart/${user.id}/`);
       dispatch(_setCart(data));
     } catch (err) {}
   };
 };
 
-export const addItem = (userId, cartId, itemId) => {
+export const addItem = (userId, cartId, orderDetails) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
-        `/api/orders/cart/${userId}/${cartId}/${itemId}`
+        `/api/orders/cart/${userId}/${cartId}/`,
+        orderDetails
       );
+      console.log("data is", data);
       dispatch(_setCart(data));
     } catch (err) {}
   };
