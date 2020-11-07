@@ -57,6 +57,8 @@ userRoute.post("/", async (req, res, next) => {
     const notUser = !req.user || req.user.class === "guest";
     if (admin || notUser) {
       const user = await User.create(req.body);
+      const newCart = await Order.create({ status: "cart" });
+      await user.addOrder(newCart);
       res.status(201).send(user);
     } else {
       res.sendStatus(403);

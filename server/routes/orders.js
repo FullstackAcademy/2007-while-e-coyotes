@@ -1,6 +1,6 @@
 const express = require("express");
 const { db, Order, Item, User, OrderItems } = require("../db");
-const { red } = require("chalk");
+const { blue } = require("chalk");
 const { uuid } = require("uuidv4");
 const stripe = require("stripe")(
   "sk_test_51HjDcQCAamTGRiuGsfeRfwRvjhvTuNSjIMiCOAdUWcMyybiv9uV4QDa1dltQg52KDks9XnIqwfIFaG1LrXZiLQ0E001J6bICXM"
@@ -84,28 +84,33 @@ orderRoute.get("/cart/:userId", async (req, res, next) => {
   }
 });
 
-orderRoute.post("/cart/:userId/:cartId/:itemId", async (req, res, next) => {
+orderRoute.post("/cart/:userId/:cartId/", async (req, res, next) => {
   try {
     const admin = req.user && req.user.class === "admin";
     const ownUser = req.user.id === req.params.userId * 1;
+    const { item, quantity } = req.body;
+    console.log(blue("ORDERS REEEE"));
+    console.log(req.params.cartId);
     if (admin || ownUser) {
       const userCart = await Order.findByPk(req.params.cartId, {
         include: [{ model: Item }],
       });
       const gotOrderItem = await OrderItems.findOne({
-        where: { orderId: req.params.cartId, itemId: req.params.itemId },
+        where: { orderId: req.params.cartId, itemId: item.id },
       });
       if (!gotOrderItem) {
         const newOrderItem = await OrderItems.create({
           orderId: req.params.cartId,
-          itemId: req.params.itemId,
-          quantity: 1,
+          itemId: item.id,
+          quantity: quantity * 1,
+          priceOrdered: item.price,
         });
       } else {
-        gotOrderItem.quantity += 1;
+        gotOrderItem.quantity += quantity * 1;
         await gotOrderItem.save();
       }
 
+      console.log(userCart.prototype);
       await userCart.reload();
       res.send(userCart);
     }
@@ -231,6 +236,42 @@ orderRoute.post("/makeOrder", async (req, res, next) => {
     res.send(cartToSend);
   } catch (err) {
     next(err);
+  }
+});
+
+orderRoute.post("/mergeCart", async (req, res, next) => {
+  try {
+    const tempUserCart = await Order.findByPk(req.body.history.id, {
+      include: [
+        {
+          model: Item,
+        },
+      ],
+    });
+    const foundUser = await User.findByPk(req.body.user.id);
+    const userCurrentCart = await Order.findOne({
+      where: {
+        userId: req.body.user.id,
+        status: "cart",
+      },
+      include: [
+        {
+          model: Item,
+        },
+      ],
+    });
+
+    if (tempUserCart.items.length > 0) {
+      foundUser.removeOrder(userCurrentCart);
+      tempUserCart.setUser(foundUser);
+
+      tempUserCart.reload();
+      res.send(tempUserCart);
+    } else {
+      res.send(userCurrentCart);
+    }
+  } catch (err) {
+    console.log(err);
   }
 });
 

@@ -32,6 +32,9 @@ validationRoute.post("/onPageLoad", async (req, res, next) => {
       });
       const createdSession = await Sessions.create({ SessionID: sessionID });
       await newUser.addSession(createdSession);
+      const newCart = await Order.create({ status: "cart" });
+      newUser.addOrder(newCart);
+
       res.cookie("sessionID", sessionID);
       res.send(newUser);
     }
