@@ -4,7 +4,7 @@
   "description": "",
   "main": "server/index.js",
   "scripts": {
-    "postinstall": "npm run seed & npm run build",
+    "postinstall": "npm run build",
     "build": "webpack",
     "start": "node server",
     "build:dev": "webpack -w --mode=development",
