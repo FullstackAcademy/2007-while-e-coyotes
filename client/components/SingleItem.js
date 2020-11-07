@@ -75,7 +75,9 @@ class SingleItem extends React.Component {
                     );
                   })}
                 </select>
-                <button onClick={() => this.handleClick()}>Add to Cart</button>
+                <button onClick={(event) => this.handleClick()}>
+                  Add to Cart
+                </button>
               </form>
             ) : null}
             {this.state.added ? (
