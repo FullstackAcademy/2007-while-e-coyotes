@@ -15,11 +15,15 @@ const FormikLogin = withFormik({
     };
   },
   handleSubmit: async (values) => {
-    const loginInfo = {
-      username: values.username,
-      password: values.password,
-    };
-    values.loginUser(loginInfo, values.history);
+    try {
+      const loginInfo = {
+        username: values.username,
+        password: values.password,
+      };
+      await values.loginUser(loginInfo, values.history);
+    } catch (err) {
+      window.alert(`Failed login attempt!`);
+    }
   },
 })(Login);
 

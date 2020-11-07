@@ -89,8 +89,6 @@ orderRoute.post("/cart/:userId/:cartId/", async (req, res, next) => {
     const admin = req.user && req.user.class === "admin";
     const ownUser = req.user.id === req.params.userId * 1;
     const { item, quantity } = req.body;
-    console.log(blue("ORDERS REEEE"));
-    console.log(req.params.cartId);
     if (admin || ownUser) {
       const userCart = await Order.findByPk(req.params.cartId, {
         include: [{ model: Item }],
@@ -192,7 +190,6 @@ orderRoute.post("/makeOrder", async (req, res, next) => {
       acc += item.orderItem.priceOrdered * 1 * item.orderItem.quantity;
       return acc;
     }, 0);
-
     const customer = await stripe.customers.create({
       email: token.email,
       source: token.id,
@@ -222,7 +219,7 @@ orderRoute.post("/makeOrder", async (req, res, next) => {
 
     cart.items.map(async (item) => {
       const foundItem = await Item.findByPk(item.id);
-      foundItem.inventory -= item.orderItem.quantity;
+      foundItem.inventory -= item.orderItem.quantity * 1;
       await foundItem.save();
     });
 
