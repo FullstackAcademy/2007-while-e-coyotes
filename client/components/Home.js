@@ -3,6 +3,7 @@ import { Carousel } from "react-responsive-carousel";
 import { connect } from "react-redux";
 import { getItems } from "../store/itemsReducer";
 import { ItemCard } from "./ItemCard";
+import { BannerButton } from "./BannerButton";
 
 class Home extends React.Component {
   constructor() {
