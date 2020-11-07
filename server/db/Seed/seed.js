@@ -3,6 +3,7 @@ const { db, Item, User, Review, Order, OrderItems } = require("..");
 const itemsList = require("./itemsList");
 const userList = require("./userSeed");
 const reviewList = require("./reviewSeed");
+const uniqueItems = require("./uniqueItems");
 const { orders } = require("./orderSeed");
 
 //this function will be used later to randomly assign rarity
@@ -79,6 +80,9 @@ const seed = async () => {
         await Item.create(newItem);
       }
     }
+
+    //create 'unique' items
+    await Item.bulkCreate(uniqueItems);
 
     //create users
     await User.bulkCreate(userList);
