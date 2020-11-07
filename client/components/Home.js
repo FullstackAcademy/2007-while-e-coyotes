@@ -3,6 +3,8 @@ import { Carousel } from "react-responsive-carousel";
 import { connect } from "react-redux";
 import { getItems } from "../store/itemsReducer";
 import { ItemCard } from "./ItemCard";
+import { BannerButton } from "./BannerButton";
+import { Link } from "react-router-dom";
 
 class Home extends React.Component {
   constructor() {
@@ -28,28 +30,22 @@ class Home extends React.Component {
   render() {
     const randomItems = this.generateRandomItems();
     return (
-      <div>
+      <div id="home">
         <Carousel autoPlay>
           <div>
-            <img
-              alt=""
-              src="https://i.pinimg.com/originals/0b/a3/d6/0ba3d60362c7e6d256cfc1f37156bad9.jpg"
-            />
-            <p className="legend">New Item: Stanleys Twig</p>
+            <img alt="" src="https://i.imgur.com/gvhPfXK.png" />
+            <Link className="bannerlink" to="/items">
+              <h1>SHOP NOW</h1>
+            </Link>
+            <p className="legend">Stanleys Stick Is Now Available!</p>
           </div>
           <div>
-            <img
-              alt=""
-              src="https://i.pinimg.com/originals/0b/a3/d6/0ba3d60362c7e6d256cfc1f37156bad9.jpg"
-            />
-            <p className="legend">Banner 2</p>
+            <img alt="" src="https://i.imgur.com/VTSUzdF.png" />
+            <p className="legend">Shop New Items!</p>
           </div>
           <div>
-            <img
-              alt=""
-              src="https://i.pinimg.com/originals/0b/a3/d6/0ba3d60362c7e6d256cfc1f37156bad9.jpg"
-            />
-            <p className="legend">Hi Eliot, this is Aminoor</p>
+            <img alt="" src="https://i.imgur.com/ApBvJeb.png" />
+            <p className="legend">Lootboxes Coming Soon!</p>
           </div>
         </Carousel>
         <h1 className="category">SHOP NEW ITEMS</h1>

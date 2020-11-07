@@ -50,7 +50,6 @@ export const addItem = (userId, cartId, orderDetails) => {
         `/api/orders/cart/${userId}/${cartId}/`,
         orderDetails
       );
-      console.log("data is", data);
       dispatch(_setCart(data));
     } catch (err) {}
   };

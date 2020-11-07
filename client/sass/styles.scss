@@ -44,7 +44,7 @@ main > div {
   padding-bottom: $footer-height + 3.5rem;
 }
 
-.home {
+#home {
   margin: 0;
   max-width: none;
 }
@@ -227,4 +227,14 @@ main > div {
 
 .worked {
   color: green;
+}
+
+.carousel > div {
+  position: relative;
+}
+
+.bannerlink {
+  position: absolute;
+  left: 20%;
+  bottom: 20%;
 }
