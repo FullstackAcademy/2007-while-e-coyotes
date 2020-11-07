@@ -1,0 +1,56 @@
+.admin {
+  h2 {
+    text-align: center;
+    margin: 0 0 1rem 0;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+      color: $burnt-orange;
+      text-decoration: underline;
+    }
+  }
+}
+
+.adminBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    margin: 0 0 1rem 0;
+  }
+
+  a {
+    display: block;
+    margin: 0 0 1rem 0;
+  }
+}
+
+.userCard {
+
+  .userImg {
+    height: 17vh;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+  }
+
+  img {
+    height: 100%;
+  }
+}
+
+#createItem {
+  display: grid;
+  place-items: center;
+}

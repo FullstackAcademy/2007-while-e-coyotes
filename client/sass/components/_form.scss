@@ -1,0 +1,21 @@
+.form-container {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  width: 30%;
+  min-width: 280px;
+
+  h2 {
+    text-align: center;
+    margin: 0 0 1rem 0;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      margin: 0 0 1rem 0;
+    }
+  }
+}
