@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getItems } from "../store/itemsReducer";
 import { ItemCard } from "./ItemCard";
 import { BannerButton } from "./BannerButton";
+import { Link } from "react-router-dom";
 
 class Home extends React.Component {
   constructor() {
@@ -33,6 +34,9 @@ class Home extends React.Component {
         <Carousel autoPlay>
           <div>
             <img alt="" src="https://i.imgur.com/gvhPfXK.png" />
+            <Link className="bannerlink" to="/items">
+              <h1>SHOP NOW</h1>
+            </Link>
             <p className="legend">Stanleys Stick Is Now Available!</p>
           </div>
           <div>

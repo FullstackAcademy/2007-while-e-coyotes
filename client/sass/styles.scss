@@ -228,3 +228,13 @@ main > div {
 .worked {
   color: green;
 }
+
+.carousel > div {
+  position: relative;
+}
+
+.bannerlink {
+  position: absolute;
+  left: 20%;
+  bottom: 20%;
+}
