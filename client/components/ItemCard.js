@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { itemRarityFinder } from "../utils";
 
 export const ItemCard = ({ item }) => {
-  console.log("rarityNum", item.rarity);
+  //console.log("rarityNum", item.rarity);
   const rarityStr = itemRarityFinder(item.rarity);
   return (
     <div className="itemCard">
