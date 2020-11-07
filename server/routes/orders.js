@@ -103,6 +103,7 @@ orderRoute.post("/cart/:userId/:cartId/", async (req, res, next) => {
           orderId: req.params.cartId,
           itemId: item.id,
           quantity: quantity * 1,
+          priceOrdered: item.price,
         });
       } else {
         gotOrderItem.quantity += quantity * 1;

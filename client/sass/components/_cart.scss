@@ -1,0 +1,40 @@
+.cart-item {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  margin: 0 0 1rem 0;
+}
+
+.cart-item-img {
+  width: 150px;
+  margin: 0 1rem 0 0;
+  img {
+    width: 100%;
+  }
+}
+
+.cart-item-info {
+  h4 {
+    font-size: 1.3rem;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .flex-row {
+    display: flex;
+    margin: 0 0 0.5rem 0;
+    p {
+      font-style: italic;
+      margin: 0 1rem 0 0;
+    }
+  }
+}
+
+.cart-totals {
+  p {
+    font-size: 1.3rem;
+    margin: 0 0 0.5rem 0;
+    &:last-child {
+      font-weight: bold;
+    }
+  }
+}
