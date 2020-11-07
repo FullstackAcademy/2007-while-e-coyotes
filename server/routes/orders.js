@@ -1,6 +1,6 @@
 const express = require("express");
 const { db, Order, Item, User, OrderItems } = require("../db");
-const { red } = require("chalk");
+const { blue } = require("chalk");
 const { uuid } = require("uuidv4");
 const stripe = require("stripe")(
   "sk_test_51HjDcQCAamTGRiuGsfeRfwRvjhvTuNSjIMiCOAdUWcMyybiv9uV4QDa1dltQg52KDks9XnIqwfIFaG1LrXZiLQ0E001J6bICXM"
@@ -231,6 +231,42 @@ orderRoute.post("/makeOrder", async (req, res, next) => {
     res.send(cartToSend);
   } catch (err) {
     next(err);
+  }
+});
+
+orderRoute.post("/mergeCart", async (req, res, next) => {
+  try {
+    const tempUserCart = await Order.findByPk(req.body.history.id, {
+      include: [
+        {
+          model: Item,
+        },
+      ],
+    });
+    const foundUser = await User.findByPk(req.body.user.id);
+    const userCurrentCart = await Order.findOne({
+      where: {
+        userId: req.body.user.id,
+        status: "cart",
+      },
+      include: [
+        {
+          model: Item,
+        },
+      ],
+    });
+
+    if (tempUserCart.items.length > 0) {
+      foundUser.removeOrder(userCurrentCart);
+      tempUserCart.setUser(foundUser);
+
+      tempUserCart.reload();
+      res.send(tempUserCart);
+    } else {
+      res.send(userCurrentCart);
+    }
+  } catch (err) {
+    console.log(err);
   }
 });
 

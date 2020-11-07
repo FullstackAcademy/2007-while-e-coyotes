@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { destroyItem } from "../store/itemsReducer";
 import { getItem, destroyReview } from "../store/singleItemReducer";
-import { fetchUser } from "../store/userReducer";
 import { Link } from "react-router-dom";
 import { averageReduce } from "../utils";
 import { addItem } from "../store/cartReducer";
@@ -20,7 +19,6 @@ class SingleItem extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.getItem(id);
-    this.props.validateUser();
   }
   render() {
     const isAdmin = this.props.user && this.props.user.class === "admin";
@@ -114,7 +112,6 @@ const mapState = ({ singleItem, user, cart }) => {
 const mapDispatch = (dispatch) => {
   return {
     getItem: (id) => dispatch(getItem(id)),
-    validateUser: () => dispatch(fetchUser()),
     destroyItem: (id, history) => dispatch(destroyItem(id, history)),
     addItem: (userId, cartId, itemId) =>
       dispatch(addItem(userId, cartId, itemId)),

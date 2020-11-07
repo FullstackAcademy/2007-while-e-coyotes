@@ -33,8 +33,7 @@ export class SingleUser extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
-    const inCart = user.orders.filter((order) => order.status === "cart");
+    const { user, cart } = this.props;
     const ordered = user.orders.filter((order) => order.status === "ordered");
     const orderHistory = user.orders.filter(
       (order) => order.status === "delivered"
@@ -55,8 +54,8 @@ export class SingleUser extends React.Component {
         <div className="inner-container">
           <h3>Items in your cart:</h3>
           <div className="container">
-            {inCart.length ? (
-              inCart[0].items.map((order) => (
+            {cart.items ? (
+              cart.items.map((order) => (
                 <ItemCard key={order.id} item={order} />
               ))
             ) : (
@@ -141,9 +140,10 @@ export class SingleUser extends React.Component {
   }
 }
 
-const mapState = ({ user }) => {
+const mapState = ({ user, cart }) => {
   return {
     user,
+    cart,
   };
 };
 

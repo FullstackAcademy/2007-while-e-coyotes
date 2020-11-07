@@ -11,6 +11,10 @@ class CookieProvider extends React.Component {
     }
   }
 
+  componentDidUpdate() {
+    this.props.getCart(this.props.user);
+  }
+
   render() {
     return <></>;
   }
