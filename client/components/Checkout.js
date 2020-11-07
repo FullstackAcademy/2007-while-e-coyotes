@@ -42,7 +42,6 @@ class Checkout extends React.Component {
           token={this.makeToken}
           amount={totalPrice}
         />
-        {/* get user as well */}
       </div>
     );
   }
@@ -57,7 +56,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getToken: (user, cart) => dispatch(makeNewOrder(user, cart)),
+    getToken: (order) => dispatch(makeNewOrder(order)),
     getUser: () => dispatch(fetchUser()),
   };
 };
