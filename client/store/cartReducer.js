@@ -27,6 +27,7 @@ export const makeNewOrder = (order) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post("/api/orders/makeOrder", order);
+      console.log(data);
       dispatch(_setCart(data));
     } catch (err) {
       console.log("err in order reducer", err);
