@@ -28,7 +28,7 @@ class Home extends React.Component {
   render() {
     const randomItems = this.generateRandomItems();
     return (
-      <div>
+      <div id="home">
         <Carousel autoPlay>
           <div>
             <img
