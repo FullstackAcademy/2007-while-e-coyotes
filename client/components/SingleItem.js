@@ -40,6 +40,7 @@ class SingleItem extends React.Component {
     const isAdmin = this.props.user && this.props.user.class === "admin";
     const { singleItem, user } = this.props;
     const rarityStr = itemRarityFinder(singleItem.rarity);
+    const selectArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     return (
       <div id="singleItem">
         <Link to="/items">Back to shopping</Link>
@@ -57,12 +58,20 @@ class SingleItem extends React.Component {
             {this.props ? (
               <form>
                 <label htmlFor="quantity"> Select Quantity: </label>
-                <input
+                <select
                   name="quantity"
                   type="text"
                   onChange={this.handleChange}
                   value={this.state.quantity}
-                />
+                >
+                  {selectArr.map((num) => {
+                    return (
+                      <option value={num} key={`select_${num}`}>
+                        {num}
+                      </option>
+                    );
+                  })}
+                </select>
                 <button onClick={() => this.handleClick()}>Add to Cart</button>
               </form>
             ) : null}
