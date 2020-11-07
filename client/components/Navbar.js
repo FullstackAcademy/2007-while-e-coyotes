@@ -1,7 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Redirect, Link } from "react-router-dom";
 
-export default class Navbar extends React.Component {
+class Navbar extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -26,7 +27,7 @@ export default class Navbar extends React.Component {
       this.setState({ redirect: false, searchValue: "" });
   }
   render() {
-    const { user, logout } = this.props;
+    const { user, logout, cart } = this.props;
     const { searchValue } = this.state;
     if (this.state.redirect === true)
       console.log("Redirect!", this.state.redirect);
@@ -94,6 +95,7 @@ export default class Navbar extends React.Component {
             </div>
           )}
           <Link className="navbar" to="/cart">
+            {cart.items !== undefined && <p>{cart.items.length}</p>}
             <img
               className="cart"
               src="https://findicons.com/files/icons/1579/devine/48/cart.png"
@@ -104,3 +106,9 @@ export default class Navbar extends React.Component {
     );
   }
 }
+
+const mapState = ({ cart }) => {
+  return { cart };
+};
+
+export default connect(mapState)(Navbar);
